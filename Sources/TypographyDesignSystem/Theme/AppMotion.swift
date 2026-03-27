@@ -14,4 +14,9 @@ public enum AppMotion {
     public static var standard: Animation { isReduced ? .easeInOut(duration: 0.2) : .spring(response: 0.4, dampingFraction: 0.75) }
     public static var gentle: Animation { isReduced ? .easeInOut(duration: 0.2) : .spring(response: 0.55, dampingFraction: 0.8) }
     public static var bouncy: Animation { isReduced ? .easeInOut(duration: 0.2) : .spring(response: 0.4, dampingFraction: 0.55) }
+    public static var dismissive: Animation {
+        isReduced
+            ? .easeOut(duration: 0.18)
+            : .interpolatingSpring(mass: 0.82, stiffness: 210, damping: 24, initialVelocity: 11)
+    }
 }

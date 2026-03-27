@@ -11,6 +11,7 @@ public struct CrimeReportScreen: View {
     @State private var expandedTypes: Set<CrimeType> = []
     @State private var sharePresented = false
     @State private var applyingFixID: UUID?
+    @State private var dismissingInstanceIDs: Set<UUID> = []
 
     public init(report: CrimeReport, allowsNewScan: Bool) {
         self.allowsNewScan = allowsNewScan
@@ -33,6 +34,7 @@ public struct CrimeReportScreen: View {
                                 summary: summary,
                                 expanded: expandedTypes.contains(summary.crimeType),
                                 applyingFixID: applyingFixID,
+                                dismissingInstanceIDs: dismissingInstanceIDs,
                                 suggestionText: suggestionText(for:),
                                 onApplyFix: { instance in
                                     Task { await applyFix(for: instance) }
@@ -135,6 +137,21 @@ public struct CrimeReportScreen: View {
                     .frame(maxWidth: .infinity)
                     .background(AppColors.textInverse.opacity(0.06), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                     .padding(.horizontal, 24)
+
+                Button(action: copyFixedText) {
+                    Label("Copy Fixed Text", systemImage: "doc.on.doc")
+                        .appTextStyle(.labelLarge, color: AppColors.textInverse)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(AppColors.textInverse.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(AppColors.textInverse.opacity(0.14), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(PressScaleButtonStyle(scale: 0.97))
+                .padding(.horizontal, 24)
+                .accessibilityHint("Copies the current corrected text.")
             }
             .frame(maxWidth: .infinity)
         }
@@ -185,6 +202,18 @@ public struct CrimeReportScreen: View {
         return String(suggestion.dropFirst(prefix.count))
     }
 
+    private func copyFixedText() {
+        appState.platform.copyText(currentReport.analyzedText)
+        appState.platform.emitHaptic(.success)
+        appState.postToast(
+            .init(
+                symbolName: "doc.on.doc",
+                message: "Fixed text copied ✓",
+                tone: .success
+            )
+        )
+    }
+
     @MainActor
     private func applyFix(for instance: CrimeInstance) async {
         guard applyingFixID == nil else { return }
@@ -218,6 +247,10 @@ public struct CrimeReportScreen: View {
         }
 
         applyingFixID = instance.id
+        _ = withAnimation(AppMotion.dismissive) {
+            dismissingInstanceIDs.insert(instance.id)
+        }
+        try? await Task.sleep(for: .milliseconds(240))
         mutableText.replaceCharacters(in: safeRange, with: replacement)
 
         var updatedReport = await appState.engine.analyze(
@@ -228,8 +261,11 @@ public struct CrimeReportScreen: View {
         updatedReport.createdAt = currentReport.createdAt
 
         appState.save(report: updatedReport)
-        currentReport = updatedReport
-        expandedTypes.formIntersection(Set(updatedReport.groupedCrimes.map(\.crimeType)))
+        withAnimation(AppMotion.dismissive) {
+            currentReport = updatedReport
+            expandedTypes.formIntersection(Set(updatedReport.groupedCrimes.map(\.crimeType)))
+            dismissingInstanceIDs.removeAll()
+        }
         applyingFixID = nil
         appState.platform.emitHaptic(.success)
         appState.postToast(
@@ -252,9 +288,14 @@ private struct CrimeBreakdownCard: View {
     let summary: CrimeSummary
     let expanded: Bool
     let applyingFixID: UUID?
+    let dismissingInstanceIDs: Set<UUID>
     let suggestionText: (CrimeInstance) -> String
     let onApplyFix: (CrimeInstance) -> Void
     let onToggle: () -> Void
+
+    private var visibleInstances: [CrimeInstance] {
+        summary.instances.filter { !dismissingInstanceIDs.contains($0.id) }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -268,7 +309,7 @@ private struct CrimeBreakdownCard: View {
                         Text(summary.crimeType.displayName)
                             .appTextStyle(.titleMedium)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(summary.count) violation\(summary.count == 1 ? "" : "s")")
+                        Text("\(visibleInstances.count) violation\(visibleInstances.count == 1 ? "" : "s")")
                             .appTextStyle(.bodySmall, color: AppColors.textSecondary)
                     }
                     SeverityBadgeView(severity: summary.severity)
@@ -283,23 +324,24 @@ private struct CrimeBreakdownCard: View {
             if expanded {
                 Divider().overlay(AppColors.borderSubtle)
                 VStack(alignment: .leading, spacing: 12) {
-                    ForEach(summary.instances) { instance in
-                        VStack(alignment: .leading, spacing: 8) {
-                            EvidenceSnippetView(instance: instance)
-                            HStack {
-                                Text("line \(instance.location.line), col \(instance.location.column)")
-                                    .appTextStyle(.monoSmall, color: AppColors.textTertiary)
-                                Spacer()
-                            }
-                            FixSuggestionView(
-                                suggestion: suggestionText(instance),
-                                action: instance.suggestedFix.hasPrefix("Replace with") || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
+                    ForEach(visibleInstances) { instance in
+                        CrimeInstanceRow(
+                            instance: instance,
+                            suggestion: suggestionText(instance),
+                            isBusy: applyingFixID != nil && applyingFixID != instance.id,
+                            onApplyFix: instance.suggestedFix.hasPrefix("Replace with") || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
                                 ? { onApplyFix(instance) }
                                 : nil
+                        )
+                        .id(instance.id)
+                        .transition(
+                            .asymmetric(
+                                insertion: .opacity.combined(with: .scale(scale: 0.98)),
+                                removal: .move(edge: .trailing)
+                                    .combined(with: .opacity)
+                                    .combined(with: .scale(scale: 0.9))
                             )
-                            .opacity(applyingFixID == nil || applyingFixID == instance.id ? 1 : 0.6)
-                            .allowsHitTesting(applyingFixID == nil)
-                        }
+                        )
                     }
 
                     NavigationLink {
@@ -314,5 +356,33 @@ private struct CrimeBreakdownCard: View {
             }
         }
         .appCardStyle(cornerRadius: 14)
+        .animation(AppMotion.dismissive, value: visibleInstances.map(\.id))
+        .transition(
+            .asymmetric(
+                insertion: .opacity.combined(with: .move(edge: .bottom)),
+                removal: .move(edge: .trailing).combined(with: .opacity)
+            )
+        )
+    }
+}
+
+private struct CrimeInstanceRow: View {
+    let instance: CrimeInstance
+    let suggestion: String
+    let isBusy: Bool
+    let onApplyFix: (() -> Void)?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            EvidenceSnippetView(instance: instance)
+            HStack {
+                Text("line \(instance.location.line), col \(instance.location.column)")
+                    .appTextStyle(.monoSmall, color: AppColors.textTertiary)
+                Spacer()
+            }
+            FixSuggestionView(suggestion: suggestion, action: onApplyFix)
+                .opacity(isBusy ? 0.6 : 1)
+                .allowsHitTesting(!isBusy)
+        }
     }
 }
