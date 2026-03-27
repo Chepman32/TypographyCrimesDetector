@@ -96,12 +96,28 @@ public struct EvidenceSnippetView: View {
 
 public struct FixSuggestionView: View {
     public let suggestion: String
+    public let action: (() -> Void)?
 
-    public init(suggestion: String) {
+    public init(suggestion: String, action: (() -> Void)? = nil) {
         self.suggestion = suggestion
+        self.action = action
     }
 
     public var body: some View {
+        Group {
+            if let action {
+                Button(action: action) {
+                    content
+                }
+                .buttonStyle(PressScaleButtonStyle(scale: 0.98))
+                .accessibilityHint("Copies the suggested replacement to the clipboard.")
+            } else {
+                content
+            }
+        }
+    }
+
+    private var content: some View {
         HStack(spacing: 8) {
             Image(systemName: "arrow.right")
                 .foregroundStyle(AppColors.accentTeal)
@@ -112,6 +128,7 @@ public struct FixSuggestionView: View {
         }
         .padding(8)
         .background(AppColors.accentTeal.opacity(0.08), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }
 

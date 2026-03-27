@@ -6,14 +6,15 @@ public struct CrimeReportScreen: View {
     @Environment(TypographyAppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
 
-    public let report: CrimeReport
     public let allowsNewScan: Bool
+    @State private var currentReport: CrimeReport
     @State private var expandedTypes: Set<CrimeType> = []
     @State private var sharePresented = false
+    @State private var applyingFixID: UUID?
 
     public init(report: CrimeReport, allowsNewScan: Bool) {
-        self.report = report
         self.allowsNewScan = allowsNewScan
+        _currentReport = State(initialValue: report)
     }
 
     public var body: some View {
@@ -22,15 +23,20 @@ public struct CrimeReportScreen: View {
                 reportHeader
 
                 VStack(alignment: .leading, spacing: 16) {
-                    if report.score == 0 {
+                    if currentReport.score == 0 {
                         cleanState
                     } else {
                         Text("Crime Breakdown")
                             .appTextStyle(.titleLarge)
-                        ForEach(report.groupedCrimes, id: \.crimeType) { summary in
+                        ForEach(currentReport.groupedCrimes, id: \.crimeType) { summary in
                             CrimeBreakdownCard(
                                 summary: summary,
                                 expanded: expandedTypes.contains(summary.crimeType),
+                                applyingFixID: applyingFixID,
+                                suggestionText: suggestionText(for:),
+                                onApplyFix: { instance in
+                                    Task { await applyFix(for: instance) }
+                                },
                                 onToggle: {
                                     withAnimation(AppMotion.standard) {
                                         if expandedTypes.contains(summary.crimeType) {
@@ -44,9 +50,9 @@ public struct CrimeReportScreen: View {
                         }
                     }
 
-                    if !report.notes.isEmpty {
+                    if !currentReport.notes.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
-                            ForEach(report.notes) { note in
+                            ForEach(currentReport.notes) { note in
                                 HStack(alignment: .top, spacing: 8) {
                                     Image(systemName: note.kind == .warning ? "info.circle.fill" : "checkmark.circle")
                                         .foregroundStyle(note.kind == .warning ? AppColors.accentGold : AppColors.accentTeal)
@@ -98,7 +104,7 @@ public struct CrimeReportScreen: View {
             .background(.ultraThinMaterial)
         }
         .sheet(isPresented: $sharePresented) {
-            ReportShareSheet(report: report)
+            ReportShareSheet(report: currentReport)
         }
     }
 
@@ -118,12 +124,12 @@ public struct CrimeReportScreen: View {
 
             VStack(spacing: 20) {
                 Spacer().frame(height: 72)
-                ScoreRingView(score: report.score, verdict: report.verdict)
+                ScoreRingView(score: currentReport.score, verdict: currentReport.verdict)
                     .frame(width: 140, height: 140)
-                SeverityBadgeView(verdict: report.verdict)
-                Text("\(report.crimeCount) crimes detected across \(report.categoryCount) categories")
+                SeverityBadgeView(verdict: currentReport.verdict)
+                Text("\(currentReport.crimeCount) crimes detected across \(currentReport.categoryCount) categories")
                     .appTextStyle(.bodyMedium, color: AppColors.textInverse.opacity(0.72))
-                Text(report.previewText)
+                Text(currentReport.previewText)
                     .appTextStyle(.monoSmall, color: AppColors.textInverse.opacity(0.52))
                     .padding(12)
                     .frame(maxWidth: .infinity)
@@ -141,18 +147,113 @@ public struct CrimeReportScreen: View {
                 .foregroundStyle(AppColors.accentTeal)
             Text("Spotless")
                 .appTextStyle(.displayLarge, color: AppColors.accentTeal)
-            Text(report.notes.first?.message ?? "No typographic crimes were detected. This text is a model citizen.")
+            Text(currentReport.notes.first?.message ?? "No typographic crimes were detected. This text is a model citizen.")
                 .appTextStyle(.bodyLarge, color: AppColors.textSecondary)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 24)
     }
+
+    private func suggestionText(for instance: CrimeInstance) -> String {
+        switch instance.crimeType {
+        case .doubleSpace:
+            "Replace with a single space"
+        case .inconsistentSpacing:
+            "Replace with a single space"
+        default:
+            instance.suggestedFix
+        }
+    }
+
+    private func replacementText(for instance: CrimeInstance) -> String? {
+        switch instance.crimeType {
+        case .doubleSpace, .inconsistentSpacing:
+            return " "
+        case .straightQuotes, .fakeEllipsis, .primeMarks, .multiplicationSign, .trademarkSymbol:
+            return replacementToken(from: instance.suggestedFix)
+        case .hyphenAsDash:
+            return replacementToken(from: instance.suggestedFix)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        case .widow, .orphan, .comicSans:
+            return nil
+        }
+    }
+
+    private func replacementToken(from suggestion: String) -> String? {
+        let prefix = "Replace with "
+        guard suggestion.hasPrefix(prefix) else { return nil }
+        return String(suggestion.dropFirst(prefix.count))
+    }
+
+    @MainActor
+    private func applyFix(for instance: CrimeInstance) async {
+        guard applyingFixID == nil else { return }
+        guard let replacement = replacementText(for: instance) else {
+            appState.postToast(
+                .init(
+                    symbolName: "exclamationmark.triangle.fill",
+                    message: "This issue needs a manual rewrite.",
+                    tone: .warning
+                )
+            )
+            return
+        }
+
+        let range = NSRange(
+            location: instance.location.startOffset,
+            length: max(0, instance.location.endOffset - instance.location.startOffset)
+        )
+
+        let mutableText = NSMutableString(string: currentReport.analyzedText)
+        let safeRange = normalized(range: range, maxLength: mutableText.length)
+        guard safeRange.length > 0 || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing else {
+            appState.postToast(
+                .init(
+                    symbolName: "exclamationmark.triangle.fill",
+                    message: "Could not apply this fix.",
+                    tone: .warning
+                )
+            )
+            return
+        }
+
+        applyingFixID = instance.id
+        mutableText.replaceCharacters(in: safeRange, with: replacement)
+
+        var updatedReport = await appState.engine.analyze(
+            SubmittedEvidence(text: mutableText as String),
+            preferences: appState.preferences
+        )
+        updatedReport.id = currentReport.id
+        updatedReport.createdAt = currentReport.createdAt
+
+        appState.save(report: updatedReport)
+        currentReport = updatedReport
+        expandedTypes.formIntersection(Set(updatedReport.groupedCrimes.map(\.crimeType)))
+        applyingFixID = nil
+        appState.platform.emitHaptic(.success)
+        appState.postToast(
+            .init(
+                symbolName: "checkmark.circle.fill",
+                message: "Issue fixed and report updated ✓",
+                tone: .success
+            )
+        )
+    }
+
+    private func normalized(range: NSRange, maxLength: Int) -> NSRange {
+        let location = max(0, min(range.location, maxLength))
+        let upperBound = max(location, min(range.location + range.length, maxLength))
+        return NSRange(location: location, length: upperBound - location)
+    }
 }
 
 private struct CrimeBreakdownCard: View {
     let summary: CrimeSummary
     let expanded: Bool
+    let applyingFixID: UUID?
+    let suggestionText: (CrimeInstance) -> String
+    let onApplyFix: (CrimeInstance) -> Void
     let onToggle: () -> Void
 
     var body: some View {
@@ -190,7 +291,14 @@ private struct CrimeBreakdownCard: View {
                                     .appTextStyle(.monoSmall, color: AppColors.textTertiary)
                                 Spacer()
                             }
-                            FixSuggestionView(suggestion: instance.suggestedFix)
+                            FixSuggestionView(
+                                suggestion: suggestionText(instance),
+                                action: instance.suggestedFix.hasPrefix("Replace with") || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
+                                ? { onApplyFix(instance) }
+                                : nil
+                            )
+                            .opacity(applyingFixID == nil || applyingFixID == instance.id ? 1 : 0.6)
+                            .allowsHitTesting(applyingFixID == nil)
                         }
                     }
 
