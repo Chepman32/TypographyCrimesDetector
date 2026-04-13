@@ -73,13 +73,16 @@ public struct OnboardingFlowView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 14)
                                 .fill(AppColors.accentGold)
-                                .frame(height: 24)
+                                .frame(height: 34)
                                 .rotationEffect(.degrees(-6))
-                                .overlay(Text("TYPO CRIME SCENE — DO NOT CROSS").appTextStyle(.monoSmall, color: AppColors.surfaceReport))
+                                .overlay(
+                                    Text("TYPO CRIME SCENE — DO NOT CROSS")
+                                        .appTextStyle(.monoSmall, color: AppColors.surfaceReport)
+                                )
                             Image(systemName: "magnifyingglass")
                                 .font(.system(size: 60, weight: .bold))
                                 .foregroundStyle(AppColors.textInverse)
-                                .offset(y: 48)
+                                .offset(y: 54)
                         }
                     )
                 )
@@ -177,6 +180,7 @@ private struct OnboardingPage: View {
             }
             .padding(.horizontal, AppSpacing.lg)
             .padding(.top, AppSpacing.xxxl)
+            .padding(.bottom, AppSpacing.cover + AppSpacing.xl)
         }
     }
 }
