@@ -110,7 +110,7 @@ public struct FixSuggestionView: View {
                     content
                 }
                 .buttonStyle(PressScaleButtonStyle(scale: 0.98))
-                .accessibilityHint("Applies the suggested fix to this report.")
+                .accessibilityHint(L10n.text("report.copy_fixed_hint"))
             } else {
                 content
             }

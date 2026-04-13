@@ -21,7 +21,7 @@ public struct CaseFilesContainer: View {
         NavigationStack(path: $path) {
             List(selection: selectionBinding) {
                 if appState.reports.isEmpty {
-                    EmptyStateView(symbolName: "clock.arrow.circlepath", title: "No cases yet", subtitle: "Run a scan and your case files will appear here.")
+                    EmptyStateView(symbolName: "clock.arrow.circlepath", title: L10n.text("history.empty_title"), subtitle: L10n.text("history.empty_subtitle"))
                         .listRowBackground(Color.clear)
                 } else {
                     ForEach(groupedSections, id: \.title) { section in
@@ -34,14 +34,14 @@ public struct CaseFilesContainer: View {
                                     Button {
                                         shareReport = report
                                     } label: {
-                                        Label("Share", systemImage: "square.and.arrow.up")
+                                        Label(L10n.text("history.share"), systemImage: "square.and.arrow.up")
                                     }
                                     .tint(AppColors.accentSlate)
 
                                     Button(role: .destructive) {
                                         appState.delete(reportIDs: [report.id])
                                     } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        Label(L10n.text("history.delete"), systemImage: "trash")
                                     }
                                 }
                             }
@@ -50,7 +50,7 @@ public struct CaseFilesContainer: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Case Files")
+            .navigationTitle(L10n.text("history.title"))
             .modifier(CaseFilesEditingModifier(selection: $selection, appState: appState))
             .navigationDestination(for: HistoryRoute.self) { route in
                 switch route {
@@ -77,10 +77,10 @@ public struct CaseFilesContainer: View {
         let calendar = Calendar.current
         let now = Date()
         let grouped = Dictionary(grouping: appState.reports) { report -> String in
-            if calendar.isDateInToday(report.createdAt) { return "TODAY" }
-            if calendar.isDateInYesterday(report.createdAt) { return "YESTERDAY" }
-            if let weekAgo = calendar.date(byAdding: .day, value: -7, to: now), report.createdAt >= weekAgo { return "THIS WEEK" }
-            if let monthAgo = calendar.date(byAdding: .month, value: -1, to: now), report.createdAt >= monthAgo { return "THIS MONTH" }
+            if calendar.isDateInToday(report.createdAt) { return L10n.text("history.today") }
+            if calendar.isDateInYesterday(report.createdAt) { return L10n.text("history.yesterday") }
+            if let weekAgo = calendar.date(byAdding: .day, value: -7, to: now), report.createdAt >= weekAgo { return L10n.text("history.this_week") }
+            if let monthAgo = calendar.date(byAdding: .month, value: -1, to: now), report.createdAt >= monthAgo { return L10n.text("history.this_month") }
             return report.createdAt.formatted(.dateTime.month(.wide).year())
         }
 
@@ -110,11 +110,11 @@ private struct CaseFilesEditingModifier: ViewModifier {
                 }
                 if editMode.isEditing {
                     ToolbarItemGroup(placement: .appBottomAction) {
-                        Button("Select All") {
+                        Button(L10n.text("history.select_all")) {
                             selection = Set(appState.reports.map(\.id))
                         }
                         Spacer()
-                        Button("Delete Selected", role: .destructive) {
+                        Button(L10n.text("history.delete_selected"), role: .destructive) {
                             appState.delete(reportIDs: Array(selection))
                             selection.removeAll()
                         }

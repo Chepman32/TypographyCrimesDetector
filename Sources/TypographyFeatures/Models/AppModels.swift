@@ -11,10 +11,10 @@ public enum AppTab: String, CaseIterable, Hashable, Identifiable, Sendable {
 
     public var title: String {
         switch self {
-        case .crimeLab: "Crime Lab"
-        case .caseFiles: "Case Files"
-        case .learn: "Learn"
-        case .settings: "Settings"
+        case .crimeLab: L10n.text("app.tab.crime_lab")
+        case .caseFiles: L10n.text("app.tab.case_files")
+        case .learn: L10n.text("app.tab.learn")
+        case .settings: L10n.text("app.tab.settings")
         }
     }
 

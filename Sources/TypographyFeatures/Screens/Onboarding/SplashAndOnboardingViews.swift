@@ -1,5 +1,6 @@
 import SwiftUI
 import TypographyDesignSystem
+import TypographyDomain
 
 public struct SplashView: View {
     public let onComplete: () -> Void
@@ -25,7 +26,7 @@ public struct SplashView: View {
                         .scaleEffect(reveal ? 1 : 0.85)
                 }
 
-                Text("TYPO CRIMES")
+                Text(L10n.text("brand.wordmark"))
                     .appTextStyle(.displayLarge, color: AppColors.textInverse)
                     .tracking(3)
                     .opacity(reveal ? 1 : 0)
@@ -36,7 +37,7 @@ public struct SplashView: View {
                     .frame(width: 120, height: 1)
                     .opacity(reveal ? 1 : 0)
 
-                Text("Every glyph is evidence.")
+                Text(L10n.text("onboarding.splash_tagline"))
                     .appTextStyle(.bodyMedium, color: AppColors.textInverse.opacity(0.72))
                     .opacity(reveal ? 1 : 0)
             }
@@ -66,8 +67,8 @@ public struct OnboardingFlowView: View {
         ZStack(alignment: .bottom) {
             TabView(selection: $page) {
                 OnboardingPage(
-                    title: "Paste. Analyze. Prosecute.",
-                    bodyText: "Drop in any text and our forensic engine will scan for typographic crimes hiding in plain sight.",
+                    title: L10n.text("onboarding.page1.title"),
+                    bodyText: L10n.text("onboarding.page1.body"),
                     background: LinearGradient(colors: [AppColors.surfaceReport, AppColors.surfaceBase], startPoint: .top, endPoint: .bottom),
                     artwork: AnyView(
                         ZStack {
@@ -76,7 +77,7 @@ public struct OnboardingFlowView: View {
                                 .frame(height: 34)
                                 .rotationEffect(.degrees(-6))
                                 .overlay(
-                                    Text("TYPO CRIME SCENE — DO NOT CROSS")
+                                    Text(L10n.text("brand.scene_tape_full"))
                                         .appTextStyle(.monoSmall, color: AppColors.surfaceReport)
                                 )
                             Image(systemName: "magnifyingglass")
@@ -89,24 +90,24 @@ public struct OnboardingFlowView: View {
                 .tag(0)
 
                 OnboardingPage(
-                    title: "We Catch What Spellcheck Won’t",
-                    bodyText: "Straight quotes. Fake ellipses. Hyphens posing as em-dashes. Double spaces lurking after periods. We see it all.",
+                    title: L10n.text("onboarding.page2.title"),
+                    bodyText: L10n.text("onboarding.page2.body"),
                     background: LinearGradient(colors: [AppColors.surfaceBase, AppColors.surfaceBase], startPoint: .top, endPoint: .bottom),
                     artwork: AnyView(OnboardingEvidenceDemo())
                 )
                 .tag(1)
 
                 OnboardingPage(
-                    title: "Get Your Crime Score",
-                    bodyText: "From Clean to Capital Offense. How criminal is your typography? Share your verdict with the world.",
+                    title: L10n.text("onboarding.page3.title"),
+                    bodyText: L10n.text("onboarding.page3.body"),
                     background: LinearGradient(colors: [AppColors.surfaceBase, AppColors.surfaceBase], startPoint: .top, endPoint: .bottom),
                     artwork: AnyView(OnboardingVerdictDemo())
                 )
                 .tag(2)
 
                 OnboardingPage(
-                    title: "Educational Mode",
-                    bodyText: "Tap any crime to learn why it matters. Become a typography expert, one glyph at a time.",
+                    title: L10n.text("onboarding.page4.title"),
+                    bodyText: L10n.text("onboarding.page4.body"),
                     background: LinearGradient(colors: [AppColors.surfaceBase, AppColors.surfaceBase], startPoint: .top, endPoint: .bottom),
                     artwork: AnyView(OnboardingLibraryDemo())
                 )
@@ -123,7 +124,7 @@ public struct OnboardingFlowView: View {
                     }
                 }
 
-                Button(page == 3 ? "Start Investigating" : "Next") {
+                Button(page == 3 ? L10n.text("onboarding.start") : L10n.text("general.next")) {
                     if page == 3 {
                         onComplete()
                     } else {
@@ -142,7 +143,7 @@ public struct OnboardingFlowView: View {
             .padding(.bottom, 32)
         }
         .overlay(alignment: .topTrailing) {
-            Button("Skip") {
+            Button(L10n.text("general.skip")) {
                 onComplete()
             }
             .appTextStyle(.labelMedium, color: AppColors.textSecondary)
@@ -190,14 +191,14 @@ private struct OnboardingEvidenceDemo: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(#"He said "Hello"... and left -- quickly."#)
+            Text(L10n.text("onboarding.demo_sentence"))
                 .appTextStyle(.monoBody)
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(AppColors.surfaceSecondary, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
 
             VStack(alignment: .leading, spacing: 8) {
-                ForEach(Array(["Straight Quotes", "Fake Ellipsis", "Not an Em-dash"].enumerated()), id: \.offset) { index, label in
+                ForEach(Array([CrimeType.straightQuotes.displayName, CrimeType.fakeEllipsis.displayName, L10n.text("onboarding.sample.not_em_dash")].enumerated()), id: \.offset) { index, label in
                     HStack {
                         Circle()
                             .fill(AppColors.accentCrimson)
@@ -230,7 +231,7 @@ private struct OnboardingVerdictDemo: View {
             ScoreRingView(score: 47, verdict: .misdemeanor)
                 .frame(width: 150, height: 150)
             SeverityBadgeView(verdict: .misdemeanor)
-            Text("7 crimes across 3 categories")
+            Text(L10n.crimeCountSummary(crimes: 7, categories: 3))
                 .appTextStyle(.bodyMedium, color: AppColors.textInverse.opacity(0.75))
         }
         .padding(24)
@@ -251,7 +252,7 @@ private struct OnboardingLibraryDemo: View {
                 Image(systemName: flipped ? "magnifyingglass" : "book.closed")
                     .font(.system(size: 64, weight: .bold))
                     .foregroundStyle(AppColors.accentCrimson)
-                Text(flipped ? "Investigate" : "Study the Law")
+                Text(flipped ? L10n.text("onboarding.library.investigate") : L10n.text("onboarding.library.study"))
                     .appTextStyle(.titleLarge)
             }
         }

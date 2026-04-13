@@ -18,7 +18,7 @@ public struct CrimeReportCardView: View {
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("\(report.crimeCount) crimes · \(report.verdict.label)")
+                Text(L10n.reportCardSummary(crimes: report.crimeCount, verdict: report.verdict))
                     .appTextStyle(.bodySmall, color: AppColors.textSecondary)
 
                 if showTimestamp {

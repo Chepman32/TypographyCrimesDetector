@@ -68,11 +68,11 @@ public struct LawLibraryView: View {
             }
         }
         .appInsetGroupedList()
-        .navigationTitle("The Law Library")
-        .searchable(text: $query, prompt: "Search crime types")
+        .navigationTitle(L10n.text("learn.title"))
+        .searchable(text: $query, prompt: L10n.text("learn.search_prompt"))
         .overlay {
             if filteredCrimes.isEmpty {
-                EmptyStateView(symbolName: "magnifyingglass", title: "No matching crimes found", subtitle: "Try a different search term.")
+                EmptyStateView(symbolName: "magnifyingglass", title: L10n.text("learn.empty_title"), subtitle: L10n.text("learn.empty_subtitle"))
             }
         }
     }
@@ -97,14 +97,14 @@ public struct CrimeDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 hero
-                section(title: "What Is This Crime?", body: article.overview)
+                section(title: L10n.text("learn.what_is_this"), body: article.overview)
                 wrongRight
-                section(title: "Why It Matters", body: article.whyItMatters)
+                section(title: L10n.text("learn.why_it_matters"), body: article.whyItMatters)
                 if let history = article.history {
-                    section(title: "History & Origin", body: history, secondary: true)
+                    section(title: L10n.text("learn.history_origin"), body: history, secondary: true)
                 }
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("How to Fix It")
+                    Text(L10n.text("learn.how_to_fix"))
                         .appTextStyle(.titleSmall)
                     ForEach(Array(article.fixSteps.enumerated()), id: \.offset) { index, step in
                         HStack(alignment: .top, spacing: 10) {
@@ -128,10 +128,10 @@ public struct CrimeDetailView: View {
             crimeType: crimeType,
             title: crimeType.displayName,
             overview: crimeType.shortDescription,
-            whyItMatters: "Good typography is a system of thoughtful details.",
-            wrongExample: "Wrong",
-            rightExample: "Right",
-            fixSteps: ["Use the correct character and keep the document consistent."]
+            whyItMatters: L10n.text("learn.default_why"),
+            wrongExample: L10n.text("general.wrong"),
+            rightExample: L10n.text("general.right"),
+            fixSteps: [L10n.text("learn.default_fix")]
         )
     }
 
@@ -151,14 +151,14 @@ public struct CrimeDetailView: View {
 
     private var wrongRight: some View {
         HStack(spacing: 12) {
-            comparisonCard(title: "Wrong", text: article.wrongExample, color: AppColors.accentCrimson)
-            comparisonCard(title: "Right", text: article.rightExample, color: AppColors.accentTeal)
+            comparisonCard(title: L10n.text("general.wrong"), text: article.wrongExample, color: AppColors.accentCrimson, isCorrect: false)
+            comparisonCard(title: L10n.text("general.right"), text: article.rightExample, color: AppColors.accentTeal, isCorrect: true)
         }
     }
 
-    private func comparisonCard(title: String, text: String, color: Color) -> some View {
+    private func comparisonCard(title: String, text: String, color: Color, isCorrect: Bool) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label(title, systemImage: title == "Wrong" ? "xmark.circle.fill" : "checkmark.circle.fill")
+            Label(title, systemImage: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
                 .appTextStyle(.labelMedium, color: color)
             Text(text)
                 .appTextStyle(.monoBody)

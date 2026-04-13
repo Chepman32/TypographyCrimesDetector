@@ -9,11 +9,11 @@ public enum CrimeCategory: String, Codable, CaseIterable, Hashable, Sendable {
 
     public var title: String {
         switch self {
-        case .punctuation: "Punctuation Crimes"
-        case .spacing: "Spacing Crimes"
-        case .layout: "Layout Crimes"
-        case .font: "Font Crimes"
-        case .symbol: "Symbol Crimes"
+        case .punctuation: L10n.crimeCategoryTitle(.punctuation)
+        case .spacing: L10n.crimeCategoryTitle(.spacing)
+        case .layout: L10n.crimeCategoryTitle(.layout)
+        case .font: L10n.crimeCategoryTitle(.font)
+        case .symbol: L10n.crimeCategoryTitle(.symbol)
         }
     }
 }
@@ -24,7 +24,11 @@ public enum CrimeSeverity: String, Codable, CaseIterable, Hashable, Sendable {
     case felony
 
     public var label: String {
-        rawValue.uppercased()
+        switch self {
+        case .infraction: L10n.text("severity.infraction")
+        case .misdemeanor: L10n.text("severity.misdemeanor")
+        case .felony: L10n.text("severity.felony")
+        }
     }
 }
 
@@ -37,11 +41,11 @@ public enum Verdict: String, Codable, CaseIterable, Hashable, Sendable {
 
     public var label: String {
         switch self {
-        case .clean: "CLEAN"
-        case .infraction: "INFRACTION"
-        case .misdemeanor: "MISDEMEANOR"
-        case .felony: "FELONY"
-        case .capitalOffense: "CAPITAL OFFENSE"
+        case .clean: L10n.text("verdict.clean")
+        case .infraction: L10n.text("verdict.infraction")
+        case .misdemeanor: L10n.text("verdict.misdemeanor")
+        case .felony: L10n.text("verdict.felony")
+        case .capitalOffense: L10n.text("verdict.capital")
         }
     }
 
@@ -72,7 +76,11 @@ public enum StrictnessMode: String, Codable, CaseIterable, Hashable, Sendable {
     case strict
 
     public var label: String {
-        rawValue.capitalized
+        switch self {
+        case .lenient: L10n.text("strictness.lenient")
+        case .standard: L10n.text("strictness.standard")
+        case .strict: L10n.text("strictness.strict")
+        }
     }
 
     public var multiplier: Double {
@@ -90,7 +98,11 @@ public enum AppThemePreference: String, Codable, CaseIterable, Hashable, Sendabl
     case dark
 
     public var label: String {
-        rawValue.capitalized
+        switch self {
+        case .system: L10n.text("theme.system")
+        case .light: L10n.text("theme.light")
+        case .dark: L10n.text("theme.dark")
+        }
     }
 }
 
@@ -100,8 +112,8 @@ public enum DashStylePreference: String, Codable, CaseIterable, Hashable, Sendab
 
     public var label: String {
         switch self {
-        case .spaced: "Spaced"
-        case .closed: "Closed"
+        case .spaced: L10n.text("dash.spaced")
+        case .closed: L10n.text("dash.closed")
         }
     }
 
@@ -120,9 +132,9 @@ public enum EvidenceSource: String, Codable, CaseIterable, Hashable, Sendable {
 
     public var label: String {
         switch self {
-        case .typed: "Typed"
-        case .pastedPlain: "Pasted"
-        case .pastedRich: "Pasted Rich Text"
+        case .typed: L10n.text("evidence_source.typed")
+        case .pastedPlain: L10n.text("evidence_source.pasted")
+        case .pastedRich: L10n.text("evidence_source.pasted_rich")
         }
     }
 }
@@ -138,11 +150,11 @@ public enum ShareFormat: String, Codable, CaseIterable, Hashable, Sendable, Iden
 
     public var label: String {
         switch self {
-        case .image: "Image"
-        case .story: "Story"
-        case .landscape: "Landscape"
-        case .text: "Plain Text"
-        case .link: "Copy Link"
+        case .image: L10n.text("share_format.image")
+        case .story: L10n.text("share_format.story")
+        case .landscape: L10n.text("share_format.landscape")
+        case .text: L10n.text("share_format.text")
+        case .link: L10n.text("share_format.link")
         }
     }
 
@@ -158,11 +170,11 @@ public enum ShareFormat: String, Codable, CaseIterable, Hashable, Sendable, Iden
 
     public var description: String {
         switch self {
-        case .image: "PNG image optimized for social feeds."
-        case .story: "1080×1920 story-ready report."
-        case .landscape: "Wide card for article and social previews."
-        case .text: "Formatted textual summary."
-        case .link: "Placeholder deep link copy."
+        case .image: L10n.text("share_format_desc.image")
+        case .story: L10n.text("share_format_desc.story")
+        case .landscape: L10n.text("share_format_desc.landscape")
+        case .text: L10n.text("share_format_desc.text")
+        case .link: L10n.text("share_format_desc.link")
         }
     }
 }
@@ -183,35 +195,11 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
     public var id: String { rawValue }
 
     public var displayName: String {
-        switch self {
-        case .doubleSpace: "Double Spaces"
-        case .straightQuotes: "Straight Quotes"
-        case .hyphenAsDash: "Hyphen Abuse"
-        case .fakeEllipsis: "Fake Ellipsis"
-        case .widow: "Widows"
-        case .orphan: "Orphans"
-        case .inconsistentSpacing: "Inconsistent Spacing"
-        case .comicSans: "Comic Sans"
-        case .primeMarks: "Prime Marks"
-        case .multiplicationSign: "Multiplication Sign Abuse"
-        case .trademarkSymbol: "Trademark Symbol Misuse"
-        }
+        L10n.crimeTypeTitle(self)
     }
 
     public var shortDescription: String {
-        switch self {
-        case .doubleSpace: "Typewriter-era spacing still haunting modern text."
-        case .straightQuotes: "ASCII quotes where proper curly punctuation belongs."
-        case .hyphenAsDash: "Hyphens or double hyphens pretending to be dashes."
-        case .fakeEllipsis: "Three periods standing in for a true ellipsis glyph."
-        case .widow: "A lonely final-line word stranded at paragraph end."
-        case .orphan: "A tiny carry-over line at the top of a new paragraph."
-        case .inconsistentSpacing: "Mixed sentence-spacing styles in the same document."
-        case .comicSans: "Comic Sans detected in the submitted evidence."
-        case .primeMarks: "ASCII apostrophes or quotes used as prime marks."
-        case .multiplicationSign: "Lowercase x used where the multiplication sign fits."
-        case .trademarkSymbol: "Parenthetical substitutes used instead of proper symbols."
-        }
+        L10n.crimeTypeDescription(self)
     }
 
     public var category: CrimeCategory {

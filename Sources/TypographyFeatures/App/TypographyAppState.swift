@@ -65,7 +65,7 @@ public final class TypographyAppState {
         do {
             reports = try repository.fetchReports().sorted { $0.createdAt > $1.createdAt }
         } catch {
-            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not load saved case files.", tone: .warning))
+            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("toast.load_failed"), tone: .warning))
         }
     }
 
@@ -74,7 +74,7 @@ public final class TypographyAppState {
             try repository.save(report: report)
             refreshReports()
         } catch {
-            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not save the case file.", tone: .warning))
+            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("toast.save_failed"), tone: .warning))
         }
     }
 
@@ -83,7 +83,7 @@ public final class TypographyAppState {
             try repository.delete(reportIDs: reportIDs)
             refreshReports()
         } catch {
-            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Deletion failed.", tone: .warning))
+            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("toast.delete_failed"), tone: .warning))
         }
     }
 
@@ -91,9 +91,9 @@ public final class TypographyAppState {
         do {
             try repository.clearAll()
             refreshReports()
-            postToast(.init(symbolName: "trash", message: "All case files cleared.", tone: .success))
+            postToast(.init(symbolName: "trash", message: L10n.text("toast.cleared"), tone: .success))
         } catch {
-            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not clear case files.", tone: .warning))
+            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("toast.clear_failed"), tone: .warning))
         }
     }
 
@@ -102,7 +102,7 @@ public final class TypographyAppState {
             let data = try repository.exportAllReports()
             platform.share(SharePayload(items: [.jsonData(data, filename: "typography-crimes-reports.json")]))
         } catch {
-            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Export failed.", tone: .warning))
+            postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("toast.export_failed"), tone: .warning))
         }
     }
 
@@ -132,12 +132,6 @@ public final class TypographyAppState {
     public var averageVerdictAbbreviation: String {
         guard !reports.isEmpty else { return "—" }
         let averageScore = Int((Double(reports.reduce(0) { $0 + $1.score }) / Double(reports.count)).rounded())
-        return switch Verdict.from(score: averageScore) {
-        case .clean: "Cln."
-        case .infraction: "Inf."
-        case .misdemeanor: "Msd."
-        case .felony: "Fel."
-        case .capitalOffense: "Cap."
-        }
+        return L10n.verdictShortLabel(Verdict.from(score: averageScore))
     }
 }

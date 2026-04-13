@@ -23,7 +23,7 @@ public struct ReportShareSheet: View {
                         .frame(width: 36, height: 5)
                         .padding(.top, 8)
 
-                    Text("Share Crime Report")
+                    Text(L10n.text("share.title"))
                         .appTextStyle(.titleLarge)
 
                     SharePreviewCard(
@@ -75,15 +75,15 @@ public struct ReportShareSheet: View {
                     .buttonStyle(PressScaleButtonStyle())
 
                     VStack(spacing: 12) {
-                        secondaryAction(title: "Copy Report Image", systemName: "doc.on.doc") {
+                        secondaryAction(title: L10n.text("share.copy_report_image"), systemName: "doc.on.doc") {
                             Task { await copyImage() }
                         }
-                        secondaryAction(title: "Save to Photos", systemName: "photo.on.rectangle") {
+                        secondaryAction(title: L10n.text("share.save_to_photos"), systemName: "photo.on.rectangle") {
                             Task { await saveImage() }
                         }
-                        secondaryAction(title: "Copy Report Text", systemName: "doc.text") {
+                        secondaryAction(title: L10n.text("share.copy_report_text"), systemName: "doc.text") {
                             appState.platform.copyText(report.shareText)
-                            appState.postToast(.init(symbolName: "doc.on.doc", message: "Copied to clipboard ✓", tone: .success))
+                            appState.postToast(.init(symbolName: "doc.on.doc", message: L10n.text("share.copied_clipboard"), tone: .success))
                         }
                     }
                 }
@@ -92,13 +92,13 @@ public struct ReportShareSheet: View {
             }
             .background(AppColors.surfaceBase.ignoresSafeArea())
         }
-        .alert("Photos Access Needed", isPresented: $showPhotosPermissionAlert) {
-            Button("Open Settings") {
+        .alert(L10n.text("share.photos_needed"), isPresented: $showPhotosPermissionAlert) {
+            Button(L10n.text("share.open_settings")) {
                 appState.platform.openSettings()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L10n.text("general.cancel"), role: .cancel) {}
         } message: {
-            Text("Photos access is needed to save the report image. Open Settings to grant access.")
+            Text(L10n.text("share.photos_message"))
         }
     }
 
@@ -123,11 +123,11 @@ public struct ReportShareSheet: View {
     private var primaryActionTitle: String {
         switch format {
         case .text:
-            "Share Text"
+            L10n.text("share.primary.share_text")
         case .link:
-            "Copy Link"
+            L10n.text("share.primary.copy_link")
         default:
-            "Share"
+            L10n.text("share.primary.share")
         }
     }
 
@@ -153,7 +153,7 @@ public struct ReportShareSheet: View {
         case .link:
             let url = appState.releaseConfig.deepLinkBaseURL.appending(path: report.id.uuidString)
             appState.platform.copyText(url.absoluteString)
-            appState.postToast(.init(symbolName: "link", message: "Deep link copied ✓", tone: .success))
+            appState.postToast(.init(symbolName: "link", message: L10n.text("share.deep_link_copied"), tone: .success))
         default:
             if let data = renderPNG(format: format) {
                 appState.platform.share(SharePayload(items: [.pngData(data, filename: "typography-crime-report-\(format.rawValue).png")]))
@@ -164,26 +164,26 @@ public struct ReportShareSheet: View {
     @MainActor
     private func copyImage() async {
         guard let data = renderPNG(format: exportReadyFormat) else {
-            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not render the report image.", tone: .warning))
+            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("share.render_failed"), tone: .warning))
             return
         }
         appState.platform.copyPNG(data)
-        appState.postToast(.init(symbolName: "doc.on.doc", message: "Copied to clipboard ✓", tone: .success))
+        appState.postToast(.init(symbolName: "doc.on.doc", message: L10n.text("share.copied_clipboard"), tone: .success))
     }
 
     @MainActor
     private func saveImage() async {
         guard let data = renderPNG(format: exportReadyFormat) else {
-            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not render the report image.", tone: .warning))
+            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("share.render_failed"), tone: .warning))
             return
         }
         do {
             try await appState.platform.saveImageToPhotos(data)
-            appState.postToast(.init(symbolName: "photo.on.rectangle", message: "Saved to Photos ✓", tone: .success))
+            appState.postToast(.init(symbolName: "photo.on.rectangle", message: L10n.text("share.saved_photos"), tone: .success))
         } catch PhotosSaveError.permissionDenied {
             showPhotosPermissionAlert = true
         } catch {
-            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Could not save the report image.", tone: .warning))
+            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("share.save_failed"), tone: .warning))
         }
     }
 
@@ -234,7 +234,7 @@ private struct SharePreviewCard: View {
 
                 SeverityBadgeView(verdict: report.verdict)
 
-                Text("\(report.crimeCount) crimes across \(report.categoryCount) categories")
+                Text(L10n.crimeCountSummary(crimes: report.crimeCount, categories: report.categoryCount))
                     .appTextStyle(.titleMedium, color: AppColors.textInverse.opacity(0.82))
 
                 Text(report.previewText)
@@ -264,7 +264,7 @@ private struct SharePreviewCard: View {
             .padding(.vertical, format == .story ? 120 : 52)
 
             VStack(alignment: .trailing, spacing: 4) {
-                Text("TYPO CRIMES")
+                Text(L10n.text("brand.wordmark"))
                     .appTextStyle(.labelMedium, color: AppColors.textInverse.opacity(0.22))
                 Text(websiteHost)
                     .appTextStyle(.bodySmall, color: AppColors.textInverse.opacity(0.16))
@@ -302,7 +302,7 @@ private struct ShareExportCanvas: View {
             decorativeTape
 
             VStack(alignment: .trailing, spacing: 6) {
-                Text("TYPO CRIMES")
+                Text(L10n.text("brand.wordmark"))
                     .appTextStyle(.labelLarge, color: AppColors.textInverse.opacity(0.2))
                 Text(websiteHost)
                     .appTextStyle(.bodyMedium, color: AppColors.textInverse.opacity(0.14))
@@ -321,7 +321,7 @@ private struct ShareExportCanvas: View {
 
             SeverityBadgeView(verdict: report.verdict)
 
-            Text("\(report.crimeCount) crimes across \(report.categoryCount) categories")
+            Text(L10n.crimeCountSummary(crimes: report.crimeCount, categories: report.categoryCount))
                 .appTextStyle(.titleLarge, color: AppColors.textInverse.opacity(0.82))
 
             Text(report.previewText)
@@ -343,7 +343,7 @@ private struct ShareExportCanvas: View {
                         .padding(16)
                         .background(AppColors.textInverse.opacity(0.08), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
 
-                    Text("SWIPE UP TO ANALYZE YOUR OWN TEXT")
+                    Text(L10n.text("share.swipe_up"))
                         .appTextStyle(.titleLarge, color: AppColors.textInverse)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -366,7 +366,7 @@ private struct ShareExportCanvas: View {
             VStack(alignment: .leading, spacing: 22) {
                 SeverityBadgeView(verdict: report.verdict)
 
-                Text("\(report.crimeCount) crimes across \(report.categoryCount) categories")
+                Text(L10n.crimeCountSummary(crimes: report.crimeCount, categories: report.categoryCount))
                     .appTextStyle(.titleLarge, color: AppColors.textInverse.opacity(0.84))
 
                 Text(report.previewText)
@@ -404,7 +404,7 @@ private struct ShareExportCanvas: View {
     }
 
     private var decorativeTape: some View {
-        Text("TYPO CRIME SCENE")
+        Text(L10n.text("brand.scene_tape"))
             .appTextStyle(.labelMedium, color: AppColors.surfaceReport)
             .padding(.horizontal, 24)
             .frame(height: 36)

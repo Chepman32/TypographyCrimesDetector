@@ -27,7 +27,7 @@ public struct TypographyCrimeEngine: Sendable {
                 preferences: preferences,
                 instances: [],
                 notes: [
-                    AnalysisNote(kind: .info, message: "Your text contains only whitespace. While technically not criminal, it is suspicious.")
+                    AnalysisNote(kind: .info, message: L10n.text("engine.whitespace_only"))
                 ]
             )
         }
@@ -63,13 +63,13 @@ public struct TypographyCrimeEngine: Sendable {
             notes.append(
                 AnalysisNote(
                     kind: .warning,
-                    message: "Analysis is optimized for Latin-script text. Some spacing and punctuation rules may not apply to this writing system."
+                    message: L10n.text("engine.non_latin_warning")
                 )
             )
         }
 
         if evidence.text.count < 10 {
-            notes.append(AnalysisNote(kind: .info, message: "Widow and orphan detection is less reliable on very short passages."))
+            notes.append(AnalysisNote(kind: .info, message: L10n.text("engine.short_text_note")))
         }
 
         return CrimeScorer.buildReport(

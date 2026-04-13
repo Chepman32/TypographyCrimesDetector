@@ -5,6 +5,16 @@ import XCTest
 
 @MainActor
 final class TypographyFeaturesTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        L10n.languageOverride = .en
+    }
+
+    override func tearDown() {
+        L10n.languageOverride = nil
+        super.tearDown()
+    }
+
     func testAppStateUpdatesRulesAndComputesStats() {
         let repo = MockRepository()
         repo.reports = [

@@ -3,6 +3,16 @@ import XCTest
 @testable import TypographyEngine
 
 final class TypographyEngineTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        L10n.languageOverride = .en
+    }
+
+    override func tearDown() {
+        L10n.languageOverride = nil
+        super.tearDown()
+    }
+
     func testDetectsDoubleSpacesAndEllipses() async {
         let engine = TypographyCrimeEngine()
         let evidence = SubmittedEvidence(text: "Wait...  Then go.")

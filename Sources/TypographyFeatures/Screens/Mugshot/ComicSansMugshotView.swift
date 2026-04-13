@@ -1,5 +1,6 @@
 import SwiftUI
 import TypographyDesignSystem
+import TypographyDomain
 
 public struct ComicSansMugshotView: View {
     public let onContinue: () -> Void
@@ -38,16 +39,16 @@ public struct ComicSansMugshotView: View {
                     .frame(width: 200, height: 240)
                 }
 
-                Text("WANTED FOR TYPOGRAPHIC CRIMES")
+                Text(L10n.text("mugshot.title"))
                     .appTextStyle(.titleLarge, color: AppColors.accentCrimson)
                     .multilineTextAlignment(.center)
 
-                Text("Comic Sans was spotted in the submitted evidence. This font, originally designed for a children’s UI in 1994, has been flagged as a repeat offender across countless documents worldwide.")
+                Text(L10n.text("mugshot.body"))
                     .appTextStyle(.bodyMedium, color: AppColors.textInverse.opacity(0.72))
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: 300)
 
-                Button("Proceed to Full Report →") {
+                Button(L10n.text("mugshot.continue")) {
                     onContinue()
                 }
                 .appTextStyle(.labelLarge, color: AppColors.accentCrimson)

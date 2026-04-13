@@ -33,8 +33,8 @@ struct ComicSansDetector: CrimeDetector {
                 type: .comicSans,
                 range: range,
                 in: evidence.text,
-                suggestedFix: "Use literally any other font.",
-                explanation: "Comic Sans metadata was found in the submitted rich text."
+                suggestedFix: L10n.text("engine.fix.change_font"),
+                explanation: L10n.text("engine.explain.comic_sans")
             )
         ]
     }
@@ -55,8 +55,8 @@ struct PrimeMarksDetector: CrimeDetector {
                 type: .primeMarks,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: "Replace with \(replacement)",
-                explanation: "This measurement mark uses an ASCII quote instead of a proper prime symbol."
+                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
+                explanation: L10n.text("engine.explain.prime_marks")
             )
         }
     }
@@ -79,8 +79,8 @@ struct MultiplicationSignDetector: CrimeDetector {
                 type: .multiplicationSign,
                 range: highlight,
                 in: evidence.text,
-                suggestedFix: "Replace with ×",
-                explanation: "This dimension uses the letter x where the multiplication sign should appear."
+                suggestedFix: L10n.format("engine.fix.replace_with", "×"),
+                explanation: L10n.text("engine.explain.multiplication_sign")
             )
         }
     }
@@ -106,8 +106,8 @@ struct TrademarkSymbolDetector: CrimeDetector {
                 type: .trademarkSymbol,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: "Replace with \(replacement)",
-                explanation: "This fallback notation should be replaced by the proper symbol."
+                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
+                explanation: L10n.text("engine.explain.trademark_symbol")
             )
         }
     }

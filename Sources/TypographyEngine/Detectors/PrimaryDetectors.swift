@@ -15,8 +15,8 @@ struct DoubleSpaceDetector: CrimeDetector {
                 type: .doubleSpace,
                 range: $0.range,
                 in: evidence.text,
-                suggestedFix: "Use a single space after sentence-ending punctuation.",
-                explanation: "This sentence ends with multiple spaces, a typewriter-era convention that does not belong in proportional typography."
+                suggestedFix: L10n.text("engine.fix.single_space"),
+                explanation: L10n.text("engine.explain.double_space")
             )
         }
     }
@@ -47,8 +47,8 @@ struct StraightQuoteDetector: CrimeDetector {
                 type: .straightQuotes,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: "Replace with \(replacement)",
-                explanation: "This quotation mark uses the straight ASCII form instead of a directional curly quote."
+                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
+                explanation: L10n.text("engine.explain.straight_quotes")
             )
         }
     }
@@ -73,8 +73,8 @@ struct HyphenAsDashDetector: CrimeDetector {
                 type: .hyphenAsDash,
                 range: highlight,
                 in: evidence.text,
-                suggestedFix: "Replace with \(dashStyle.replacement)",
-                explanation: "This dash-like interruption is using hyphen-minus characters instead of a proper em-dash."
+                suggestedFix: L10n.format("engine.fix.replace_with", dashStyle.replacement),
+                explanation: L10n.text("engine.explain.hyphen_dash")
             )
         }
     }
@@ -93,8 +93,8 @@ struct FakeEllipsisDetector: CrimeDetector {
                 type: .fakeEllipsis,
                 range: $0.range,
                 in: evidence.text,
-                suggestedFix: "Replace with …",
-                explanation: "This run of periods should be replaced by the ellipsis glyph."
+                suggestedFix: L10n.format("engine.fix.replace_with", "…"),
+                explanation: L10n.text("engine.explain.fake_ellipsis")
             )
         }
     }
@@ -125,8 +125,8 @@ struct InconsistentSpacingDetector: CrimeDetector {
                 type: .inconsistentSpacing,
                 range: spacingRange,
                 in: evidence.text,
-                suggestedFix: "Normalize sentence spacing throughout the document.",
-                explanation: "This instance uses a different sentence-spacing pattern than the rest of the text."
+                suggestedFix: L10n.text("engine.fix.normalize_spacing"),
+                explanation: L10n.text("engine.explain.inconsistent_spacing")
             )
         }
     }

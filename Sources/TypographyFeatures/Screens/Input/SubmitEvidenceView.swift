@@ -26,8 +26,8 @@ public struct SubmitEvidenceView: View {
         public var id: String { rawValue }
         var label: String {
             switch self {
-            case .paste: "Paste / Type"
-            case .camera: "Camera (OCR)"
+            case .paste: L10n.text("input.method.paste")
+            case .camera: L10n.text("input.method.camera")
             }
         }
     }
@@ -37,7 +37,7 @@ public struct SubmitEvidenceView: View {
             AppColors.surfaceBase.ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Picker("Input Method", selection: $method) {
+                Picker(L10n.text("input.method"), selection: $method) {
                     ForEach(InputMethod.allCases) { item in
                         Text(item.label).tag(item)
                     }
@@ -63,7 +63,7 @@ public struct SubmitEvidenceView: View {
                         .focused($isEditorFocused)
                         .overlay(alignment: .topLeading) {
                             if text.isEmpty {
-                                Text("Paste or type your text here…")
+                                Text(L10n.text("input.placeholder"))
                                     .appTextStyle(.bodyLarge, color: AppColors.textTertiary.opacity(0.55))
                                     .padding(.top, 20)
                                     .padding(.leading, 18)
@@ -71,7 +71,7 @@ public struct SubmitEvidenceView: View {
                             }
                         }
                         .overlay(alignment: .bottomTrailing) {
-                            Text("\(text.count.formatted()) chars")
+                            Text(L10n.characterCountSummary(text.count))
                                 .appTextStyle(
                                     .monoSmall,
                                     color: text.count > 100_000 ? AppColors.accentCrimson : (text.count > 50_000 ? AppColors.accentGold : AppColors.textTertiary)
@@ -85,7 +85,7 @@ public struct SubmitEvidenceView: View {
                         } label: {
                             HStack(spacing: 8) {
                                 Image(systemName: "doc.on.clipboard")
-                                Text("Paste from Clipboard")
+                                Text(L10n.text("input.paste_from_clipboard"))
                             }
                             .appTextStyle(.labelLarge, color: AppColors.textInverse)
                             .padding(.horizontal, 24)
@@ -102,11 +102,11 @@ public struct SubmitEvidenceView: View {
             .padding(.horizontal, AppSpacing.lg)
             .padding(.top, 12)
         }
-        .navigationTitle("Submit Evidence")
+        .navigationTitle(L10n.text("input.title"))
         .appInlineNavigationTitle()
         .toolbar {
             ToolbarItem(placement: .appPrimaryAction) {
-                Button("Analyze") {
+                Button(L10n.text("input.analyze")) {
                     startAnalysis()
                 }
                 .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -115,7 +115,7 @@ public struct SubmitEvidenceView: View {
 
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("Done") {
+                Button(L10n.text("general.done")) {
                     isEditorFocused = false
                 }
                 .foregroundStyle(AppColors.accentCrimson)
@@ -127,7 +127,7 @@ public struct SubmitEvidenceView: View {
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "magnifyingglass")
-                    Text("Analyze Evidence")
+                    Text(L10n.text("input.analyze_evidence"))
                 }
                 .appTextStyle(.labelLarge, color: canAnalyze ? AppColors.textInverse : AppColors.textTertiary)
                 .frame(maxWidth: .infinity)
@@ -146,12 +146,12 @@ public struct SubmitEvidenceView: View {
                     Image(systemName: "camera.viewfinder")
                         .font(.system(size: 40, weight: .medium))
                         .foregroundStyle(AppColors.textTertiary)
-                    Text("Coming Soon")
+                    Text(L10n.text("general.coming_soon"))
                         .appTextStyle(.titleMedium)
-                    Text("Camera-based text recognition is coming in a future update. For now, paste or type your text to analyze.")
+                    Text(L10n.text("input.camera_message"))
                         .appTextStyle(.bodyMedium, color: AppColors.textSecondary)
                         .multilineTextAlignment(.center)
-                    Button("Got it") { cameraSheetVisible = false }
+                    Button(L10n.text("general.got_it")) { cameraSheetVisible = false }
                         .appTextStyle(.labelLarge, color: AppColors.textInverse)
                         .frame(maxWidth: .infinity)
                         .frame(height: 44)
@@ -167,7 +167,7 @@ public struct SubmitEvidenceView: View {
         .onChange(of: text) { _, newValue in
             if newValue.count > 100_000 {
                 text = String(newValue.prefix(100_000))
-                appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "Text was trimmed to 100,000 characters.", tone: .warning))
+                appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("input.trimmed_warning"), tone: .warning))
             }
         }
     }
@@ -178,7 +178,7 @@ public struct SubmitEvidenceView: View {
 
     private func pasteFromClipboard() {
         guard let snapshot = appState.platform.readClipboard(), !snapshot.text.isEmpty else {
-            appState.postToast(.init(symbolName: "doc.on.clipboard", message: "Clipboard is empty. Copy some text first.", tone: .warning))
+            appState.postToast(.init(symbolName: "doc.on.clipboard", message: L10n.text("input.clipboard_empty"), tone: .warning))
             return
         }
         text = snapshot.text
@@ -191,7 +191,7 @@ public struct SubmitEvidenceView: View {
     private func startAnalysis() {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
-            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: "No text to analyze. Paste or type some text first.", tone: .warning))
+            appState.postToast(.init(symbolName: "exclamationmark.triangle.fill", message: L10n.text("input.no_text"), tone: .warning))
             return
         }
 

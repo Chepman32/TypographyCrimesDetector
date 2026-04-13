@@ -80,9 +80,9 @@ public struct CrimeLabHomeView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 HeroActionCard(
-                    title: "New Investigation",
-                    subtitle: "Paste or type text to begin forensic typography analysis",
-                    badgeText: "PASTE · TYPE · ANALYZE"
+                    title: L10n.text("home.new_investigation"),
+                    subtitle: L10n.text("home.new_investigation_subtitle"),
+                    badgeText: L10n.text("home.new_investigation_badge")
                 ) {
                     appState.platform.emitHaptic(.primary)
                     openNewScan()
@@ -92,10 +92,10 @@ public struct CrimeLabHomeView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
-                        Text("Recent Cases")
+                        Text(L10n.text("home.recent_cases"))
                             .appTextStyle(.titleSmall)
                         Spacer()
-                        Button("See All →") {
+                        Button(L10n.text("home.see_all")) {
                             appState.selectedTab = .caseFiles
                         }
                         .appTextStyle(.labelMedium, color: AppColors.accentCrimson)
@@ -104,9 +104,9 @@ public struct CrimeLabHomeView: View {
                     if appState.reports.isEmpty {
                         EmptyStateView(
                             symbolName: "magnifyingglass",
-                            title: "No cases yet",
-                            subtitle: "Start your first investigation.",
-                            buttonTitle: "Begin Investigation",
+                            title: L10n.text("home.empty_title"),
+                            subtitle: L10n.text("home.empty_subtitle"),
+                            buttonTitle: L10n.text("home.begin_investigation"),
                             action: openNewScan
                         )
                     } else {
@@ -129,7 +129,7 @@ public struct CrimeLabHomeView: View {
             .padding(.bottom, 90)
         }
         .background(AppColors.surfaceBase.ignoresSafeArea())
-        .navigationTitle("Crime Lab")
+        .navigationTitle(L10n.text("app.tab.crime_lab"))
         .toolbar {
             ToolbarItem(placement: .appPrimaryAction) {
                 Button {
@@ -145,14 +145,14 @@ public struct CrimeLabHomeView: View {
     private var statsBar: some View {
         ViewThatFits {
             HStack(spacing: 12) {
-                statCapsule(symbol: "magnifyingglass", number: "\(appState.reports.count)", label: "Scans")
-                statCapsule(symbol: "handcuffs.fill", number: "\(appState.totalCrimeCount)", label: "Crimes")
-                statCapsule(symbol: "chart.bar.fill", number: appState.averageVerdictAbbreviation, label: "Avg")
+                statCapsule(symbol: "magnifyingglass", number: "\(appState.reports.count)", label: L10n.text("home.stat.scans"))
+                statCapsule(symbol: "handcuffs.fill", number: "\(appState.totalCrimeCount)", label: L10n.text("home.stat.crimes"))
+                statCapsule(symbol: "chart.bar.fill", number: appState.averageVerdictAbbreviation, label: L10n.text("home.stat.avg"))
             }
             VStack(spacing: 12) {
-                statCapsule(symbol: "magnifyingglass", number: "\(appState.reports.count)", label: "Scans")
-                statCapsule(symbol: "handcuffs.fill", number: "\(appState.totalCrimeCount)", label: "Crimes")
-                statCapsule(symbol: "chart.bar.fill", number: appState.averageVerdictAbbreviation, label: "Avg")
+                statCapsule(symbol: "magnifyingglass", number: "\(appState.reports.count)", label: L10n.text("home.stat.scans"))
+                statCapsule(symbol: "handcuffs.fill", number: "\(appState.totalCrimeCount)", label: L10n.text("home.stat.crimes"))
+                statCapsule(symbol: "chart.bar.fill", number: appState.averageVerdictAbbreviation, label: L10n.text("home.stat.avg"))
             }
         }
     }

@@ -29,8 +29,8 @@ enum WidowOrphanAnalyzer {
                 type: .widow,
                 range: last.range,
                 in: text,
-                suggestedFix: "Rewrite or reflow the paragraph to avoid a single-word final line.",
-                explanation: "The paragraph ends with an isolated final-line word, creating a visible widow."
+                suggestedFix: L10n.text("engine.fix.rewrite_widow"),
+                explanation: L10n.text("engine.explain.widow")
             )
         }
     }
@@ -53,8 +53,8 @@ enum WidowOrphanAnalyzer {
                         type: .orphan,
                         range: first.range,
                         in: text,
-                        suggestedFix: "Adjust surrounding copy to avoid a tiny carry-over line.",
-                        explanation: "This paragraph starts with a very short line after a long preceding paragraph, which likely reads as an orphan."
+                        suggestedFix: L10n.text("engine.fix.rewrite_orphan"),
+                        explanation: L10n.text("engine.explain.orphan")
                     )
                 )
             }

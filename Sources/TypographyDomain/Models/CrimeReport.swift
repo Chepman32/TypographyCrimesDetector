@@ -139,16 +139,16 @@ public struct CrimeReport: Identifiable, Codable, Hashable, Sendable {
                 return lhs.count > rhs.count
             }
             .prefix(4)
-            .map { "• \($0.crimeType.displayName): \($0.count) violation\($0.count == 1 ? "" : "s")" }
+            .map { L10n.shareOffenseSummary(crimeType: $0.crimeType, count: $0.count) }
             .joined(separator: "\n")
 
-        let offenses = topOffenses.isEmpty ? "• No crimes detected" : topOffenses
+        let offenses = topOffenses.isEmpty ? "• \(L10n.text("report.clean_body"))" : topOffenses
         return """
-        🔍 Typography Crime Report
-        Score: \(score)/100 — \(verdict.label)
-        \(crimeCount) crime\(crimeCount == 1 ? "" : "s") detected
+        🔍 \(L10n.text("share.report_heading"))
+        \(L10n.text("share.score_prefix")): \(score)/100 · \(verdict.label)
+        \(L10n.detectedIssuesSummary(crimeCount))
 
-        🚨 Worst offenses:
+        🚨 \(L10n.text("share.top_issues")):
         \(offenses)
 
         Analyzed with Typpo

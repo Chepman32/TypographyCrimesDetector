@@ -8,7 +8,7 @@ public struct AnalysisSessionView: View {
     let evidence: SubmittedEvidence
     @State private var state: SessionState = .loading
     @State private var progressValue: Double = 0.05
-    @State private var statusMessage = "Scanning for typographic evidence…"
+    @State private var statusMessage = L10n.text("analysis.status.scan")
     @State private var errorMessage: String?
 
     public init(evidence: SubmittedEvidence) {
@@ -55,12 +55,12 @@ public struct AnalysisSessionView: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 48))
                 .foregroundStyle(AppColors.accentGold)
-            Text("Analysis Failed")
+            Text(L10n.text("analysis.failed_title"))
                 .appTextStyle(.titleLarge)
-            Text(errorMessage ?? "Something went wrong during the forensic scan. Please try again.")
+            Text(errorMessage ?? L10n.text("analysis.failed_body"))
                 .appTextStyle(.bodyMedium, color: AppColors.textSecondary)
                 .multilineTextAlignment(.center)
-            Button("Retry") {
+            Button(L10n.text("general.retry")) {
                 state = .loading
                 Task { await runAnalysis() }
             }
@@ -77,14 +77,14 @@ public struct AnalysisSessionView: View {
     private func runAnalysis() async {
         appState.platform.playSound(.analysisStart)
         let statusMessages = [
-            "Scanning for typographic evidence…",
-            "Analyzing quotation mark integrity…",
-            "Checking dash authenticity…",
-            "Inspecting ellipsis legitimacy…",
-            "Measuring spatial consistency…",
-            "Hunting for widows and orphans…",
-            "Running Comic Sans facial recognition…",
-            "Compiling crime report…",
+            L10n.text("analysis.status.scan"),
+            L10n.text("analysis.status.quotes"),
+            L10n.text("analysis.status.dashes"),
+            L10n.text("analysis.status.ellipsis"),
+            L10n.text("analysis.status.spacing"),
+            L10n.text("analysis.status.layout"),
+            L10n.text("analysis.status.comic_sans"),
+            L10n.text("analysis.status.compiling"),
         ]
 
         var messageIndex = 0
@@ -100,7 +100,7 @@ public struct AnalysisSessionView: View {
                     statusMessage = statusMessages[messageIndex]
                 case .compiling:
                     progressValue = 0.96
-                    statusMessage = statusMessages.last ?? "Compiling crime report…"
+                    statusMessage = statusMessages.last ?? L10n.text("analysis.status.compiling")
                 }
             }
         }
@@ -158,7 +158,7 @@ public struct ForensicScanView: View {
                 VStack(spacing: 8) {
                     Text(statusMessage)
                         .appTextStyle(.bodyLarge, color: AppColors.textInverse.opacity(0.82))
-                    Text("Examining \(characterCount.formatted()) characters")
+                    Text(L10n.characterCountSummary(characterCount))
                         .appTextStyle(.monoSmall, color: AppColors.textInverse.opacity(0.45))
                 }
 

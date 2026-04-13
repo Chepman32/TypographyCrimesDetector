@@ -2,6 +2,16 @@ import XCTest
 @testable import TypographyDomain
 
 final class TypographyDomainTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        L10n.languageOverride = .en
+    }
+
+    override func tearDown() {
+        L10n.languageOverride = nil
+        super.tearDown()
+    }
+
     func testUserPreferencesToggleRoundTrip() {
         var preferences = UserPreferences.default
         XCTAssertTrue(preferences.isEnabled(.doubleSpace))

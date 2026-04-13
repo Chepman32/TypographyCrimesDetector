@@ -20,7 +20,7 @@ public struct SettingsView: View {
 
     public var body: some View {
         List {
-            Section("Detection Rules") {
+            Section(L10n.text("settings.detection_rules")) {
                 ForEach(CrimeType.allCases, id: \.self) { crime in
                     Toggle(isOn: Binding(
                         get: { appState.preferences.isEnabled(crime) },
@@ -37,8 +37,8 @@ public struct SettingsView: View {
                 }
             }
 
-            Section("Scoring") {
-                Picker("Scoring Strictness", selection: Binding(
+            Section(L10n.text("settings.scoring")) {
+                Picker(L10n.text("settings.strictness"), selection: Binding(
                     get: { appState.preferences.strictnessMode },
                     set: {
                         appState.preferences.strictnessMode = $0
@@ -51,7 +51,7 @@ public struct SettingsView: View {
                 }
                 .pickerStyle(.segmented)
 
-                Picker("Em-dash Style", selection: Binding(
+                Picker(L10n.text("settings.dash_style"), selection: Binding(
                     get: { appState.preferences.dashStyle },
                     set: {
                         appState.preferences.dashStyle = $0
@@ -65,8 +65,8 @@ public struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
 
-            Section("Appearance") {
-                Picker("Theme", selection: Binding(
+            Section(L10n.text("settings.appearance")) {
+                Picker(L10n.text("settings.theme"), selection: Binding(
                     get: { appState.preferences.theme },
                     set: {
                         appState.preferences.theme = $0
@@ -79,7 +79,7 @@ public struct SettingsView: View {
                 }
                 .pickerStyle(.segmented)
 
-                Toggle("Haptic Feedback", isOn: Binding(
+                Toggle(L10n.text("settings.haptics"), isOn: Binding(
                     get: { appState.preferences.hapticsEnabled },
                     set: {
                         appState.preferences.hapticsEnabled = $0
@@ -88,7 +88,7 @@ public struct SettingsView: View {
                 ))
                 .tint(AppColors.accentCrimson)
 
-                Toggle("Sound Effects", isOn: Binding(
+                Toggle(L10n.text("settings.sounds"), isOn: Binding(
                     get: { appState.preferences.soundsEnabled },
                     set: {
                         appState.preferences.soundsEnabled = $0
@@ -98,47 +98,47 @@ public struct SettingsView: View {
                 .tint(AppColors.accentCrimson)
             }
 
-            Section("Data") {
-                Button("Clear All Case Files", role: .destructive) {
+            Section(L10n.text("settings.data")) {
+                Button(L10n.text("settings.clear_all"), role: .destructive) {
                     showClearConfirmation = true
                 }
-                Button("Export All Reports") {
+                Button(L10n.text("settings.export_all")) {
                     appState.exportAllReports()
                 }
             }
 
-            Section("About") {
-                LabeledContent("Version", value: "1.0.0 (Build 1)")
-                Button("Typpo") {
+            Section(L10n.text("settings.about")) {
+                LabeledContent(L10n.text("settings.version"), value: "1.0.0 (Build 1)")
+                Button(L10n.text("settings.typpo")) {
                     appState.activeSheet = .about
                 }
-                Button("Rate on App Store") {
+                Button(L10n.text("settings.rate_app")) {
                     appState.platform.requestReview()
                     appState.platform.openURL(appState.releaseConfig.appStoreURL)
                 }
-                Button("Send Feedback") {
+                Button(L10n.text("settings.send_feedback")) {
                     if let mailURL = URL(string: "mailto:\(appState.releaseConfig.feedbackEmail)") {
                         appState.platform.openURL(mailURL)
                     }
                 }
-                Button("Privacy Policy") {
+                Button(L10n.text("settings.privacy")) {
                     appState.platform.openURL(appState.releaseConfig.privacyPolicyURL)
                 }
             }
 
-            Text("Made with ♥ and proper curly quotes.")
+            Text(L10n.text("settings.footer"))
                 .appTextStyle(.bodySmall, color: AppColors.textTertiary)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .listRowBackground(Color.clear)
         }
-        .navigationTitle("Settings")
-        .confirmationDialog("Clear all case files?", isPresented: $showClearConfirmation) {
-            Button("Delete All", role: .destructive) {
+        .navigationTitle(L10n.text("settings.title"))
+        .confirmationDialog(L10n.text("settings.clear_confirm_title"), isPresented: $showClearConfirmation) {
+            Button(L10n.text("settings.delete_all"), role: .destructive) {
                 appState.clearReports()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L10n.text("general.cancel"), role: .cancel) {}
         } message: {
-            Text("This action cannot be undone.")
+            Text(L10n.text("settings.clear_confirm_message"))
         }
         .sheet(item: Binding(get: { appState.activeSheet }, set: { appState.activeSheet = $0 })) { sheet in
             switch sheet {
@@ -157,13 +157,13 @@ private struct AboutView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("Typpo")
+                    Text(L10n.text("settings.typpo"))
                         .appTextStyle(.displayMedium)
-                    Text("Forensic analysis for your text. Paste any text. Get your Crime Score. Share the verdict.")
+                    Text(L10n.text("settings.about_body"))
                         .appTextStyle(.bodyLarge)
-                    Text("This build is fully offline and uses placeholder production wiring for web, policy, and store destinations until release values are replaced.")
+                    Text(L10n.text("settings.about_placeholder"))
                         .appTextStyle(.bodyMedium, color: AppColors.textSecondary)
-                    Text("Website: \(appState.releaseConfig.appWebsiteURL.absoluteString)")
+                    Text(L10n.format("settings.about_website", appState.releaseConfig.appWebsiteURL.absoluteString))
                         .appTextStyle(.monoSmall, color: AppColors.textSecondary)
                 }
                 .padding(24)
