@@ -151,7 +151,7 @@ public struct CrimeReport: Identifiable, Codable, Hashable, Sendable {
         🚨 Worst offenses:
         \(offenses)
 
-        Analyzed with Typography Crimes Detector
+        Analyzed with Typpo
         """
     }
 }

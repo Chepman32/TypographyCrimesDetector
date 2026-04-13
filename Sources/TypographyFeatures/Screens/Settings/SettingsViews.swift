@@ -109,7 +109,7 @@ public struct SettingsView: View {
 
             Section("About") {
                 LabeledContent("Version", value: "1.0.0 (Build 1)")
-                Button("Typography Crimes Detector") {
+                Button("Typpo") {
                     appState.activeSheet = .about
                 }
                 Button("Rate on App Store") {
@@ -157,7 +157,7 @@ private struct AboutView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("Typography Crimes Detector")
+                    Text("Typpo")
                         .appTextStyle(.displayMedium)
                     Text("Forensic analysis for your text. Paste any text. Get your Crime Score. Share the verdict.")
                         .appTextStyle(.bodyLarge)

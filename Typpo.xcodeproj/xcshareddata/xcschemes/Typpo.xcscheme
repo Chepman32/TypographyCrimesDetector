@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "T00100010001000100010001"
-               BuildableName = "TypographyCrimesDetector.app"
-               BlueprintName = "TypographyCrimesDetector"
-               ReferencedContainer = "container:TypographyCrimesDetector.xcodeproj">
+               BuildableName = "Typpo.app"
+               BlueprintName = "Typpo"
+               ReferencedContainer = "container:Typpo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "T00100010001000100010001"
-            BuildableName = "TypographyCrimesDetector.app"
-            BlueprintName = "TypographyCrimesDetector"
-            ReferencedContainer = "container:TypographyCrimesDetector.xcodeproj">
+            BuildableName = "Typpo.app"
+            BlueprintName = "Typpo"
+            ReferencedContainer = "container:Typpo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "T00100010001000100010001"
-            BuildableName = "TypographyCrimesDetector.app"
-            BlueprintName = "TypographyCrimesDetector"
-            ReferencedContainer = "container:TypographyCrimesDetector.xcodeproj">
+            BuildableName = "Typpo.app"
+            BlueprintName = "Typpo"
+            ReferencedContainer = "container:Typpo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

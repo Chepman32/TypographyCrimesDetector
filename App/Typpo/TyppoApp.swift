@@ -9,7 +9,7 @@ import UniformTypeIdentifiers
 import UIKit
 
 @main
-struct TypographyCrimesDetectorApp: App {
+struct TyppoApp: App {
     private let modelContainer: ModelContainer
     @State private var appState: TypographyAppState
 
@@ -19,7 +19,7 @@ struct TypographyCrimesDetectorApp: App {
         let container = try! ModelContainer(
             for: StoredCrimeReport.self,
             StoredCrimeInstance.self,
-            configurations: ModelConfiguration("TypographyCrimesDetector")
+            configurations: ModelConfiguration("Typpo")
         )
 
         let preferencesStore = LivePreferencesStore()
@@ -213,7 +213,7 @@ final class SwiftDataCrimeReportRepository: CrimeReportRepository {
 @MainActor
 final class LivePreferencesStore: UserPreferencesStore {
     private let defaults: UserDefaults
-    private let storageKey = "TypographyCrimesDetector.userPreferences"
+    private let storageKey = "Typpo.userPreferences"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -420,7 +420,7 @@ private enum FontRegistration {
         let available = Set(UIFont.familyNames)
         let missing = expectedFamilies.filter { !available.contains($0) }
         if !missing.isEmpty {
-            print("TypographyCrimesDetector font fallback active for: \(missing.joined(separator: ", "))")
+            print("Typpo font fallback active for: \(missing.joined(separator: ", "))")
         }
     }
 }
