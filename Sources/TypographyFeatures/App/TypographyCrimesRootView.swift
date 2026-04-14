@@ -18,7 +18,8 @@ public struct TypographyCrimesRootView: View {
                         appState.launchPhase = appState.preferences.hasCompletedOnboarding ? .main : .onboarding
                     }
                 case .onboarding:
-                    OnboardingFlowView {
+                    OnboardingFlowView { selections in
+                        appState.applyOnboardingSelections(selections)
                         appState.completeOnboarding()
                     }
                 case .main:
