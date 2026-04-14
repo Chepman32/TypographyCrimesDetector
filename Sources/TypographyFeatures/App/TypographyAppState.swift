@@ -8,6 +8,7 @@ import TypographyEngine
 public final class TypographyAppState {
     public private(set) var reports: [CrimeReport] = []
     public var preferences: UserPreferences
+    public var onboardingThemePreview: AppThemePreference?
     public var selectedTab: AppTab = .crimeLab
     public var launchPhase: LaunchPhase = .splash
     public var toast: ToastMessage?
@@ -48,6 +49,10 @@ public final class TypographyAppState {
         preferences.language?.locale ?? .autoupdatingCurrent
     }
 
+    public var activeThemePreference: AppThemePreference {
+        onboardingThemePreview ?? preferences.theme
+    }
+
     public func applyLanguagePreference() {
         L10n.setLanguageOverride(preferences.language)
     }
@@ -71,6 +76,7 @@ public final class TypographyAppState {
 
     public func completeOnboarding() {
         preferences.hasCompletedOnboarding = true
+        onboardingThemePreview = nil
         persistPreferences()
         launchPhase = .main
     }
@@ -128,6 +134,10 @@ public final class TypographyAppState {
         preferences.language = language
         L10n.setLanguageOverride(language)
         persistPreferences()
+    }
+
+    public func previewOnboardingTheme(_ theme: AppThemePreference) {
+        onboardingThemePreview = theme
     }
 
     public func updateRule(_ type: CrimeType, enabled: Bool) {

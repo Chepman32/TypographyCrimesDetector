@@ -59,6 +59,7 @@ public struct SplashView: View {
 // MARK: - Onboarding Questionnaire
 
 public struct OnboardingFlowView: View {
+    public let onThemeChange: (AppThemePreference) -> Void
     public let onComplete: (OnboardingSelections) -> Void
     @State private var page = 0
     @State private var selections = OnboardingSelections()
@@ -68,7 +69,11 @@ public struct OnboardingFlowView: View {
 
     private let totalPages = 8
 
-    public init(onComplete: @escaping (OnboardingSelections) -> Void) {
+    public init(
+        onThemeChange: @escaping (AppThemePreference) -> Void = { _ in },
+        onComplete: @escaping (OnboardingSelections) -> Void
+    ) {
+        self.onThemeChange = onThemeChange
         self.onComplete = onComplete
     }
 
@@ -364,6 +369,7 @@ public struct OnboardingFlowView: View {
                         withAnimation(AppMotion.snappy) {
                             selections.theme = theme
                         }
+                        onThemeChange(theme)
                     }
                 }
             }

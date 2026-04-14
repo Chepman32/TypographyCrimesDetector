@@ -93,6 +93,29 @@ final class TypographyFeaturesTests: XCTestCase {
         }
     }
 
+    func testOnboardingThemePreviewOverridesUntilCompletion() {
+        let state = TypographyAppState(repository: MockRepository(), preferencesStore: MockPreferencesStore(), platform: MockPlatform())
+
+        XCTAssertEqual(state.activeThemePreference, .system)
+
+        state.previewOnboardingTheme(.light)
+        XCTAssertEqual(state.activeThemePreference, .light)
+
+        state.applyOnboardingSelections(
+            OnboardingSelections(
+                role: nil,
+                selectedCrimes: [],
+                strictness: .standard,
+                theme: .light,
+                demoText: ""
+            )
+        )
+        state.completeOnboarding()
+
+        XCTAssertNil(state.onboardingThemePreview)
+        XCTAssertEqual(state.activeThemePreference, .light)
+    }
+
     func testAppStatePersistsManualLanguageSelection() {
         let prefsStore = MockPreferencesStore()
         let state = TypographyAppState(repository: MockRepository(), preferencesStore: prefsStore, platform: MockPlatform())

@@ -40,7 +40,7 @@ struct TyppoApp: App {
     var body: some Scene {
         WindowGroup {
             TypographyCrimesRootView(appState: appState)
-                .preferredColorScheme(colorScheme(for: appState.preferences.theme))
+                .preferredColorScheme(colorScheme(for: appState.activeThemePreference))
                 .environment(\.locale, appState.interfaceLocale)
         }
         .modelContainer(modelContainer)
