@@ -25,22 +25,23 @@ struct TyppoApp: App {
         let preferencesStore = LivePreferencesStore()
         let platform = LivePlatformBridge(preferencesStore: preferencesStore)
         let repository = SwiftDataCrimeReportRepository(modelContext: container.mainContext)
+        let appState = TypographyAppState(
+            repository: repository,
+            preferencesStore: preferencesStore,
+            platform: platform,
+            releaseConfig: .placeholder
+        )
+        appState.applyLanguagePreference()
 
         self.modelContainer = container
-        _appState = State(
-            initialValue: TypographyAppState(
-                repository: repository,
-                preferencesStore: preferencesStore,
-                platform: platform,
-                releaseConfig: .placeholder
-            )
-        )
+        _appState = State(initialValue: appState)
     }
 
     var body: some Scene {
         WindowGroup {
             TypographyCrimesRootView(appState: appState)
                 .preferredColorScheme(colorScheme(for: appState.preferences.theme))
+                .environment(\.locale, appState.interfaceLocale)
         }
         .modelContainer(modelContainer)
     }

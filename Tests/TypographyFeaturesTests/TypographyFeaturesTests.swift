@@ -72,6 +72,23 @@ final class TypographyFeaturesTests: XCTestCase {
 
         XCTAssertEqual(state.averageVerdictAbbreviation, "Msd.")
     }
+
+    func testAppStatePersistsManualLanguageSelection() {
+        let prefsStore = MockPreferencesStore()
+        let state = TypographyAppState(repository: MockRepository(), preferencesStore: prefsStore, platform: MockPlatform())
+
+        state.updateLanguage(.fr)
+
+        XCTAssertEqual(state.preferences.language, .fr)
+        XCTAssertEqual(prefsStore.savedPreferences?.language, .fr)
+        XCTAssertEqual(L10n.languageOverride, .fr)
+
+        state.updateLanguage(nil)
+
+        XCTAssertNil(state.preferences.language)
+        XCTAssertNil(prefsStore.savedPreferences?.language)
+        XCTAssertNil(L10n.languageOverride)
+    }
 }
 
 @MainActor

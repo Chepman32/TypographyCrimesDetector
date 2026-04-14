@@ -79,6 +79,20 @@ public struct SettingsView: View {
                 }
                 .pickerStyle(.segmented)
 
+                Picker(L10n.text("settings.language"), selection: Binding(
+                    get: { appState.preferences.language },
+                    set: { appState.updateLanguage($0) }
+                )) {
+                    Text(L10n.text("settings.language.system"))
+                        .tag(Optional<AppLanguage>.none)
+
+                    ForEach(AppLanguage.allCases, id: \.self) { language in
+                        Text(language.displayName)
+                            .tag(Optional(language))
+                    }
+                }
+                .pickerStyle(.menu)
+
                 Toggle(L10n.text("settings.haptics"), isOn: Binding(
                     get: { appState.preferences.hapticsEnabled },
                     set: {

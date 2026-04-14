@@ -44,9 +44,18 @@ public final class TypographyAppState {
         }
     }
 
+    public var interfaceLocale: Locale {
+        preferences.language?.locale ?? .autoupdatingCurrent
+    }
+
+    public func applyLanguagePreference() {
+        L10n.setLanguageOverride(preferences.language)
+    }
+
     public func bootstrap() {
         guard !hasBootstrapped else { return }
         hasBootstrapped = true
+        applyLanguagePreference()
         refreshReports()
 
         Task {
@@ -119,6 +128,12 @@ public final class TypographyAppState {
 
     public func persistPreferences() {
         preferencesStore.save(preferences)
+    }
+
+    public func updateLanguage(_ language: AppLanguage?) {
+        preferences.language = language
+        L10n.setLanguageOverride(language)
+        persistPreferences()
     }
 
     public func updateRule(_ type: CrimeType, enabled: Bool) {

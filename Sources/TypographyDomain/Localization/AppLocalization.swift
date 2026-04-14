@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AppLanguage: String, CaseIterable, Sendable {
+public enum AppLanguage: String, CaseIterable, Codable, Hashable, Sendable {
     case en
     case zhHans = "zh-Hans"
     case ja
@@ -33,6 +33,44 @@ public enum AppLanguage: String, CaseIterable, Sendable {
 
     public static var current: AppLanguage {
         resolve(from: Locale.preferredLanguages + [Locale.autoupdatingCurrent.identifier])
+    }
+
+    public var locale: Locale {
+        Locale(identifier: rawValue.replacingOccurrences(of: "-", with: "_"))
+    }
+
+    public var displayName: String {
+        switch self {
+        case .en: "English"
+        case .zhHans: "简体中文"
+        case .ja: "日本語"
+        case .ko: "한국어"
+        case .de: "Deutsch"
+        case .fr: "Français"
+        case .es: "Español"
+        case .ptBR: "Português (Brasil)"
+        case .ar: "العربية"
+        case .ru: "Русский"
+        case .it: "Italiano"
+        case .nl: "Nederlands"
+        case .tr: "Türkçe"
+        case .th: "ไทย"
+        case .vi: "Tiếng Việt"
+        case .id: "Bahasa Indonesia"
+        case .pl: "Polski"
+        case .uk: "Українська"
+        case .hi: "हिन्दी"
+        case .he: "עברית"
+        case .sv: "Svenska"
+        case .no: "Norsk"
+        case .da: "Dansk"
+        case .fi: "Suomi"
+        case .cs: "Čeština"
+        case .hu: "Magyar"
+        case .ro: "Română"
+        case .el: "Ελληνικά"
+        case .ms: "Bahasa Melayu"
+        }
     }
 
     private static func resolve(from identifiers: [String]) -> AppLanguage {
@@ -155,6 +193,11 @@ public enum L10n {
     nonisolated(unsafe) static var languageOverride: AppLanguage?
 
     public static var currentLanguage: AppLanguage { languageOverride ?? AppLanguage.current }
+    public static var currentLocale: Locale { currentLanguage.locale }
+
+    public static func setLanguageOverride(_ language: AppLanguage?) {
+        languageOverride = language
+    }
 
     public static func text(_ key: String) -> String {
         let pack = pack(for: currentLanguage)
@@ -164,7 +207,7 @@ public enum L10n {
     public static func format(_ key: String, _ arguments: CVarArg...) -> String {
         let template = text(key)
         return withVaList(arguments) { pointer in
-            NSString(format: template, locale: Locale.autoupdatingCurrent, arguments: pointer) as String
+            NSString(format: template, locale: currentLocale, arguments: pointer) as String
         }
     }
 
@@ -258,7 +301,7 @@ public enum L10n {
     }
 
     public static func number(_ value: Int) -> String {
-        value.formatted(.number.locale(Locale.autoupdatingCurrent))
+        value.formatted(.number.locale(currentLocale))
     }
 
     static func pack(for language: AppLanguage) -> LocalizationPack {
@@ -483,6 +526,8 @@ public enum L10n {
             "settings.dash_style": "Em-dash Style",
             "settings.appearance": "Appearance",
             "settings.theme": "Theme",
+            "settings.language": "Language",
+            "settings.language.system": "System",
             "settings.haptics": "Haptic Feedback",
             "settings.sounds": "Sound Effects",
             "settings.data": "Data",
@@ -758,8 +803,7 @@ public enum L10n {
         crimeTypeDescriptions: [CrimeType: String],
         articles: [CrimeType: LocalizedArticleCopy] = [:]
     ) -> LocalizationPack {
-        let onboardingUI = onboardingOverrides(for: language)
-        let localizedUI = ui.merging(onboardingUI) { _, new in new }
+        let localizedUI = ui.merging(uiOverrides(for: language)) { _, new in new }
 
         return LocalizationPack(
             ui: englishPack.ui.merging(localizedUI) { _, new in new },
@@ -775,6 +819,157 @@ public enum L10n {
             localizedCrimeTypeDescriptionKeys: Set(crimeTypeDescriptions.keys),
             localizedArticleKeys: Set(articles.keys)
         )
+    }
+
+    private static func uiOverrides(for language: AppLanguage) -> [String: String] {
+        onboardingOverrides(for: language).merging(settingsOverrides(for: language)) { _, new in new }
+    }
+
+    private static func settingsOverrides(for language: AppLanguage) -> [String: String] {
+        switch language {
+        case .en:
+            [:]
+        case .zhHans:
+            [
+                "settings.language": "语言",
+                "settings.language.system": "跟随系统",
+            ]
+        case .ja:
+            [
+                "settings.language": "言語",
+                "settings.language.system": "システム",
+            ]
+        case .ko:
+            [
+                "settings.language": "언어",
+                "settings.language.system": "시스템",
+            ]
+        case .de:
+            [
+                "settings.language": "Sprache",
+                "settings.language.system": "System",
+            ]
+        case .fr:
+            [
+                "settings.language": "Langue",
+                "settings.language.system": "Système",
+            ]
+        case .es:
+            [
+                "settings.language": "Idioma",
+                "settings.language.system": "Sistema",
+            ]
+        case .ptBR:
+            [
+                "settings.language": "Idioma",
+                "settings.language.system": "Sistema",
+            ]
+        case .ar:
+            [
+                "settings.language": "اللغة",
+                "settings.language.system": "النظام",
+            ]
+        case .ru:
+            [
+                "settings.language": "Язык",
+                "settings.language.system": "Система",
+            ]
+        case .it:
+            [
+                "settings.language": "Lingua",
+                "settings.language.system": "Sistema",
+            ]
+        case .nl:
+            [
+                "settings.language": "Taal",
+                "settings.language.system": "Systeem",
+            ]
+        case .tr:
+            [
+                "settings.language": "Dil",
+                "settings.language.system": "Sistem",
+            ]
+        case .th:
+            [
+                "settings.language": "ภาษา",
+                "settings.language.system": "ตามระบบ",
+            ]
+        case .vi:
+            [
+                "settings.language": "Ngôn ngữ",
+                "settings.language.system": "Theo hệ thống",
+            ]
+        case .id:
+            [
+                "settings.language": "Bahasa",
+                "settings.language.system": "Sistem",
+            ]
+        case .pl:
+            [
+                "settings.language": "Język",
+                "settings.language.system": "System",
+            ]
+        case .uk:
+            [
+                "settings.language": "Мова",
+                "settings.language.system": "Система",
+            ]
+        case .hi:
+            [
+                "settings.language": "भाषा",
+                "settings.language.system": "सिस्टम",
+            ]
+        case .he:
+            [
+                "settings.language": "שפה",
+                "settings.language.system": "מערכת",
+            ]
+        case .sv:
+            [
+                "settings.language": "Språk",
+                "settings.language.system": "System",
+            ]
+        case .no:
+            [
+                "settings.language": "Språk",
+                "settings.language.system": "System",
+            ]
+        case .da:
+            [
+                "settings.language": "Sprog",
+                "settings.language.system": "System",
+            ]
+        case .fi:
+            [
+                "settings.language": "Kieli",
+                "settings.language.system": "Järjestelmä",
+            ]
+        case .cs:
+            [
+                "settings.language": "Jazyk",
+                "settings.language.system": "Systém",
+            ]
+        case .hu:
+            [
+                "settings.language": "Nyelv",
+                "settings.language.system": "Rendszer",
+            ]
+        case .ro:
+            [
+                "settings.language": "Limbă",
+                "settings.language.system": "Sistem",
+            ]
+        case .el:
+            [
+                "settings.language": "Γλώσσα",
+                "settings.language.system": "Σύστημα",
+            ]
+        case .ms:
+            [
+                "settings.language": "Bahasa",
+                "settings.language.system": "Sistem",
+            ]
+        }
     }
 
     static func uiMap(_ source: String) -> [String: String] {

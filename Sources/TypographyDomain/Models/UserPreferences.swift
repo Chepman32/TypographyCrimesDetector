@@ -4,6 +4,7 @@ public struct UserPreferences: Codable, Hashable, Sendable {
     public var ruleToggles: [CrimeType: Bool]
     public var strictnessMode: StrictnessMode
     public var theme: AppThemePreference
+    public var language: AppLanguage?
     public var hapticsEnabled: Bool
     public var soundsEnabled: Bool
     public var dashStyle: DashStylePreference
@@ -13,6 +14,7 @@ public struct UserPreferences: Codable, Hashable, Sendable {
         ruleToggles: [CrimeType: Bool] = [:],
         strictnessMode: StrictnessMode = .standard,
         theme: AppThemePreference = .system,
+        language: AppLanguage? = nil,
         hapticsEnabled: Bool = true,
         soundsEnabled: Bool = true,
         dashStyle: DashStylePreference = .spaced,
@@ -21,6 +23,7 @@ public struct UserPreferences: Codable, Hashable, Sendable {
         self.ruleToggles = ruleToggles
         self.strictnessMode = strictnessMode
         self.theme = theme
+        self.language = language
         self.hapticsEnabled = hapticsEnabled
         self.soundsEnabled = soundsEnabled
         self.dashStyle = dashStyle
