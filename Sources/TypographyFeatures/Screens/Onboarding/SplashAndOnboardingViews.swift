@@ -641,9 +641,9 @@ public enum OnboardingCrimeChoice: String, CaseIterable, Hashable {
 
     var wrongExample: String {
         switch self {
-        case .straightQuotes: #""Hello""#
+        case .straightQuotes: L10n.text("onboarding.choice.straight_quotes.wrong")
         case .fakeEllipsis: "..."
-        case .doubleSpace: "word  word"
+        case .doubleSpace: L10n.text("onboarding.choice.double_space.wrong")
         case .hyphenAsDash: "2020-2024"
         case .comicSans: "Comic Sans"
         }
@@ -651,11 +651,11 @@ public enum OnboardingCrimeChoice: String, CaseIterable, Hashable {
 
     var rightExample: String {
         switch self {
-        case .straightQuotes: "\u{201C}Hello\u{201D}"
+        case .straightQuotes: L10n.text("onboarding.choice.straight_quotes.right")
         case .fakeEllipsis: "\u{2026}"
-        case .doubleSpace: "word word"
+        case .doubleSpace: L10n.text("onboarding.choice.double_space.right")
         case .hyphenAsDash: "2020\u{2013}2024"
-        case .comicSans: "Literally anything else"
+        case .comicSans: L10n.text("onboarding.choice.comic_sans.right")
         }
     }
 }
@@ -991,8 +991,8 @@ private struct OnboardingWelcomeArtwork: View {
             VStack(spacing: 12) {
                 // Sample text with underlines
                 VStack(alignment: .leading, spacing: 8) {
-                    textRow(#"She said "hello"..."#, crimeAt: 10...16, showCrime: revealCrimes)
-                    textRow("and left -- quickly.", crimeAt: 9...10, showCrime: revealCrimes)
+                    markedTextRow("onboarding.welcome.artwork.line1", showCrime: revealCrimes)
+                    markedTextRow("onboarding.welcome.artwork.line2", showCrime: revealCrimes)
                 }
                 .padding(16)
                 .background(AppColors.surfaceSecondary, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
@@ -1040,5 +1040,29 @@ private struct OnboardingWelcomeArtwork: View {
                     .transition(.opacity)
             }
         }
+    }
+
+    private func markedTextRow(_ key: String, showCrime: Bool) -> some View {
+        let markedText = L10n.text(key)
+        let startMarker = "[["
+        let endMarker = "]]"
+
+        guard
+            let start = markedText.range(of: startMarker),
+            let end = markedText.range(of: endMarker),
+            start.upperBound <= end.lowerBound
+        else {
+            return AnyView(textRow(markedText, crimeAt: 0...0, showCrime: false))
+        }
+
+        let prefix = String(markedText[..<start.lowerBound])
+        let highlighted = String(markedText[start.upperBound..<end.lowerBound])
+        let suffix = String(markedText[end.upperBound...])
+        let displayText = prefix + highlighted + suffix
+
+        let lowerBound = prefix.count
+        let upperBound = max(lowerBound, lowerBound + highlighted.count - 1)
+
+        return AnyView(textRow(displayText, crimeAt: lowerBound...upperBound, showCrime: showCrime))
     }
 }
