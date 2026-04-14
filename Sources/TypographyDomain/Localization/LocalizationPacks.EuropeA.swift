@@ -2,6 +2,7 @@ import Foundation
 
 extension L10n {
     static let germanPack = makePack(
+        language: .de,
         ui: uiMap("""
 app.tab.crime_lab|Kriminallabor
 app.tab.case_files|Falldateien
@@ -272,6 +273,7 @@ trademarkSymbol|Fallback-Notation wird anstelle von ©, ® oder ™ verwendet.
     )
 
     static let frenchPack = makePack(
+        language: .fr,
         ui: uiMap("""
 app.tab.crime_lab|Laboratoire criminel
 app.tab.case_files|Dossiers
@@ -542,6 +544,7 @@ trademarkSymbol|Notation de secours utilisée à la place de ©, ® ou ™.
     )
 
     static let spanishPack = makePack(
+        language: .es,
         ui: uiMap("""
 app.tab.crime_lab|Laboratorio criminalístico
 app.tab.case_files|Archivos de casos
@@ -812,6 +815,7 @@ trademarkSymbol|Se utiliza notación alternativa en lugar de ©, ® o ™.
     )
 
     static let brazilianPortuguesePack = makePack(
+        language: .ptBR,
         ui: uiMap("""
 app.tab.crime_lab|Laboratório Criminal
 app.tab.case_files|Arquivos de caso
@@ -1082,6 +1086,7 @@ trademarkSymbol|Notação substituta usada em vez de ©, ® ou ™.
     )
 
     static let italianPack = makePack(
+        language: .it,
         ui: uiMap("""
 app.tab.crime_lab|Laboratorio criminale
 app.tab.case_files|Documenti
@@ -1352,6 +1357,7 @@ trademarkSymbol|Notazione di fallback utilizzata al posto di ©, ® o ™.
     )
 
     static let dutchPack = makePack(
+        language: .nl,
         ui: uiMap("""
 app.tab.crime_lab|Misdaadlab
 app.tab.case_files|Casebestanden

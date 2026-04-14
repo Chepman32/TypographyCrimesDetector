@@ -2,6 +2,7 @@ import Foundation
 
 extension L10n {
     static let arabicPack = makePack(
+        language: .ar,
         ui: uiMap("""
 app.tab.crime_lab|مختبر الجريمة
 app.tab.case_files|ملفات الحالة
@@ -272,6 +273,7 @@ trademarkSymbol|يتم استخدام الترميز الاحتياطي بدلا
     )
 
     static let hindiPack = makePack(
+        language: .hi,
         ui: uiMap("""
 app.tab.crime_lab|क्राइम लैब
 app.tab.case_files|केस फ़ाइलें
@@ -542,6 +544,7 @@ trademarkSymbol|©, ®, या ™ के बजाय फ़ॉलबैक न
     )
 
     static let hebrewPack = makePack(
+        language: .he,
         ui: uiMap("""
 app.tab.crime_lab|מעבדת פשע
 app.tab.case_files|קבצי מקרה
@@ -812,6 +815,7 @@ trademarkSymbol|השימוש בסימון החלפה במקום ©, ® או ™.
     )
 
     static let thaiPack = makePack(
+        language: .th,
         ui: uiMap("""
 app.tab.crime_lab|ห้องปฏิบัติการอาชญากรรม
 app.tab.case_files|ไฟล์เคส
@@ -1082,6 +1086,7 @@ trademarkSymbol|สัญลักษณ์ทางเลือกที่ใ�
     )
 
     static let vietnamesePack = makePack(
+        language: .vi,
         ui: uiMap("""
 app.tab.crime_lab|Phòng thí nghiệm tội phạm
 app.tab.case_files|Hồ sơ vụ án
@@ -1352,6 +1357,7 @@ trademarkSymbol|Ký hiệu dự phòng được sử dụng thay cho ©, ® ho�
     )
 
     static let indonesianPack = makePack(
+        language: .id,
         ui: uiMap("""
 app.tab.crime_lab|Laboratorium Kejahatan
 app.tab.case_files|Berkas Kasus
@@ -1622,6 +1628,7 @@ trademarkSymbol|Notasi cadangan digunakan sebagai pengganti ©, ®, atau ™.
     )
 
     static let malayPack = makePack(
+        language: .ms,
         ui: uiMap("""
 app.tab.crime_lab|Makmal Jenayah
 app.tab.case_files|Fail Kes

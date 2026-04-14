@@ -2,6 +2,7 @@ import Foundation
 
 extension L10n {
     static let simplifiedChinesePack = makePack(
+        language: .zhHans,
         ui: uiMap("""
 app.tab.crime_lab|犯罪实验室
 app.tab.case_files|案例档案
@@ -272,6 +273,7 @@ trademarkSymbol|使用备用符号代替 ©、® 或 ™。
     )
 
     static let japanesePack = makePack(
+        language: .ja,
         ui: uiMap("""
 app.tab.crime_lab|犯罪研究所
 app.tab.case_files|事件ファイル
@@ -542,6 +544,7 @@ trademarkSymbol|©、®、™ の代わりに使用される代替表記。
     )
 
     static let koreanPack = makePack(
+        language: .ko,
         ui: uiMap("""
 app.tab.crime_lab|범죄수사대
 app.tab.case_files|사례 파일

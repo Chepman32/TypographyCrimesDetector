@@ -2,6 +2,7 @@ import Foundation
 
 extension L10n {
     static let turkishPack = makePack(
+        language: .tr,
         ui: uiMap("""
 app.tab.crime_lab|Suç Laboratuvarı
 app.tab.case_files|Vaka Dosyaları
@@ -272,6 +273,7 @@ trademarkSymbol|©, ® veya ™ yerine geri dönüş gösterimi kullanıldı.
     )
 
     static let russianPack = makePack(
+        language: .ru,
         ui: uiMap("""
 app.tab.crime_lab|Криминальная лаборатория
 app.tab.case_files|Дело
@@ -542,6 +544,7 @@ trademarkSymbol|Резервное обозначение используетс
     )
 
     static let polishPack = makePack(
+        language: .pl,
         ui: uiMap("""
 app.tab.crime_lab|Laboratorium kryminalistyczne
 app.tab.case_files|Akta sprawy
@@ -812,6 +815,7 @@ trademarkSymbol|Zapis zastępczy używany zamiast ©, ® lub ™.
     )
 
     static let ukrainianPack = makePack(
+        language: .uk,
         ui: uiMap("""
 app.tab.crime_lab|Лабораторія злочинів
 app.tab.case_files|Досьє
@@ -1082,6 +1086,7 @@ trademarkSymbol|Резервна нотація, яка використовує
     )
 
     static let swedishPack = makePack(
+        language: .sv,
         ui: uiMap("""
 app.tab.crime_lab|Crime Lab
 app.tab.case_files|Casefiler
@@ -1352,6 +1357,7 @@ trademarkSymbol|Reservnotation används istället för ©, ® eller ™.
     )
 
     static let norwegianPack = makePack(
+        language: .no,
         ui: uiMap("""
 app.tab.crime_lab|Crime Lab
 app.tab.case_files|Saksfiler
@@ -1622,6 +1628,7 @@ trademarkSymbol|Reparasjonsnotasjon brukes i stedet for ©, ® eller ™.
     )
 
     static let danishPack = makePack(
+        language: .da,
         ui: uiMap("""
 app.tab.crime_lab|Crime Lab
 app.tab.case_files|Sagsfiler
@@ -1892,6 +1899,7 @@ trademarkSymbol|Fallback-notation brugt i stedet for ©, ® eller ™.
     )
 
     static let finnishPack = makePack(
+        language: .fi,
         ui: uiMap("""
 app.tab.crime_lab|Rikoslaboratorio
 app.tab.case_files|Tapaustiedostot
@@ -2162,6 +2170,7 @@ trademarkSymbol|Varamerkintä käytetty ©, ® tai ™ sijasta.
     )
 
     static let czechPack = makePack(
+        language: .cs,
         ui: uiMap("""
 app.tab.crime_lab|Kriminální laboratoř
 app.tab.case_files|Soubory případů
@@ -2432,6 +2441,7 @@ trademarkSymbol|Namísto ©, ® nebo ™ se používá záložní notace.
     )
 
     static let hungarianPack = makePack(
+        language: .hu,
         ui: uiMap("""
 app.tab.crime_lab|Crime Lab
 app.tab.case_files|Ügyfájlok
@@ -2702,6 +2712,7 @@ trademarkSymbol|A ©, ® vagy ™ helyett használt tartalék jelölés.
     )
 
     static let romanianPack = makePack(
+        language: .ro,
         ui: uiMap("""
 app.tab.crime_lab|Laborator criminal
 app.tab.case_files|Fișiere de caz
@@ -2972,6 +2983,7 @@ trademarkSymbol|Se folosește notația de rezervă în loc de ©, ® sau ™.
     )
 
     static let greekPack = makePack(
+        language: .el,
         ui: uiMap("""
 app.tab.crime_lab|Crime Lab
 app.tab.case_files|Αρχεία υπόθεσης
