@@ -456,6 +456,10 @@ public enum L10n {
             "onboarding.social.author1": "Sarah K., Copy Editor",
             "onboarding.social.quote2": "I run every client deliverable through Typpo before sending. It\u{2019}s saved me from embarrassment more than once.",
             "onboarding.social.author2": "Marcus T., Brand Designer",
+            "onboarding.social.quote3": "Typpo caught three spacing inconsistencies in a launch email five minutes before send. That alone sold me.",
+            "onboarding.social.author3": "Alicia M., Lifecycle Marketer",
+            "onboarding.social.quote4": "The dash and prime-mark checks are surprisingly useful when you're reviewing specs and dimensions all day.",
+            "onboarding.social.author4": "Daniel R., Product Designer",
             "onboarding.strictness.title": "How strict\nshould we be?",
             "onboarding.strictness.subtitle": "You can always adjust this in Settings.",
             "onboarding.strictness.lenient.tag": "Just the big stuff",
@@ -822,7 +826,9 @@ public enum L10n {
     }
 
     private static func uiOverrides(for language: AppLanguage) -> [String: String] {
-        onboardingOverrides(for: language).merging(settingsOverrides(for: language)) { _, new in new }
+        onboardingOverrides(for: language)
+            .merging(settingsOverrides(for: language)) { _, new in new }
+            .merging(socialProofOverrides(for: language)) { _, new in new }
     }
 
     private static func settingsOverrides(for language: AppLanguage) -> [String: String] {
@@ -968,6 +974,209 @@ public enum L10n {
             [
                 "settings.language": "Bahasa",
                 "settings.language.system": "Sistem",
+            ]
+        }
+    }
+
+    private static func socialProofOverrides(for language: AppLanguage) -> [String: String] {
+        switch language {
+        case .en:
+            [:]
+        case .zhHans:
+            [
+                "onboarding.social.quote3": "Typpo 在发送前 5 分钟帮我抓出了上线邮件里的三处空格问题，光这一点我就离不开它了。",
+                "onboarding.social.author3": "Alicia M.，用户生命周期营销",
+                "onboarding.social.quote4": "如果你整天都在看规格和尺寸，Typpo 对破折号和撇符号的检查真的特别有用。",
+                "onboarding.social.author4": "Daniel R.，产品设计师",
+            ]
+        case .ja:
+            [
+                "onboarding.social.quote3": "配信5分前のローンチメールで、Typpo がスペースの不揃いを3か所見つけてくれました。それだけで使い続ける理由になります。",
+                "onboarding.social.author3": "Alicia M.、ライフサイクルマーケター",
+                "onboarding.social.quote4": "仕様書や寸法表記を一日中見ていると、ダッシュとプライム記号のチェックが想像以上に役立ちます。",
+                "onboarding.social.author4": "Daniel R.、プロダクトデザイナー",
+            ]
+        case .ko:
+            [
+                "onboarding.social.quote3": "발송 5분 전, Typpo가 런치 메일 안의 띄어쓰기 불일치 세 군데를 잡아줬어요. 그것만으로도 계속 쓸 이유가 충분했습니다.",
+                "onboarding.social.author3": "Alicia M., 라이프사이클 마케터",
+                "onboarding.social.quote4": "하루 종일 스펙과 치수를 검토하는 일을 하면 대시와 프라임 기호 체크가 생각보다 훨씬 유용합니다.",
+                "onboarding.social.author4": "Daniel R., 프로덕트 디자이너",
+            ]
+        case .de:
+            [
+                "onboarding.social.quote3": "Typpo hat fünf Minuten vor dem Versand drei Abstandsfehler in einer Launch-Mail gefunden. Allein dafür hat es sich für mich schon gelohnt.",
+                "onboarding.social.author3": "Alicia M., Lifecycle-Marketerin",
+                "onboarding.social.quote4": "Wenn man den ganzen Tag Spezifikationen und Maße prüft, sind die Checks für Gedankenstriche und Prime-Zeichen erstaunlich nützlich.",
+                "onboarding.social.author4": "Daniel R., Produktdesigner",
+            ]
+        case .fr:
+            [
+                "onboarding.social.quote3": "Typpo a repéré trois incohérences d’espacement dans un email de lancement cinq minutes avant l’envoi. Rien que pour ça, j’étais convaincue.",
+                "onboarding.social.author3": "Alicia M., responsable lifecycle marketing",
+                "onboarding.social.quote4": "Quand on relit des specs et des dimensions toute la journée, les contrôles sur les tirets et les primes sont bien plus utiles qu’on ne l’imagine.",
+                "onboarding.social.author4": "Daniel R., designer produit",
+            ]
+        case .es:
+            [
+                "onboarding.social.quote3": "Typpo detectó tres inconsistencias de espaciado en un email de lanzamiento cinco minutos antes de enviarlo. Solo por eso ya me ganó.",
+                "onboarding.social.author3": "Alicia M., especialista en lifecycle marketing",
+                "onboarding.social.quote4": "Cuando te pasas el día revisando especificaciones y medidas, los chequeos de rayas y primas resultan muchísimo más útiles de lo que parece.",
+                "onboarding.social.author4": "Daniel R., diseñador de producto",
+            ]
+        case .ptBR:
+            [
+                "onboarding.social.quote3": "O Typpo pegou três inconsistências de espaçamento em um email de lançamento cinco minutos antes do envio. Só isso já me convenceu.",
+                "onboarding.social.author3": "Alicia M., especialista em lifecycle marketing",
+                "onboarding.social.quote4": "Quando você passa o dia revisando specs e dimensões, a checagem de travessões e marcas primas acaba sendo útil demais.",
+                "onboarding.social.author4": "Daniel R., designer de produto",
+            ]
+        case .ar:
+            [
+                "onboarding.social.quote3": "قبل الإرسال بخمس دقائق التقط Typpo ثلاث مشكلات في التباعد داخل رسالة إطلاق. هذا وحده كان كافيًا ليقنعني.",
+                "onboarding.social.author3": "Alicia M.، مسوقة دورة حياة العملاء",
+                "onboarding.social.quote4": "عندما تقضي يومك في مراجعة المواصفات والأبعاد، تصبح فحوصات الشرطات وعلامات prime مفيدة أكثر بكثير مما تتوقع.",
+                "onboarding.social.author4": "Daniel R.، مصمم منتجات",
+            ]
+        case .ru:
+            [
+                "onboarding.social.quote3": "Typpo поймал три проблемы с пробелами в письме о запуске за пять минут до отправки. Одного этого мне хватило, чтобы оставить его в работе.",
+                "onboarding.social.author3": "Alicia M., CRM-маркетолог",
+                "onboarding.social.quote4": "Когда весь день вычитываешь спецификации и размеры, проверки тире и штрихов неожиданно оказываются очень полезными.",
+                "onboarding.social.author4": "Daniel R., продуктовый дизайнер",
+            ]
+        case .it:
+            [
+                "onboarding.social.quote3": "Typpo ha trovato tre incoerenze di spaziatura in una mail di lancio cinque minuti prima dell’invio. Solo per questo mi ha convinta.",
+                "onboarding.social.author3": "Alicia M., marketer lifecycle",
+                "onboarding.social.quote4": "Se passi la giornata a rivedere specifiche e misure, i controlli su trattini e simboli primo diventano sorprendentemente utili.",
+                "onboarding.social.author4": "Daniel R., product designer",
+            ]
+        case .nl:
+            [
+                "onboarding.social.quote3": "Typpo vond drie spatiëringsfouten in een launchmail, vijf minuten voor verzending. Alleen daarvoor wil ik het al blijven gebruiken.",
+                "onboarding.social.author3": "Alicia M., lifecycle marketeer",
+                "onboarding.social.quote4": "Als je de hele dag specificaties en afmetingen nakijkt, blijken de controles op streepjes en prime-tekens verrassend handig.",
+                "onboarding.social.author4": "Daniel R., product designer",
+            ]
+        case .tr:
+            [
+                "onboarding.social.quote3": "Typpo, gönderime beş dakika kala lansman mailindeki üç boşluk tutarsızlığını yakaladı. Sırf bu bile beni ikna etmeye yetti.",
+                "onboarding.social.author3": "Alicia M., yaşam döngüsü pazarlamacısı",
+                "onboarding.social.quote4": "Bütün gün teknik özellikler ve ölçülerle uğraşıyorsanız, kısa çizgi ve prime işareti kontrolleri şaşırtıcı derecede işe yarıyor.",
+                "onboarding.social.author4": "Daniel R., ürün tasarımcısı",
+            ]
+        case .th:
+            [
+                "onboarding.social.quote3": "Typpo จับความไม่สม่ำเสมอของระยะห่างได้สามจุดในอีเมลเปิดตัวก่อนส่งแค่ห้านาที แค่นี้ก็ทำให้ฉันใช้ต่อแล้ว",
+                "onboarding.social.author3": "Alicia M., นักการตลาดวงจรลูกค้า",
+                "onboarding.social.quote4": "ถ้าคุณต้องไล่ดูสเปกกับขนาดทั้งวัน การตรวจพวก dash กับ prime mark จะมีประโยชน์กว่าที่คิดมาก",
+                "onboarding.social.author4": "Daniel R., นักออกแบบผลิตภัณฑ์",
+            ]
+        case .vi:
+            [
+                "onboarding.social.quote3": "Typpo bắt được ba chỗ giãn cách không nhất quán trong email launch chỉ năm phút trước khi gửi. Chừng đó là đủ để tôi tin dùng rồi.",
+                "onboarding.social.author3": "Alicia M., marketer vòng đời",
+                "onboarding.social.quote4": "Nếu cả ngày bạn phải rà spec và kích thước, kiểm tra dấu gạch và prime mark thực sự hữu ích hơn tưởng tượng rất nhiều.",
+                "onboarding.social.author4": "Daniel R., nhà thiết kế sản phẩm",
+            ]
+        case .id:
+            [
+                "onboarding.social.quote3": "Typpo menangkap tiga inkonsistensi spasi di email peluncuran lima menit sebelum dikirim. Dari situ saja saya langsung yakin.",
+                "onboarding.social.author3": "Alicia M., pemasar lifecycle",
+                "onboarding.social.quote4": "Kalau seharian kerjaannya meninjau spesifikasi dan dimensi, pemeriksaan dash dan tanda prime ternyata sangat berguna.",
+                "onboarding.social.author4": "Daniel R., desainer produk",
+            ]
+        case .pl:
+            [
+                "onboarding.social.quote3": "Typpo wyłapało trzy niespójności w odstępach w mailu launchowym pięć minut przed wysyłką. Samo to wystarczyło, żebym został przy nim na stałe.",
+                "onboarding.social.author3": "Alicia M., marketerka lifecycle",
+                "onboarding.social.quote4": "Gdy cały dzień sprawdzasz specyfikacje i wymiary, kontrola kresek i znaków prime okazuje się zaskakująco przydatna.",
+                "onboarding.social.author4": "Daniel R., projektant produktu",
+            ]
+        case .uk:
+            [
+                "onboarding.social.quote3": "Typpo зловив три проблеми з пробілами в листі про запуск за п’ять хвилин до відправлення. Уже цього вистачило, щоб я залишила його в роботі.",
+                "onboarding.social.author3": "Alicia M., CRM-маркетологиня",
+                "onboarding.social.quote4": "Коли весь день вичитуєш специфікації й розміри, перевірки тире та штрихів виявляються напрочуд корисними.",
+                "onboarding.social.author4": "Daniel R., продуктовий дизайнер",
+            ]
+        case .hi:
+            [
+                "onboarding.social.quote3": "भेजने से पाँच मिनट पहले Typpo ने लॉन्च ईमेल में spacing की तीन गड़बड़ियाँ पकड़ लीं। बस उसी से मैं इसका पक्का यूज़र बन गया.",
+                "onboarding.social.author3": "Alicia M., लाइफसाइकल मार्केटर",
+                "onboarding.social.quote4": "अगर आपका दिन भर specs और dimensions देखने में जाता है, तो dash और prime-mark checks उम्मीद से कहीं ज़्यादा काम के निकलते हैं।",
+                "onboarding.social.author4": "Daniel R., प्रोडक्ट डिज़ाइनर",
+            ]
+        case .he:
+            [
+                "onboarding.social.quote3": "Typpo תפס שלוש אי־אחידויות בריווח במייל השקה חמש דקות לפני השליחה. רק זה כבר הספיק כדי לקנות אותי.",
+                "onboarding.social.author3": "Alicia M., מנהלת לייפסייקל מרקטינג",
+                "onboarding.social.quote4": "כשכל היום בודקים מפרטים ומידות, הבדיקות של מקפים וסימני prime מתגלות כשימושיות הרבה יותר ממה שנדמה.",
+                "onboarding.social.author4": "Daniel R., מעצב מוצר",
+            ]
+        case .sv:
+            [
+                "onboarding.social.quote3": "Typpo hittade tre avståndsmissar i ett lanseringsmejl fem minuter före utskick. Bara det gjorde mig såld.",
+                "onboarding.social.author3": "Alicia M., lifecycle-marknadsförare",
+                "onboarding.social.quote4": "När man sitter med specifikationer och mått hela dagarna är kontrollerna för streck och primtecken förvånansvärt användbara.",
+                "onboarding.social.author4": "Daniel R., produktdesigner",
+            ]
+        case .no:
+            [
+                "onboarding.social.quote3": "Typpo fant tre inkonsekvente mellomrom i en lanseringsmail fem minutter før utsending. Bare det var nok til å overbevise meg.",
+                "onboarding.social.author3": "Alicia M., lifecycle-markedsfører",
+                "onboarding.social.quote4": "Når du sitter med spesifikasjoner og mål hele dagen, er sjekkene for tankestreker og prime-tegn overraskende nyttige.",
+                "onboarding.social.author4": "Daniel R., produktdesigner",
+            ]
+        case .da:
+            [
+                "onboarding.social.quote3": "Typpo fangede tre uens mellemrum i en launchmail fem minutter før udsendelse. Det alene gjorde mig overbevist.",
+                "onboarding.social.author3": "Alicia M., lifecycle marketer",
+                "onboarding.social.quote4": "Når man sidder med specifikationer og mål hele dagen, er kontrollen af streger og prime-tegn overraskende nyttig.",
+                "onboarding.social.author4": "Daniel R., produktdesigner",
+            ]
+        case .fi:
+            [
+                "onboarding.social.quote3": "Typpo nappasi kolme välilyöntien epäjohdonmukaisuutta lanseerausviestistä viisi minuuttia ennen lähetystä. Jo se riitti vakuuttamaan minut.",
+                "onboarding.social.author3": "Alicia M., lifecycle-markkinoija",
+                "onboarding.social.quote4": "Kun käyt läpi speksejä ja mittoja koko päivän, viiva- ja prime-merkkien tarkistukset ovat yllättävän hyödyllisiä.",
+                "onboarding.social.author4": "Daniel R., tuotesuunnittelija",
+            ]
+        case .cs:
+            [
+                "onboarding.social.quote3": "Typpo chytilo tři nekonzistentní mezery v launch e-mailu pět minut před odesláním. Už jen to mě přesvědčilo.",
+                "onboarding.social.author3": "Alicia M., specialistka lifecycle marketingu",
+                "onboarding.social.quote4": "Když celý den kontrolujete specifikace a rozměry, hlídání pomlček a znaků prime je překvapivě užitečné.",
+                "onboarding.social.author4": "Daniel R., produktový designér",
+            ]
+        case .hu:
+            [
+                "onboarding.social.quote3": "A Typpo öt perccel kiküldés előtt három szóközkövetkezetlenséget talált egy launch emailben. Ennyi már bőven elég volt, hogy meggyőzzön.",
+                "onboarding.social.author3": "Alicia M., lifecycle marketinges",
+                "onboarding.social.quote4": "Ha egész nap specifikációkat és méreteket nézel át, a gondolatjelek és prime-jelek ellenőrzése meglepően hasznosnak bizonyul.",
+                "onboarding.social.author4": "Daniel R., terméktervező",
+            ]
+        case .ro:
+            [
+                "onboarding.social.quote3": "Typpo a prins trei probleme de spațiere într-un email de lansare cu cinci minute înainte de trimitere. Numai asta a fost suficient să mă convingă.",
+                "onboarding.social.author3": "Alicia M., specialistă lifecycle marketing",
+                "onboarding.social.quote4": "Când îți petreci toată ziua verificând specificații și dimensiuni, controalele pentru liniuțe și semne prime devin surprinzător de utile.",
+                "onboarding.social.author4": "Daniel R., designer de produs",
+            ]
+        case .el:
+            [
+                "onboarding.social.quote3": "Το Typpo βρήκε τρεις ασυνέπειες στα κενά σε email λανσαρίσματος πέντε λεπτά πριν φύγει. Μόνο αυτό έφτανε για να με κερδίσει.",
+                "onboarding.social.author3": "Alicia M., marketer κύκλου ζωής",
+                "onboarding.social.quote4": "Όταν περνάς όλη μέρα πάνω από προδιαγραφές και διαστάσεις, οι έλεγχοι για παύλες και σύμβολα prime αποδεικνύονται απρόσμενα χρήσιμοι.",
+                "onboarding.social.author4": "Daniel R., product designer",
+            ]
+        case .ms:
+            [
+                "onboarding.social.quote3": "Typpo menangkap tiga ketidakselarasan jarak dalam emel pelancaran lima minit sebelum dihantar. Itu sahaja pun sudah cukup untuk meyakinkan saya.",
+                "onboarding.social.author3": "Alicia M., pemasar lifecycle",
+                "onboarding.social.quote4": "Kalau anda seharian menyemak spesifikasi dan ukuran, semakan dash dan tanda prime memang jauh lebih berguna daripada yang disangka.",
+                "onboarding.social.author4": "Daniel R., pereka produk",
             ]
         }
     }

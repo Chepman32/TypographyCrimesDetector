@@ -260,7 +260,7 @@ public struct OnboardingFlowView: View {
 
     private var socialProofScreen: some View {
         VStack(spacing: 0) {
-            Spacer()
+            Spacer().frame(height: AppSpacing.hero)
 
             VStack(spacing: AppSpacing.xl) {
                 Image(systemName: "person.3.fill")
@@ -278,21 +278,21 @@ public struct OnboardingFlowView: View {
             }
             .padding(.horizontal, AppSpacing.lg)
 
-            Spacer().frame(height: AppSpacing.xxxl)
+            Spacer().frame(height: AppSpacing.xxl)
 
-            VStack(spacing: AppSpacing.md) {
-                OnboardingTestimonialCard(
-                    quote: L10n.text("onboarding.social.quote1"),
-                    author: L10n.text("onboarding.social.author1")
-                )
-                OnboardingTestimonialCard(
-                    quote: L10n.text("onboarding.social.quote2"),
-                    author: L10n.text("onboarding.social.author2")
-                )
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: AppSpacing.md) {
+                    ForEach(Array(socialTestimonials.enumerated()), id: \.offset) { _, testimonial in
+                        OnboardingTestimonialCard(
+                            quote: testimonial.quote,
+                            author: testimonial.author
+                        )
+                    }
+                }
+                .padding(.horizontal, AppSpacing.lg)
             }
-            .padding(.horizontal, AppSpacing.lg)
 
-            Spacer()
+            Spacer().frame(height: AppSpacing.base)
 
             OnboardingPrimaryButton(title: L10n.text("general.next")) {
                 goForward()
@@ -586,6 +586,15 @@ public struct OnboardingFlowView: View {
         case .lenient: "gauge.with.dots.needle.0percent"
         case .standard: "gauge.with.dots.needle.50percent"
         case .strict: "gauge.with.dots.needle.100percent"
+        }
+    }
+
+    private var socialTestimonials: [(quote: String, author: String)] {
+        (1 ... 4).map { index in
+            (
+                quote: L10n.text("onboarding.social.quote\(index)"),
+                author: L10n.text("onboarding.social.author\(index)")
+            )
         }
     }
 }
