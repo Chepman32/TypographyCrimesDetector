@@ -67,12 +67,6 @@ public final class TypographyAppState {
     public func applyOnboardingSelections(_ selections: OnboardingSelections) {
         preferences.strictnessMode = selections.strictness
         preferences.theme = selections.theme
-        if !selections.selectedCrimes.isEmpty {
-            for crimeType in CrimeType.allCases {
-                let chosen = selections.selectedCrimes.contains { $0.crimeType == crimeType }
-                preferences.setEnabled(chosen, for: crimeType)
-            }
-        }
     }
 
     public func completeOnboarding() {

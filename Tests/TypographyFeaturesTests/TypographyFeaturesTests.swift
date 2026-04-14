@@ -73,6 +73,26 @@ final class TypographyFeaturesTests: XCTestCase {
         XCTAssertEqual(state.averageVerdictAbbreviation, "Msd.")
     }
 
+    func testOnboardingSelectionsDoNotDisableUntappedRules() {
+        let state = TypographyAppState(repository: MockRepository(), preferencesStore: MockPreferencesStore(), platform: MockPlatform())
+        let selections = OnboardingSelections(
+            role: .writer,
+            selectedCrimes: [.straightQuotes, .fakeEllipsis],
+            strictness: .strict,
+            theme: .dark,
+            demoText: ""
+        )
+
+        state.applyOnboardingSelections(selections)
+
+        XCTAssertEqual(state.preferences.strictnessMode, .strict)
+        XCTAssertEqual(state.preferences.theme, .dark)
+
+        for crimeType in CrimeType.allCases {
+            XCTAssertTrue(state.preferences.isEnabled(crimeType), "\(crimeType.rawValue) should stay enabled by default")
+        }
+    }
+
     func testAppStatePersistsManualLanguageSelection() {
         let prefsStore = MockPreferencesStore()
         let state = TypographyAppState(repository: MockRepository(), preferencesStore: prefsStore, platform: MockPlatform())
