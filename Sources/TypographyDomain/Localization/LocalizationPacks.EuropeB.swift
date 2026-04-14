@@ -165,6 +165,7 @@ engine.fix.normalize_spacing|Metin boyunca cümle aralıklarını normalleştiri
 engine.fix.rewrite_widow|Tek kelimelik bir son satırdan kaçınmak için paragrafı yeniden yazın veya yeniden akıtın.
 engine.fix.rewrite_orphan|Küçük bir aktarım hattını önlemek için yakındaki kopyayı ayarlayın.
 engine.fix.change_font|Daha uygun bir yazı tipi kullanın.
+engine.fix.remove_repeated_punctuation|Yinelenen noktayı kaldırın veya uygun boşluk ekleyin.
 engine.explain.double_space|Bu cümle, orantılı tipografiye ait olmayan, daktilo dönemi geleneği olan çoklu boşluklarla bitiyor.
 engine.explain.straight_quotes|Bu tırnak işareti, yönlü kıvrımlı tırnak işaretleri yerine düz ASCII formunu kullanır.
 engine.explain.hyphen_dash|Bu kesinti, uygun bir kısa çizgi yerine kısa çizgi-eksi karakterleri kullanır.
@@ -176,6 +177,7 @@ engine.explain.comic_sans|Comic Sans meta verileri, gönderilen zengin metinde b
 engine.explain.prime_marks|Bu ölçüm işareti, uygun asal sembol yerine ASCII tırnak işareti kullanıyor.
 engine.explain.multiplication_sign|Bu boyut, çarpma işaretinin görünmesi gereken yerde x harfini kullanır.
 engine.explain.trademark_symbol|Bu geri dönüş gösterimi uygun sembolle değiştirilmelidir.
+engine.explain.repeated_punctuation|İki ardışık nokta bulundu; bu büyük olasılıkla bir yazım hatası ya da cümleler arasındaki eksik bir boşluktur.
 category.punctuation|Noktalama Sorunları
 category.spacing|Boşluk Sorunları
 category.layout|Yerleşim Sorunları
@@ -236,6 +238,7 @@ doubleSpace|Çift Boşluk
 straightQuotes|Düz Alıntılar
 hyphenAsDash|Çizgi Olarak Kısa Çizgi
 fakeEllipsis|Sahte Üç Nokta
+repeatedPunctuation|Tekrarlanan Noktalama
 widow|Dullar
 orphan|Yetimler
 inconsistentSpacing|Tutarsız Aralık
@@ -249,6 +252,7 @@ doubleSpace|Cümle sonu noktalama işaretlerinden sonra fazladan boşluklar.
 straightQuotes|ASCII kıvrımlı tırnakların ait olduğu yerlerde tırnak işaretleri kullanılır.
 hyphenAsDash|Gerçek bir çizgiyi temsil eden kısa çizgiler.
 fakeEllipsis|Elips karakteri yerine üç nokta kullanıldı.
+repeatedPunctuation|Yanlışlıkla yazılmış gibi görünen art arda iki nokta.
 widow|Yalnızca bir kısa kelimeden oluşan son satır kaldı.
 orphan|Paragrafın başlangıcındaki küçük bir aktarma çizgisi.
 inconsistentSpacing|Tek metinde karışık cümle aralığı stilleri.
@@ -262,6 +266,7 @@ trademarkSymbol|©, ® veya ™ yerine geri dönüş gösterimi kullanıldı.
             (.straightQuotes, "Düz tırnaklar düz ASCII işaretleridir. Biten metin genellikle yön veren kıvrımlı tırnak işaretleri ile daha iyi okunur.", "Kıvırcık alıntılar daha gösterişli görünür ve cümlenin görsel ritmini geliştirir.", "İlk klavyeler ve karakter kümeleri her iki yön için de yalnızca bir basit tırnak işareti tutuyordu.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Varsa akıllı noktalama işaretini açın.", "Düz metin kaynaklarından yapıştırılan metni temizleyin.", "Ölçümleri kontrol ederek başlangıç işaretlerinin doğru kalmasını sağlayın."]),
             (.hyphenAsDash, "Kısa çizgiler sözcükleri birleştirir ancak uzun tire veya uzun tirelerin yerine geçmez.", "Doğru çizgi tonu, aralığı ve okunabilirliği artırır.", "Çift tire, zengin noktalama işaretlerini kolaylıkla üretemeyen sistemlerde geçici bir çözümdü.", "He paused -- dramatically.", "He paused — dramatically.", ["Tarzınızın gerektirdiği gerçek kısa çizgi karakterini kullanın.", "Cümle aralarını değil, bileşikler için kısa çizgileri kullanın.", "Belgenin tamamında tutarlı kalın."]),
             (.fakeEllipsis, "Üç nokta bir üç noktayı taklit edebilir ancak bunlar aynı karakter değildir.", "Gerçek bir üç nokta dengeli aralığa sahiptir ve bir metin satırında daha iyi davranır.", "Gündelik yazma iş akışlarının birçoğu hâlâ varsayılan olarak üç nokta yazmayı kullanıyor.", "Wait...", "Wait…", ["Üç noktayı üç nokta karakteriyle değiştirin.", "Sık sık yazıyorsanız metin değiştirmeyi kullanın.", "Yayınlamadan önce içe aktarılan kopyayı kontrol edin."]),
+            (.repeatedPunctuation, "Art arda iki nokta neredeyse her zaman bir yazım hatasıdır — ya çift basılmış nokta ya da cümleler arasında eksik boşluk.", "Tekrarlanan noktalama okuma akışını bozar ve dikkatsiz düzenlemeye işaret eder.", nil, "worldwide..But", "worldwide. But", ["Fazla noktayı kaldırın.", "İki cümle birleşmişse ilk noktadan sonra boşluk ekleyin.", "Yapıştırılan metni yanlışlıkla tekrarlananlar için okuyun."]),
             (.widow, "Dul bir kadın paragrafın son satırında kısa bir kelimeyi yarım bırakır.", "Bu zayıf son paragrafın şeklini ve ritmini bozuyor.", "Editörler ve tasarımcılar, baskıda dolulmaları önlemek için satır sonlarını uzun süre ayarladılar.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Cümleyi biraz sıkın veya yeniden yazın.", "Düzen araçları mevcutsa satır uzunluğunu ayarlayın.", "Bunu yumuşak bir stil önerisi olarak değerlendirin."]),
             (.orphan, "Yetim, yeni bir paragrafa veya metin bloğuna garip bir şekilde başlayan küçük bir aktarma satırıdır.", "Okuma akışını bozar ve düzenin daha az düşünülmüş gibi görünmesine neden olur.", "Editörlük iş akışları geleneksel olarak yetimleri yayınlanmadan önce düzeltir.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Arayı yeniden dengelemek için yakındaki bir ifadeyi yeniden yazın.", "Düzeni kontrol ediyorsanız hesaplamayı biraz açın.", "Bunu kesin bir hata olarak değil, uyarı olarak kullanın."]),
             (.inconsistentSpacing, "Tek ve çift cümle aralığını karıştırmak, metnin farklı kaynaklardan birleştirilmiş gibi görünmesini sağlar.", "Okuyucular nedenini açıklayamasalar bile tutarsızlığı hemen fark ederler.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Bir cümle aralığı stili seçin.", "Yapıştırılan metni paylaşmadan önce normalleştirin.", "Seçimi baştan sona tutarlı tutun."]),
@@ -436,6 +441,7 @@ engine.fix.normalize_spacing|Нормализация интервала меж�
 engine.fix.rewrite_widow|Перепишите или измените расположение абзаца, чтобы избежать последней строки из одного слова.
 engine.fix.rewrite_orphan|Откорректируйте ближайший текст, чтобы избежать крошечной линии переноса.
 engine.fix.change_font|Используйте более подходящий шрифт.
+engine.fix.remove_repeated_punctuation|Удалите повторяющуюся точку или добавьте нужный пробел.
 engine.explain.double_space|Это предложение заканчивается несколькими пробелами — соглашение эпохи пишущих машинок, которое не соответствует пропорциональной типографике.
 engine.explain.straight_quotes|Эта кавычка использует прямую форму ASCII вместо направленных фигурных кавычек.
 engine.explain.hyphen_dash|В этом прерывании вместо правильного тире используются символы дефис-минус.
@@ -447,6 +453,7 @@ engine.explain.comic_sans|В отправленном форматированн
 engine.explain.prime_marks|В этой метке измерения используется кавычка ASCII вместо правильного штрихового символа.
 engine.explain.multiplication_sign|Этот размер использует букву x там, где должен стоять знак умножения.
 engine.explain.trademark_symbol|Это резервное обозначение следует заменить соответствующим символом.
+engine.explain.repeated_punctuation|Обнаружены две последовательные точки — скорее всего, это опечатка или пропущенный пробел между предложениями.
 category.punctuation|Проблемы с пунктуацией
 category.spacing|Проблемы с интервалами
 category.layout|Проблемы с макетом
@@ -507,6 +514,7 @@ doubleSpace|Двойные пробелы
 straightQuotes|Прямые кавычки
 hyphenAsDash|Дефис как тире
 fakeEllipsis|Ложное многоточие
+repeatedPunctuation|Повторяющаяся пунктуация
 widow|Вдовы
 orphan|Сироты
 inconsistentSpacing|Несоответствующий интервал
@@ -520,6 +528,7 @@ doubleSpace|Дополнительные пробелы после знаков 
 straightQuotes|Кавычки ASCII используются вместо фигурных кавычек.
 hyphenAsDash|Дефисы заменяют настоящее тире.
 fakeEllipsis|Вместо многоточия используются три точки.
+repeatedPunctuation|Две последовательные точки, которые выглядят как опечатка.
 widow|В последней строке осталось только одно короткое слово.
 orphan|Крошечная переносимая строка в начале абзаца.
 inconsistentSpacing|Смешанные стили расположения предложений в одном тексте.
@@ -533,6 +542,7 @@ trademarkSymbol|Резервное обозначение используетс
             (.straightQuotes, "Прямые кавычки представляют собой простые знаки ASCII. Готовый текст обычно лучше читается с направленными фигурными кавычками.", "Кудрявые кавычки выглядят более изысканно и улучшают визуальный ритм предложения.", "Ранние клавиатуры и наборы символов содержали только одну простую кавычку для обоих направлений.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Включите интеллектуальную пунктуацию, если она доступна.", "Очистка текста, вставленного из обычных текстовых источников.", "Проверьте размеры, чтобы основные отметки оставались правильными."]),
             (.hyphenAsDash, "Дефисы соединяют слова, но не заменяют длинные тире или тире.", "Правильное тире улучшает тон, интервалы и читабельность.", "Двойные дефисы были обходным решением в системах, которые не могли легко создать богатую пунктуацию.", "He paused -- dramatically.", "He paused — dramatically.", ["Используйте настоящий тире, которого требует ваш стиль.", "Сохраняйте дефисы для составных частей, а не разрывов предложений.", "Сохраняйте единообразие во всем документе."]),
             (.fakeEllipsis, "Три точки могут имитировать многоточие, но это не один и тот же символ.", "Настоящий многоточие имеет сбалансированный интервал и лучше ведет себя в строке текста.", "Многие рабочие процессы обычного письма по-прежнему по умолчанию используют три точки.", "Wait...", "Wait…", ["Замените три точки многоточием.", "Используйте замену текста, если вы его часто печатаете.", "Проверяйте импортированную копию перед публикацией."]),
+            (.repeatedPunctuation, "Две последовательные точки почти всегда являются опечаткой — либо случайно введённой дважды, либо пропущенным пробелом между предложениями.", "Повторяющаяся пунктуация нарушает поток чтения и свидетельствует о небрежном редактировании.", nil, "worldwide..But", "worldwide. But", ["Удалите лишнюю точку.", "Если два предложения слились, добавьте пробел после первой точки.", "Проверьте вставленный текст на наличие случайных дублей."]),
             (.widow, "Вдова оставляет одно короткое слово в последней строке абзаца.", "Это слабое окончание нарушает форму и ритм абзаца.", "Редакторы и дизайнеры долго настраивали разрывы строк, чтобы избежать появления висячих строк при печати.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Слегка ужесточите или перепишите предложение.", "Отрегулируйте длину строки, если доступны инструменты макета.", "Считайте это мягкой рекомендацией по стилю."]),
             (.orphan, "Сиротская строка — это крошечная переносящаяся строка, которая неудобно начинает новый абзац или текстовый блок.", "Это нарушает процесс чтения и делает макет менее продуманным.", "Редакционные рабочие процессы традиционно исправляют ошибки перед публикацией.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Перепишите ближайшую фразу, чтобы сбалансировать разрыв.", "Слегка приоткройте меру, если вы управляете макетом.", "Используйте это как предупреждение, а не как серьезную ошибку."]),
             (.inconsistentSpacing, "Смешивание одинарного и двойного интервала между предложениями создает ощущение, будто текст из разных источников сшит вместе.", "Читатели быстро замечают несоответствие, даже если не могут объяснить, почему.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Выберите один стиль межпредложений.", "Нормализовать вставленный текст, прежде чем поделиться им.", "Сохраняйте единообразие выбора от начала до конца."]),
@@ -707,6 +717,7 @@ engine.fix.normalize_spacing|Normalizuj odstępy między zdaniami w całym tekś
 engine.fix.rewrite_widow|Przepisz lub zmień układ akapitu, aby uniknąć końcowego wiersza składającego się z jednego słowa.
 engine.fix.rewrite_orphan|Dostosuj pobliską kopię, aby uniknąć niewielkiej linii przeniesienia.
 engine.fix.change_font|Użyj bardziej odpowiedniej czcionki.
+engine.fix.remove_repeated_punctuation|Usuń zduplikowaną kropkę lub dodaj właściwy odstęp.
 engine.explain.double_space|To zdanie kończy się wieloma spacjami, co jest konwencją z epoki maszyn do pisania, która nie pasuje do typografii proporcjonalnej.
 engine.explain.straight_quotes|W tym cudzysłowie zastosowano prostą formę ASCII zamiast kierunkowych cudzysłowów kręconych.
 engine.explain.hyphen_dash|W tym przerwaniu zamiast właściwego myślnika używane są znaki łącznika i minusa.
@@ -718,6 +729,7 @@ engine.explain.comic_sans|W przesłanym tekście sformatowanym znaleziono metada
 engine.explain.prime_marks|W tym znaku miary zastosowano cudzysłów ASCII zamiast prawidłowego symbolu pierwszego.
 engine.explain.multiplication_sign|W tym wymiarze używana jest litera x w miejscu, w którym powinien pojawić się znak mnożenia.
 engine.explain.trademark_symbol|Ten zapis zastępczy należy zastąpić odpowiednim symbolem.
+engine.explain.repeated_punctuation|Znaleziono dwie kolejne kropki — to prawdopodobnie literówka lub brakująca spacja między zdaniami.
 category.punctuation|Problemy interpunkcyjne
 category.spacing|Problemy z odstępami
 category.layout|Problemy z układem
@@ -778,6 +790,7 @@ doubleSpace|Podwójne spacje
 straightQuotes|Proste cytaty
 hyphenAsDash|Myślnik jako myślnik
 fakeEllipsis|Fałszywa elipsa
+repeatedPunctuation|Powtórzona interpunkcja
 widow|Wdowy
 orphan|Sieroty
 inconsistentSpacing|Niespójne odstępy
@@ -791,6 +804,7 @@ doubleSpace|Dodatkowe spacje po znaku interpunkcyjnym kończącym zdanie.
 straightQuotes|ASCII cudzysłowy używane tam, gdzie należą cudzysłowy kręcone.
 hyphenAsDash|Myślniki zastępujące prawdziwą myślnik.
 fakeEllipsis|Zamiast wielokropka zastosowano trzy kropki.
+repeatedPunctuation|Dwie kolejne kropki wyglądające jak literówka.
 widow|Pozostała ostatnia linijka zawierająca tylko jedno krótkie słowo.
 orphan|Mała linia przeniesienia na początku akapitu.
 inconsistentSpacing|Mieszane style odstępów między zdaniami w jednym tekście.
@@ -804,6 +818,7 @@ trademarkSymbol|Zapis zastępczy używany zamiast ©, ® lub ™.
             (.straightQuotes, "Proste cudzysłowy to zwykłe znaki ASCII. Gotowy tekst zwykle czyta się lepiej, jeśli jest umieszczony w kierunkowych cudzysłowach.", "Kręcone cytaty wyglądają bardziej dopracowane i poprawiają wizualny rytm zdania.", "Wczesne klawiatury i zestawy znaków zawierały tylko jeden prosty cudzysłów dla obu kierunków.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Włącz inteligentną interpunkcję, jeśli jest dostępna.", "Wyczyść tekst wklejony ze źródeł zwykłego tekstu.", "Sprawdź pomiary, aby znaki podstawowe pozostały prawidłowe."]),
             (.hyphenAsDash, "Myślniki łączą wyrazy, ale nie zastępują myślników ani kresek.", "Prawidłowa myślnik poprawia ton, odstępy i czytelność.", "Podwójne łączniki były rozwiązaniem w systemach, w których nie można było łatwo uzyskać bogatej interpunkcji.", "He paused -- dramatically.", "He paused — dramatically.", ["Użyj prawdziwej kreski, jakiej wymaga Twój styl.", "Zachowaj łączniki w przypadku związków, a nie przerw w zdaniach.", "Zachowaj spójność w całym dokumencie."]),
             (.fakeEllipsis, "Trzy kropki mogą przypominać wielokropek, ale nie są tym samym znakiem.", "Prawdziwa elipsa ma zrównoważone odstępy i zachowuje się lepiej w wierszu tekstu.", "W wielu zwykłych procesach pisania nadal domyślnie wpisuje się trzy kropki.", "Wait...", "Wait…", ["Zastąp trzy kropki znakiem wielokropka.", "Użyj zamiany tekstu, jeśli często go piszesz.", "Sprawdź zaimportowaną kopię przed publikacją."]),
+            (.repeatedPunctuation, "Dwie kolejne kropki to prawie zawsze literówka — albo podwójnie wciśnięty klawisz, albo brakująca spacja między zdaniami.", "Powtórzona interpunkcja zakłóca płynność czytania i sygnalizuje niedbałą korektę.", nil, "worldwide..But", "worldwide. But", ["Usuń zbędną kropkę.", "Jeśli dwa zdania są połączone, dodaj spację po pierwszej kropce.", "Sprawdź wklejony tekst pod kątem przypadkowych duplikatów."]),
             (.widow, "Wdowa pozostawia jedno krótkie słowo w ostatnim wierszu akapitu.", "To słabe zakończenie zakłóca kształt i rytm akapitu.", "Wydawcy i projektanci od dawna dostosowywali podziały wierszy, aby uniknąć wdów w druku.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Doprecyzuj nieco zdanie lub przepisz je.", "Dostosuj długość linii, jeśli dostępne są narzędzia układu.", "Potraktuj to jako delikatną rekomendację."]),
             (.orphan, "Sierota to niewielka linia przeniesienia, która niezręcznie rozpoczyna nowy akapit lub blok tekstu.", "Przerywa to przepływ czytania i sprawia, że układ wydaje się mniej przemyślany.", "Przepływ pracy redakcyjnej tradycyjnie pomaga sierotom przed publikacją.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Przepisz pobliskie zdanie, aby zrównoważyć przerwę.", "Nieznacznie otwórz miarę, jeśli kontrolujesz układ.", "Użyj tego jako ostrzeżenia, a nie sztywnego błędu."]),
             (.inconsistentSpacing, "Łączenie pojedynczych i podwójnych odstępów w zdaniach sprawia wrażenie, że tekst jest połączony z różnymi źródłami.", "Czytelnicy szybko zauważają niespójności, nawet jeśli nie potrafią wyjaśnić dlaczego.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Wybierz jeden styl odstępów w zdaniach.", "Normalizuj wklejony tekst przed jego udostępnieniem.", "Zachowuj spójność wyboru od początku do końca."]),
@@ -978,6 +993,7 @@ engine.fix.normalize_spacing|Нормалізуйте інтервали між 
 engine.fix.rewrite_widow|Перепишіть або перекомпонуйте абзац, щоб уникнути останнього рядка з одного слова.
 engine.fix.rewrite_orphan|Відкоригуйте найближчу копію, щоб уникнути крихітної перенесеної лінії.
 engine.fix.change_font|Використовуйте більш відповідний шрифт.
+engine.fix.remove_repeated_punctuation|Видаліть повторну крапку або додайте належний пробіл.
 engine.explain.double_space|Це речення закінчується декількома пробілами, умовність часів друкарської машинки, яка не належить до пропорційної типографіки.
 engine.explain.straight_quotes|Ці лапки використовують пряму форму ASCII замість направлених фігурних лапок.
 engine.explain.hyphen_dash|Це переривання використовує символи дефіс-мінус замість правильного тире.
@@ -989,6 +1005,7 @@ engine.explain.comic_sans|У поданому форматованому тек�
 engine.explain.prime_marks|Ця вимірювальна позначка використовує лапки ASCII замість належного простого символу.
 engine.explain.multiplication_sign|У цьому розмірі використовується літера x, де має бути знак множення.
 engine.explain.trademark_symbol|Цю резервну нотацію слід замінити відповідним символом.
+engine.explain.repeated_punctuation|Знайдено дві послідовні крапки — це, мабуть, помилка друку або відсутній пробіл між реченнями.
 category.punctuation|Проблеми з пунктуацією
 category.spacing|Проблеми з інтервалами
 category.layout|Проблеми з макетом
@@ -1049,6 +1066,7 @@ doubleSpace|Подвійні пробіли
 straightQuotes|Відверті цитати
 hyphenAsDash|Дефіс як тире
 fakeEllipsis|Фальшиві три крапки
+repeatedPunctuation|Повторна пунктуація
 widow|Вдови
 orphan|Діти-сироти
 inconsistentSpacing|Непослідовний інтервал
@@ -1062,6 +1080,7 @@ doubleSpace|Зайві пробіли після розділових знакі
 straightQuotes|ASCII лапки, які використовуються там, де фігурні лапки.
 hyphenAsDash|Дефіси, які замінюють справжнє тире.
 fakeEllipsis|Три крапки використовуються замість символу еліпсису.
+repeatedPunctuation|Дві послідовні крапки, що виглядають як помилка друку.
 widow|Останній рядок лише з одним коротким словом.
 orphan|Маленький перенесений рядок на початку абзацу.
 inconsistentSpacing|Змішані стилі інтервалів у реченнях в одному тексті.
@@ -1075,6 +1094,7 @@ trademarkSymbol|Резервна нотація, яка використовує
             (.straightQuotes, "Прямі лапки — це прості позначки ASCII. Завершений текст зазвичай краще читається, якщо взяти спрямовані фігурні лапки.", "Кучеряві лапки виглядають вишуканіше та покращують візуальний ритм речення.", "Ранні клавіатури та набори символів містили лише одну просту лапку для обох напрямків.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Увімкніть розумну пунктуацію, де це можливо.", "Очистити текст, вставлений із джерел звичайного тексту.", "Перевірте розміри, щоб основні позначки залишалися правильними."]),
             (.hyphenAsDash, "Дефіси поєднують слова, але вони не замінюють тире або тире.", "Правильне тире покращує тон, інтервали та читабельність.", "Подвійні дефіси були обхідним шляхом у системах, які не могли легко створити насичену пунктуацію.", "He paused -- dramatically.", "He paused — dramatically.", ["Використовуйте справжній тире, якого вимагає ваш стиль.", "Зберігайте дефіси для складних, а не розривів речень.", "Залишайтеся послідовними в усьому документі."]),
             (.fakeEllipsis, "Три крапки можуть імітувати три крапки, але це не той самий символ.", "Справжні три крапки мають збалансований інтервал і краще поводяться в рядку тексту.", "Багато повсякденних робочих процесів все ще за умовчанням вводять три крапки.", "Wait...", "Wait…", ["Замініть три крапки на три крапки.", "Використовуйте заміну тексту, якщо ви його часто вводите.", "Перевірте імпортовану копію перед публікацією."]),
+            (.repeatedPunctuation, "Дві послідовні крапки майже завжди є помилкою друку — або подвійно введена крапка, або пропущений пробіл між реченнями.", "Повторна пунктуація порушує потік читання та свідчить про недбале редагування.", nil, "worldwide..But", "worldwide. But", ["Видаліть зайву крапку.", "Якщо два речення злилися, додайте пробіл після першої крапки.", "Перевірте вставлений текст на наявність випадкових дублікатів."]),
             (.widow, "Вдова залишає одне коротке слово в останньому рядку абзацу.", "Ця слабка кінцівка порушує форму та ритм абзацу.", "Редактори та дизайнери давно відкоригували розриви рядків, щоб уникнути вдови під час друку.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Злегка затягніть або перепишіть речення.", "Відкоригуйте довжину лінії, якщо доступні інструменти компонування.", "Розглядайте це як рекомендацію щодо м’якого стилю."]),
             (.orphan, "Сіротка — це крихітний перенесений рядок, який незграбно починає новий абзац або текстовий блок.", "Це порушує потік читання та робить макет менш продуманим.", "Редакторські робочі процеси традиційно виправляють сироти перед публікацією.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Перепишіть сусідню фразу, щоб відновити баланс розриву.", "Злегка розкрийте міру, якщо ви контролюєте макет.", "Використовуйте це як попередження, а не як чітку помилку."]),
             (.inconsistentSpacing, "Змішування інтервалів між одним і двома реченнями створює враження, що текст з’єднано з різних джерел.", "Читач швидко помічає непослідовність, навіть якщо не може пояснити причину.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Виберіть один стиль інтервалів у реченнях.", "Нормалізуйте вставлений текст перед тим, як поділитися ним.", "Зберігайте вибір послідовним від початку до кінця."]),
@@ -1249,6 +1269,7 @@ engine.fix.normalize_spacing|Normalisera meningsavstånd genom hela texten.
 engine.fix.rewrite_widow|Skriv om eller flöda om stycket för att undvika en sista rad på ett ord.
 engine.fix.rewrite_orphan|Justera närliggande kopia för att undvika en liten överföringsrad.
 engine.fix.change_font|Använd ett mer passande typsnitt.
+engine.fix.remove_repeated_punctuation|Ta bort det duplicerade punktet eller lägg till rätt mellanslag.
 engine.explain.double_space|Denna mening slutar med flera mellanslag, en konvention från skrivmaskinstiden som inte hör hemma i proportionell typografi.
 engine.explain.straight_quotes|Detta citattecken använder den raka ASCII-formen istället för riktade krulliga citattecken.
 engine.explain.hyphen_dash|Det här avbrottet använder bindestreck-minus-tecken istället för ett korrekt bindestreck.
@@ -1260,6 +1281,7 @@ engine.explain.comic_sans|Comic Sans metadata hittades i den inskickade rich tex
 engine.explain.prime_marks|Detta mätmärke använder ett ASCII-citattecken istället för en riktig primtalssymbol.
 engine.explain.multiplication_sign|Denna dimension använder bokstaven x där multiplikationstecknet ska visas.
 engine.explain.trademark_symbol|Denna reservnotation bör ersättas med rätt symbol.
+engine.explain.repeated_punctuation|Två punkter i rad hittades, vilket troligen är ett stavfel eller ett saknat mellanslag mellan meningar.
 category.punctuation|Teckensättningsproblem
 category.spacing|Avståndsproblem
 category.layout|Layoutproblem
@@ -1320,6 +1342,7 @@ doubleSpace|Dubbla mellanslag
 straightQuotes|Raka citat
 hyphenAsDash|Beststreck som bindestreck
 fakeEllipsis|Falsk ellips
+repeatedPunctuation|Upprepad interpunktion
 widow|Änkor
 orphan|Föräldralösa barn
 inconsistentSpacing|Inkonsekvent mellanrum
@@ -1333,6 +1356,7 @@ doubleSpace|Extra mellanslag efter meningsslutande skiljetecken.
 straightQuotes|ASCII citattecken används där lockiga citattecken hör hemma.
 hyphenAsDash|Beststreck står för ett riktigt streck.
 fakeEllipsis|Tre punkter används istället för ellipstecknet.
+repeatedPunctuation|Två punkter i rad som verkar vara ett stavfel.
 widow|En sista rad kvar med bara ett kort ord.
 orphan|En liten överföringsrad i början av ett stycke.
 inconsistentSpacing|Blandade meningsavståndsstilar i en text.
@@ -1346,6 +1370,7 @@ trademarkSymbol|Reservnotation används istället för ©, ® eller ™.
             (.straightQuotes, "Raka citattecken är vanliga ASCII-tecken. Färdig text läser vanligtvis bättre med riktade lockiga citattecken.", "Kulliga citattecken ser mer polerade ut och förbättrar den visuella rytmen i en mening.", "Tidiga tangentbord och teckenuppsättningar hade bara ett enkelt citattecken för båda riktningarna.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Aktivera smart interpunktion där det är tillgängligt.", "Rensa upp text som klistrats in från källor med vanlig text.", "Kontrollera måtten så att primtecken förblir korrekta."]),
             (.hyphenAsDash, "Beststreck sammanfogar ord, men de ersätter inte em-streck eller en-streck.", "Rätt bindestreck förbättrar ton, avstånd och läsbarhet.", "Dubbla bindestreck var en lösning i system som inte lätt kunde producera rika skiljetecken.", "He paused -- dramatically.", "He paused — dramatically.", ["Använd den riktiga strecktecken som din stil kräver.", "Behåll bindestreck för sammansättningar, inte meningsbrytningar.", "Var konsekvent över hela dokumentet."]),
             (.fakeEllipsis, "Tre punkter kan härma en ellips, men de är inte samma karaktär.", "En riktig ellips har balanserat mellanrum och beter sig bättre i en textrad.", "Många tillfälliga skrivarbetsflöden använder fortfarande tre punkter som standard.", "Wait...", "Wait…", ["Ersätt tre punkter med ellipstecknet.", "Använd textersättning om du skriver det ofta.", "Kontrollera importerad kopia innan publicering."]),
+            (.repeatedPunctuation, "Två punkter i rad är nästan alltid ett stavfel — antingen en dubbelintryckt punkt eller ett saknat mellanslag mellan meningar.", "Upprepad interpunktion bryter läsflödet och signalerar slarvig redigering.", nil, "worldwide..But", "worldwide. But", ["Ta bort den extra punkten.", "Om två meningar löper ihop, lägg till ett mellanslag efter den första punkten.", "Läs igenom inklistrad text för oavsiktliga dubbletter."]),
             (.widow, "En änka lämnar ett kort ord kvar på den sista raden i ett stycke.", "Det där svaga slutet stör styckets form och rytm.", "Redaktörer och designers har långa anpassade radbrytningar för att undvika änkor i tryck.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Skärp eller skriv om meningen något.", "Justera radlängden om layoutverktyg är tillgängliga.", "Behandla detta som en mjuk stilrekommendation."]),
             (.orphan, "Ett föräldralöst barn är en liten överföringsrad som börjar ett nytt stycke eller ett nytt textblock obekvämt.", "Det bryter läsflödet och gör att layouten känns mindre övervägd.", "Redaktionella arbetsflöden fixar traditionellt föräldralösa barn före publicering.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Skriv om en närliggande fras för att återbalansera pausen.", "Öppna måttet något om du kontrollerar layouten.", "Använd det som en varning, inte som ett stelfel."]),
             (.inconsistentSpacing, "Att blanda enkla och dubbla meningsavstånd gör att texten känns sammanfogad från olika källor.", "Läsare märker snabbt inkonsekvens, även när de inte kan förklara varför.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Välj en stil med meningsavstånd.", "Normalisera inklistrad text innan du delar den.", "Håll valet konsekvent från början till slut."]),
@@ -1520,6 +1545,7 @@ engine.fix.normalize_spacing|Normaliser setningsavstanden gjennom hele teksten.
 engine.fix.rewrite_widow|Skriv om eller flyt avsnittet om for å unngå en siste linje på ett ord.
 engine.fix.rewrite_orphan|Juster kopien i nærheten for å unngå en liten overføringslinje.
 engine.fix.change_font|Bruk en mer passende font.
+engine.fix.remove_repeated_punctuation|Fjern det dupliserte punktumet eller legg til riktig mellomrom.
 engine.explain.double_space|Denne setningen avsluttes med flere mellomrom, en konvensjon fra skrivemaskintiden som ikke hører hjemme i proporsjonal typografi.
 engine.explain.straight_quotes|Dette anførselstegnet bruker den rette ASCII-formen i stedet for retningsbestemte anførselstegn.
 engine.explain.hyphen_dash|Dette avbruddet bruker bindestrek-minus-tegn i stedet for en skikkelig bindestrek.
@@ -1531,6 +1557,7 @@ engine.explain.comic_sans|Comic Sans metadata ble funnet i den innsendte rike te
 engine.explain.prime_marks|Dette målemerket bruker et ASCII-anførselstegn i stedet for et riktig primtallssymbol.
 engine.explain.multiplication_sign|Denne dimensjonen bruker bokstaven x der multiplikasjonstegnet skal vises.
 engine.explain.trademark_symbol|Denne reservenotasjonen bør erstattes med det riktige symbolet.
+engine.explain.repeated_punctuation|To påfølgende punktum ble funnet, noe som sannsynligvis er en skrivefeil eller manglende mellomrom mellom setninger.
 category.punctuation|Tekkesettingsproblemer
 category.spacing|Space-problemer
 category.layout|Layoutproblemer
@@ -1591,6 +1618,7 @@ doubleSpace|Dobbeltrom
 straightQuotes|Rete sitater
 hyphenAsDash|Beststrek som bindestrek
 fakeEllipsis|Falske ellipsis
+repeatedPunctuation|Gjentatt tegnsetting
 widow|Enker
 orphan|Foreldreløse
 inconsistentSpacing|Inkonsekvent mellomrom
@@ -1604,6 +1632,7 @@ doubleSpace|Ekstra mellomrom etter setningsavslutning.
 straightQuotes|ASCII anførselstegn brukt der krøllete anførselstegn hører hjemme.
 hyphenAsDash|Binnestreker som står for en skikkelig strek.
 fakeEllipsis|Tre punktum brukt i stedet for ellipsetegnet.
+repeatedPunctuation|To påfølgende punktum som ser ut til å være en skrivefeil.
 widow|En siste linje igjen med bare ett kort ord.
 orphan|En liten overføringslinje i begynnelsen av et avsnitt.
 inconsistentSpacing|Blandede setningsavstandsstiler i én tekst.
@@ -1617,6 +1646,7 @@ trademarkSymbol|Reparasjonsnotasjon brukes i stedet for ©, ® eller ™.
             (.straightQuotes, "Rete anførselstegn er vanlige ASCII-tegn. Ferdig tekst leses vanligvis bedre med retningsbestemte krøllete anførselstegn.", "Krøllete sitater ser mer polerte ut og forbedrer den visuelle rytmen til en setning.", "Tidlige tastaturer og tegnsett holdt bare ett enkelt anførselstegn for begge retninger.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Slå på smart tegnsetting der det er tilgjengelig.", "Rydd opp i tekst som er limt inn fra kilder med ren tekst.", "Sjekk målene slik at prime merker forblir korrekte."]),
             (.hyphenAsDash, "Beststreker slår sammen ord, men de er ikke erstatninger for em-bindestreker eller en-bindestreker.", "Riktig bindestrek forbedrer tone, avstand og lesbarhet.", "Doble bindestreker var en løsning i systemer som ikke lett kunne produsere rike tegnsetting.", "He paused -- dramatically.", "He paused — dramatically.", ["Bruk den virkelige strekkarakteren stilen din krever.", "Behold bindestreker for sammensetninger, ikke setningsskift.", "Hold deg konsekvent på tvers av hele dokumentet."]),
             (.fakeEllipsis, "Tre punktum kan etterligne en ellipse, men de er ikke samme karakter.", "En ekte ellipse har balansert avstand og oppfører seg bedre i en tekstlinje.", "Mange tilfeldige skrivearbeidsflyter er fortsatt standard til å skrive tre punktum.", "Wait...", "Wait…", ["Erstatt tre punktum med ellipsetegnet.", "Bruk teksterstatning hvis du skriver det ofte.", "Sjekk importert kopi før publisering."]),
+            (.repeatedPunctuation, "To påfølgende punktum er nesten alltid en skrivefeil — enten et punkt tastet inn to ganger eller manglende mellomrom mellom setninger.", "Gjentatt tegnsetting bryter leseflyt og signalerer slurvete redigering.", nil, "worldwide..But", "worldwide. But", ["Fjern det ekstra punktumet.", "Hvis to setninger har flyte together, legg til et mellomrom etter det første punktumet.", "Les gjennom limt inn tekst for utilsiktede duplikater."]),
             (.widow, "En enke legger igjen ett kort ord på den siste linjen i et avsnitt.", "Den svake avslutningen forstyrrer formen og rytmen til avsnittet.", "Redaktører og designere har lenge justert linjeskift for å unngå enker på trykk.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Stram eller omskriv setningen litt.", "Juster linjelengden hvis layoutverktøy er tilgjengelig.", "Behandle dette som en myk stilanbefaling."]),
             (.orphan, "Et foreldreløst barn er en liten overføringslinje som starter et nytt avsnitt eller en tekstblokk vanskelig.", "Det bryter leseflyten og gjør at oppsettet føles mindre vurdert.", "Redaksjonelle arbeidsflyter fikser tradisjonelt foreldreløse barn før publisering.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Skriv om en nærliggende setning for å balansere pausen på nytt.", "Åpne målet litt hvis du kontrollerer layout.", "Bruk det som en advarsel, ikke en streng feil."]),
             (.inconsistentSpacing, "Blanding av enkelt og dobbel setningsavstand gjør at teksten føles sammenføyd fra forskjellige kilder.", "Leserne merker raskt inkonsekvens, selv når de ikke kan forklare hvorfor.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Velg én stil med setningsavstand.", "Normaliser innlimt tekst før du deler den.", "Hold valget konsekvent fra start til slutt."]),
@@ -1791,6 +1821,7 @@ engine.fix.normalize_spacing|Normaliser sætningsafstand i hele teksten.
 engine.fix.rewrite_widow|Omskriv eller flyt afsnittet om for at undgå en sidste linje på ét ord.
 engine.fix.rewrite_orphan|Juster kopien i nærheden for at undgå en lille overførselslinje.
 engine.fix.change_font|Brug en mere passende skrifttype.
+engine.fix.remove_repeated_punctuation|Fjern det duplikerede punktum eller tilføj korrekt afstand.
 engine.explain.double_space|Denne sætning slutter med flere mellemrum, en skrivemaskine-æra-konvention, der ikke hører hjemme i proportional typografi.
 engine.explain.straight_quotes|Dette anførselstegn bruger den lige ASCII-form i stedet for retningsbestemte krøllede anførselstegn.
 engine.explain.hyphen_dash|Denne afbrydelse bruger bindestreg-minus-tegn i stedet for en korrekt bindestreg.
@@ -1802,6 +1833,7 @@ engine.explain.comic_sans|Comic Sans metadata blev fundet i den indsendte rich t
 engine.explain.prime_marks|Dette målemærke bruger et ASCII anførselstegn i stedet for et egentligt primesymbol.
 engine.explain.multiplication_sign|Denne dimension bruger bogstavet x, hvor multiplikationstegnet skal vises.
 engine.explain.trademark_symbol|Denne reservenotation bør erstattes med det rigtige symbol.
+engine.explain.repeated_punctuation|To på hinanden følgende punktummer blev fundet, hvilket sandsynligvis er en tastefejl eller manglende mellemrum mellem sætninger.
 category.punctuation|Tekkesætningsproblemer
 category.spacing|Space-problemer
 category.layout|Layoutproblemer
@@ -1862,6 +1894,7 @@ doubleSpace|Dobbelt mellemrum
 straightQuotes|Lige citater
 hyphenAsDash|Bestregstreg som bindestreg
 fakeEllipsis|Falske Ellipsis
+repeatedPunctuation|Gentaget tegnsætning
 widow|Enker
 orphan|Forældreløse børn
 inconsistentSpacing|Inkonsistent mellemrum
@@ -1875,6 +1908,7 @@ doubleSpace|Ekstra mellemrum efter sætningsafslutning.
 straightQuotes|ASCII citater brugt, hvor krøllede citater hører hjemme.
 hyphenAsDash|Beststreger står i for en rigtig streg.
 fakeEllipsis|Tre punktum bruges i stedet for ellipsetegnet.
+repeatedPunctuation|To på hinanden følgende punktummer der ser ud til at være en tastefejl.
 widow|En sidste linje tilbage med kun et kort ord.
 orphan|En lille overførselslinje i starten af et afsnit.
 inconsistentSpacing|Blandede sætningsafstande i én tekst.
@@ -1888,6 +1922,7 @@ trademarkSymbol|Fallback-notation brugt i stedet for ©, ® eller ™.
             (.straightQuotes, "Lige anførselstegn er almindelige ASCII-tegn. Færdig tekst læses normalt bedre med retningsbestemte krøllede anførselstegn.", "Krøllede citater ser mere polerede ud og forbedrer den visuelle rytme i en sætning.", "Tidlige tastaturer og tegnsæt holdt kun ét enkelt anførselstegn for begge retninger.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Slå smart tegnsætning til, hvor det er muligt.", "Ryd op i tekst, der er indsat fra almindelige tekstkilder.", "Tjek målene, så prime mærker forbliver korrekte."]),
             (.hyphenAsDash, "Beststreger forbinder ord, men de er ikke erstatninger for em bindestreger eller en bindestreger.", "Den korrekte bindestreg forbedrer tone, mellemrum og læsbarhed.", "Dobbelt bindestreger var en løsning i systemer, der ikke nemt kunne producere fyldige tegnsætninger.", "He paused -- dramatically.", "He paused — dramatically.", ["Brug den rigtige bindestreg, din stil kræver.", "Behold bindestreger for sammensætninger, ikke sætningsskift.", "Forbliv konsistent på tværs af hele dokumentet."]),
             (.fakeEllipsis, "Tre perioder kan efterligne en ellipse, men de er ikke den samme karakter.", "En rigtig ellipse har afbalanceret mellemrum og opfører sig bedre i en tekstlinje.", "Mange afslappede skrivearbejdsgange er stadig som standard at skrive tre punktum.", "Wait...", "Wait…", ["Erstat tre punktum med ellipsetegnet.", "Brug teksterstatning, hvis du skriver det ofte.", "Tjek importeret kopi før udgivelse."]),
+            (.repeatedPunctuation, "To på hinanden følgende punktummer er næsten altid en tastefejl — enten et punktum tastet ind to gange eller et manglende mellemrum mellem sætninger.", "Gentaget tegnsætning bryder læseflowet og signalerer sjusket redigering.", nil, "worldwide..But", "worldwide. But", ["Fjern det ekstra punktum.", "Hvis to sætninger løber sammen, tilføj et mellemrum efter det første punktum.", "Gennemlæs indsat tekst for utilsigtede dubletter."]),
             (.widow, "En enke efterlader et kort ord strandet på den sidste linje i et afsnit.", "Den svage slutning forstyrrer afsnittets form og rytme.", "Redaktører og designere har lange justerede linjeskift for at undgå enker på tryk.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Stram eller omskriv sætningen lidt.", "Juster linjelængden, hvis layoutværktøjer er tilgængelige.", "Behandle dette som en blød stilanbefaling."]),
             (.orphan, "En forældreløs er en lille overførselslinje, der starter et nyt afsnit eller en tekstblok akavet.", "Det bryder læseflowet og får layoutet til at føles mindre velovervejet.", "Redaktionelle arbejdsgange retter traditionelt forældreløse børn før udgivelse.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Omskriv en nærliggende sætning for at genbalancere pausen.", "Åbn målingen lidt, hvis du styrer layoutet.", "Brug det som en advarsel, ikke en stiv fejl."]),
             (.inconsistentSpacing, "Blanding af enkelt og dobbelt sætningsafstand gør, at teksten føles sat sammen fra forskellige kilder.", "Læsere bemærker hurtigt inkonsekvens, selv når de ikke kan forklare hvorfor.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Vælg én stil med sætningsmellemrum.", "Normaliser indsat tekst, før du deler den.", "Hold valget konsekvent fra start til slut."]),
@@ -2062,6 +2097,7 @@ engine.fix.normalize_spacing|Normaaloi lausevälit koko tekstissä.
 engine.fix.rewrite_widow|Kirjoita kappale uudelleen tai viiva uudelleen, jotta vältät yhden sanan loppurivin.
 engine.fix.rewrite_orphan|Säädä lähellä olevaa kopiota, jotta vältät pienen siirtymäviivan.
 engine.fix.change_font|Käytä sopivampaa kirjasinta.
+engine.fix.remove_repeated_punctuation|Poista kaksoistettu piste tai lisää sopiva välilyönti.
 engine.explain.double_space|Tämä lause päättyy useisiin välilyönteihin, kirjoituskoneen aikakauden käytäntö, joka ei kuulu suhteelliseen typografiaan.
 engine.explain.straight_quotes|Tämä lainausmerkki käyttää suoraa ASCII-muotoa suuntaavien kihara lainausmerkkien sijaan.
 engine.explain.hyphen_dash|Tämä keskeytys käyttää väliviiva-miinusmerkkejä oikean viivan sijaan.
@@ -2073,6 +2109,7 @@ engine.explain.comic_sans|Comic Sans-sisällönkuvaustiedot löytyivät lähetet
 engine.explain.prime_marks|Tämä mittausmerkki käyttää lainausmerkkiä ASCII oikean alkusymbolin sijaan.
 engine.explain.multiplication_sign|Tämä ulottuvuus käyttää x-kirjainta, jossa kertomerkin pitäisi näkyä.
 engine.explain.trademark_symbol|Tämä varamerkintä tulee korvata oikealla symbolilla.
+engine.explain.repeated_punctuation|Löydettiin kaksi peräkkäistä pistettä — tämä on todennäköisesti kirjoitusvirhe tai puuttuva välilyönti lauseiden välissä.
 category.punctuation|Välimerkkiongelmat
 category.spacing|Välitysongelmat
 category.layout|Asetteluongelmat
@@ -2133,6 +2170,7 @@ doubleSpace|Kaksoisvälit
 straightQuotes|Suora lainaus
 hyphenAsDash|Tavuviiva viivana
 fakeEllipsis|Väärennetty ellipsi
+repeatedPunctuation|Toistuva välimerkit
 widow|Lesket
 orphan|Orvot
 inconsistentSpacing|Epäjohdonmukainen välilyönti
@@ -2146,6 +2184,7 @@ doubleSpace|Ylimääräiset välilyönnit lauseen loppujen välimerkkien jälkee
 straightQuotes|ASCII lainausmerkkejä käytetään siellä, missä kiharat lainausmerkit kuuluvat.
 hyphenAsDash|Yhdysviivat edustavat todellista viivaa.
 fakeEllipsis|Kolme pistettä käytetään ellipsimerkin sijaan.
+repeatedPunctuation|Kaksi peräkkäistä pistettä, jotka näyttävät kirjoitusvirheeltä.
 widow|Viimeinen rivi jäljellä vain yhdellä lyhyellä sanalla.
 orphan|Pieni siirtorivi kappaleen alussa.
 inconsistentSpacing|Sekalaiset lausevälityylit yhdessä tekstissä.
@@ -2159,6 +2198,7 @@ trademarkSymbol|Varamerkintä käytetty ©, ® tai ™ sijasta.
             (.straightQuotes, "Suorat lainausmerkit ovat tavallisia ASCII-merkkejä. Valmis teksti luetaan yleensä paremmin suuntaavilla lainausmerkeillä.", "Kiharat lainaukset näyttävät hienostuneemmilta ja parantavat lauseen visuaalista rytmiä.", "Varhaisissa näppäimistöissä ja merkistöissä oli vain yksi yksinkertainen lainausmerkki molempiin suuntiin.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Ota älykkäät välimerkit käyttöön, jos mahdollista.", "Puhdista pelkkätekstilähteistä liitetty teksti.", "Tarkista mitat, jotta alkumerkit pysyvät oikein."]),
             (.hyphenAsDash, "Tavuviivat yhdistävät sanoja, mutta ne eivät korvaa väliviivoja tai väliviivoja.", "Oikea viiva parantaa sävyä, välilyöntejä ja luettavuutta.", "Kaksoisyhdysviivat olivat kiertotapa järjestelmissä, joissa ei voitu helposti tuottaa monipuolisia välimerkkejä.", "He paused -- dramatically.", "He paused — dramatically.", ["Käytä todellista viivahahmoa, jota tyylisi vaatii.", "Säilytä yhdysviivat, älä lauseenvaihtoja.", "Pysy johdonmukainen koko asiakirjassa."]),
             (.fakeEllipsis, "Kolme pistettä voivat jäljitellä ellipsiä, mutta ne eivät ole sama merkki.", "Todella ellipsillä on tasapainoiset välit ja se käyttäytyy paremmin tekstirivillä.", "Monissa satunnaisissa kirjoitustyönkuluissa on edelleen oletuksena kolmen pisteen kirjoittaminen.", "Wait...", "Wait…", ["Korvaa kolme pistettä ellipsillä.", "Käytä tekstin korvaamista, jos kirjoitat sen usein.", "Tarkista tuotu kopio ennen julkaisua."]),
+            (.repeatedPunctuation, "Kaksi peräkkäistä pistettä on lähes aina kirjoitusvirhe — joko tahattomasti kaksoisnäppäilty piste tai puuttuva välilyönti lauseiden välissä.", "Toistuvat välimerkit rikkovat lukemisen sujuvuuden ja viestivät huolimattomasta muokkauksesta.", nil, "worldwide..But", "worldwide. But", ["Poista ylimääräinen piste.", "Jos kaksi lausetta on yhdistynyt, lisää välilyönti ensimmäisen pisteen jälkeen.", "Tarkista liitetty teksti tahattomien kaksoiskappaleiden varalta."]),
             (.widow, "Leski jättää yhden lyhyen sanan jumiin kappaleen viimeiselle riville.", "Tuo heikko loppu häiritsee kappaleen muotoa ja rytmiä.", "Toimittajat ja suunnittelijat ovat säätäneet pitkiä rivinvaihtoja välttääkseen leskien tulosta.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Kierrä tai kirjoita lausetta hieman uudelleen.", "Säädä rivin pituutta, jos asettelutyökaluja on saatavilla.", "Käsi tätä pehmeänä tyylisuosituksena."]),
             (.orphan, "Orpo on pieni siirretty rivi, joka aloittaa uuden kappaleen tai tekstilohkon hankalasti.", "Se katkaisee lukuvirran ja tekee asettelusta vähemmän harkitun.", "Toimitukselliset työnkulut korjaavat perinteisesti orvot ennen julkaisua.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Kirjoita lähellä oleva lause uudelleen tasapainottaaksesi tauon.", "Avaa mittaa hieman, jos hallitset asettelua.", "Käytä sitä varoituksena, ei jäykkänä virheenä."]),
             (.inconsistentSpacing, "Yksi- ja kaksinkertaisen lauseen välilyöntien sekoittaminen saa tekstin tuntumaan yhdistetyltä eri lähteistä.", "Lukijat huomaavat epäjohdonmukaisuuden nopeasti, vaikka he eivät osaa selittää miksi.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Valitse yksi lausevälityyli.", "Normaaloi liitetty teksti ennen sen jakamista.", "Pidä valinta johdonmukainen alusta loppuun."]),
@@ -2333,6 +2373,7 @@ engine.fix.normalize_spacing|Normalizovat mezery mezi větami v celém textu.
 engine.fix.rewrite_widow|Přepište nebo přeformátujte odstavec, abyste se vyhnuli jednoslovnému poslednímu řádku.
 engine.fix.rewrite_orphan|Upravte blízkou kopii, abyste se vyhnuli malé linii přenosu.
 engine.fix.change_font|Použijte vhodnější písmo.
+engine.fix.remove_repeated_punctuation|Odstraňte duplicitní tečku nebo přidejte správnou mezeru.
 engine.explain.double_space|Tato věta končí více mezerami, což je konvence z doby psacích strojů, která do proporcionální typografie nepatří.
 engine.explain.straight_quotes|Tato uvozovka používá přímou formu ASCII namísto směrových složených uvozovek.
 engine.explain.hyphen_dash|Toto přerušení používá znaky pomlčka-minus místo řádné pomlčky.
@@ -2344,6 +2385,7 @@ engine.explain.comic_sans|V odeslaném formátovaném textu byla nalezena metada
 engine.explain.prime_marks|Tato značka měření používá uvozovku ASCII namísto správného prvočísla.
 engine.explain.multiplication_sign|Tato dimenze používá písmeno x, kde by se mělo objevit znaménko násobení.
 engine.explain.trademark_symbol|Tento záložní zápis by měl být nahrazen správným symbolem.
+engine.explain.repeated_punctuation|Byly nalezeny dvě po sobě jdoucí tečky — pravděpodobně jde o překlep nebo chybějící mezeru mezi větami.
 category.punctuation|Problémy s interpunkcí
 category.spacing|Problémy s mezerami
 category.layout|Problémy s rozložením
@@ -2404,6 +2446,7 @@ doubleSpace|Dvojité mezery
 straightQuotes|Přímé uvozovky
 hyphenAsDash|Pomlčka jako pomlčka
 fakeEllipsis|Falešná elipsa
+repeatedPunctuation|Opakovaná interpunkce
 widow|Vdovy
 orphan|Sirotci
 inconsistentSpacing|Nekonzistentní mezery
@@ -2417,6 +2460,7 @@ doubleSpace|Mezery navíc za interpunkcí na konci věty.
 straightQuotes|ASCII uvozovky používané tam, kde patří složené uvozovky.
 hyphenAsDash|Pomlčky představují skutečnou pomlčku.
 fakeEllipsis|Namísto znaku elipsy jsou použity tři tečky.
+repeatedPunctuation|Dvě po sobě jdoucí tečky, které vypadají jako překlep.
 widow|Zbývá poslední řádek s pouze jedním krátkým slovem.
 orphan|Malý přenosový řádek na začátku odstavce.
 inconsistentSpacing|Smíšené styly mezer mezi větami v jednom textu.
@@ -2430,6 +2474,7 @@ trademarkSymbol|Namísto ©, ® nebo ™ se používá záložní notace.
             (.straightQuotes, "Přímé uvozovky jsou obyčejné značky ASCII. Dokončený text se obvykle lépe čte se směrovými složenými uvozovkami.", "Kudrnaté uvozovky vypadají uhlazeněji a zlepšují vizuální rytmus věty.", "Dřívější klávesnice a znakové sady uchovávaly pouze jednu jednoduchou uvozovku pro oba směry.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Pokud je to možné, zapněte chytrou interpunkci.", "Vyčistěte text vložený ze zdrojů prostého textu.", "Zkontrolujte měření, aby prvočísla zůstala správná."]),
             (.hyphenAsDash, "Pomlčky spojují slova, ale nenahrazují dlouhé pomlčky ani pomlčky.", "Správná pomlčka zlepšuje tón, rozestupy a čitelnost.", "Dvojité pomlčky byly řešením v systémech, které nemohly snadno vytvářet bohatou interpunkci.", "He paused -- dramatically.", "He paused — dramatically.", ["Použijte skutečnou pomlčku, kterou váš styl vyžaduje.", "U složenin ponechte pomlčky, nikoli zalomení vět.", "Zůstaňte konzistentní v celém dokumentu."]),
             (.fakeEllipsis, "Tři tečky mohou napodobovat elipsu, ale nejsou to stejné znaky.", "Skutečná elipsa má vyvážené mezery a chová se lépe v řádku textu.", "Mnoho pracovních postupů příležitostného psaní stále ve výchozím nastavení používá tři tečky.", "Wait...", "Wait…", ["Nahraďte tři tečky znakem elipsy.", "Pokud často píšete, použijte náhradu textu.", "Před publikováním zkontrolujte importovanou kopii."]),
+            (.repeatedPunctuation, "Dvě po sobě jdoucí tečky jsou téměř vždy překlep — buď omylem zadaná dvakrát, nebo chybějící mezera mezi větami.", "Opakovaná interpunkce narušuje plynulost čtení a signalizuje nedbálou editaci.", nil, "worldwide..But", "worldwide. But", ["Odstraňte nadbytečnou tečku.", "Pokud se dvě věty spojily, přidejte mezeru za první tečku.", "Zkontrolujte vložený text na přítomnost náhodných duplikátů."]),
             (.widow, "Vdova nechá na posledním řádku odstavce jedno krátké slovo.", "Tento slabý konec narušuje tvar a rytmus odstavce.", "Editoři a designéři upravili dlouhé konce řádků, aby se vyhnuli vdovám v tisku.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Větu mírně utáhněte nebo přepište.", "Pokud jsou k dispozici nástroje pro rozložení, upravte délku čáry.", "Považujte to za doporučení měkkého stylu."]),
             (.orphan, "Sirotek je malý přenosový řádek, který nešikovně začíná nový odstavec nebo textový blok.", "Přeruší tok čtení a způsobí, že rozložení bude méně uvážené.", "Pracovní postupy redakce tradičně opravují sirotky před zveřejněním.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Přepište blízkou frázi, abyste znovu vyvážili přestávku.", "Pokud ovládáte rozložení, mírně otevřete míru.", "Používejte jej jako varování, nikoli jako pevnou chybu."]),
             (.inconsistentSpacing, "Kombinace jednoduchých a dvojitých mezer mezi větami vytváří dojem, že text je sešitý z různých zdrojů.", "Čtenáři si rychle všimnou nekonzistence, i když nedokážou vysvětlit proč.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Vyberte jeden styl mezer mezi větami.", "Před sdílením vložený text normalizujte.", "Udržujte výběr konzistentní od začátku do konce."]),
@@ -2604,6 +2649,7 @@ engine.fix.normalize_spacing|A mondatközök normalizálása a szövegben.
 engine.fix.rewrite_widow|Írja át vagy törje át a bekezdést, hogy elkerülje az egyszavas utolsó sort.
 engine.fix.rewrite_orphan|Módosítsa a közeli példányt, hogy elkerülje az apró átviteli vonalakat.
 engine.fix.change_font|Használjon megfelelőbb betűtípust.
+engine.fix.remove_repeated_punctuation|Távolítsa el a duplikált pontot, vagy adjon hozzá megfelelő szóközt.
 engine.explain.double_space|Ez a mondat több szóközzel végződik, ez az írógép-korszak konvenciója, amely nem tartozik az arányos tipográfiába.
 engine.explain.straight_quotes|Ez az idézőjel az egyenes ASCII formát használja az irányított göndör idézőjelek helyett.
 engine.explain.hyphen_dash|Ez a megszakítás kötőjel-mínusz karaktereket használ megfelelő kötőjel helyett.
@@ -2615,6 +2661,7 @@ engine.explain.comic_sans|Comic Sans metaadatok találhatók a beküldött form�
 engine.explain.prime_marks|Ez a mérési jel ASCII idézőjelet használ megfelelő prímszimbólum helyett.
 engine.explain.multiplication_sign|Ez a méret az x betűt használja, ahol a szorzójelnek meg kell jelennie.
 engine.explain.trademark_symbol|Ezt a tartalék jelölést a megfelelő szimbólumra kell cserélni.
+engine.explain.repeated_punctuation|Két egymást követő pont található, ami valószínűleg elírás vagy hiányzó szóköz a mondatok között.
 category.punctuation|Írásjelekkel kapcsolatos problémák
 category.spacing|Térközzel kapcsolatos problémák
 category.layout|Elrendezési problémák
@@ -2675,6 +2722,7 @@ doubleSpace|Kettős szóközök
 straightQuotes|Egyenes idézetek
 hyphenAsDash|kötőjel mint kötőjel
 fakeEllipsis|Hamis ellipszis
+repeatedPunctuation|Ismételt írásjel
 widow|Özvegyek
 orphan|Árvák
 inconsistentSpacing|Inkonzisztens térközök
@@ -2688,6 +2736,7 @@ doubleSpace|Pontos szóközök a mondatvégi írásjelek után.
 straightQuotes|ASCII idézőjel, ahol a göndör idézőjelek tartoznak.
 hyphenAsDash|A kötőjelek valódi kötőjelként szolgálnak.
 fakeEllipsis|Három pont használatos a hárompontos karakter helyett.
+repeatedPunctuation|Két egymást követő pont, ami elírásnak tűnik.
 widow|Az utolsó sor csak egy rövid szóval maradt.
 orphan|Egy apró átviteli sor a bekezdés elején.
 inconsistentSpacing|Vegyes mondatközi stílusok egy szövegben.
@@ -2701,6 +2750,7 @@ trademarkSymbol|A ©, ® vagy ™ helyett használt tartalék jelölés.
             (.straightQuotes, "Az egyenes idézőjelek egyszerű ASCII jelek. A kész szöveg általában jobban olvasható a göndör idézőjelekkel.", "A göndör idézetek kifinomultabbak, és javítják a mondat vizuális ritmusát.", "A korai billentyűzetek és karakterkészletek csak egy egyszerű idézőjelet tartalmaztak mindkét irányban.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Ha elérhető, kapcsolja be az intelligens írásjeleket.", "Tisztítsa meg az egyszerű szöveges forrásokból beillesztett szöveget.", "Ellenőrizze a méréseket, hogy a főjelek helyesek maradjanak."]),
             (.hyphenAsDash, "A kötőjelek összekapcsolják a szavakat, de nem helyettesítik a kötőjeleket vagy a kötőjeleket.", "A megfelelő kötőjel javítja a hangszínt, a térközt és az olvashatóságot.", "A dupla kötőjelek megoldást jelentenek azokban a rendszerekben, amelyek nem tudtak könnyen gazdag írásjeleket létrehozni.", "He paused -- dramatically.", "He paused — dramatically.", ["Használja a stílusához szükséges valódi kötőjelet.", "Az összetételeknél kötőjelet tartson, ne mondattörést.", "Maradjon következetes az egész dokumentumban."]),
             (.fakeEllipsis, "Három pont utánozhat egy ellipszist, de nem ugyanaz a karakter.", "Egy igazi ellipszis kiegyensúlyozott térközzel rendelkezik, és jobban viselkedik egy szövegsorban.", "Sok hétköznapi írási munkafolyamat alapértelmezés szerint továbbra is három pontot ír be.", "Wait...", "Wait…", ["Cseréljen ki három pontot hárompontos karakterre.", "Ha gyakran írja be, használjon szövegcserét.", "Közzététel előtt ellenőrizze az importált példányt."]),
+            (.repeatedPunctuation, "Két egymást követő pont szinte mindig elírás — vagy kétszer leütött pont, vagy hiányzó szóköz a mondatok között.", "Az ismételt írásjel megzavarja az olvasás folyamatát és gondatlan szerkesztésre utal.", nil, "worldwide..But", "worldwide. But", ["Távolítsa el a felesleges pontot.", "Ha két mondat összefolyt, adjon hozzá szóközt az első pont után.", "Ellenőrizze a beillesztett szöveget véletlen ismétlések szempontjából."]),
             (.widow, "Az özvegy egy rövid szót hagy a bekezdés utolsó sorában.", "Ez a gyenge befejezés megzavarja a bekezdés alakját és ritmusát.", "A szerkesztők és a tervezők hosszú ideig beállították a sortöréseket, hogy elkerüljék az özvegyeket a nyomtatásban.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Kicsit szigorítsa meg vagy írja át a mondatot.", "Ha rendelkezésre állnak elrendezési eszközök, állítsa be a vonal hosszát.", "Kezelje ezt lágy stílusjavaslatként."]),
             (.orphan, "Az árva egy apró átviteli sor, amely kínosan kezd új bekezdést vagy szövegblokkot.", "Megszakítja az olvasási folyamatot, és kevésbé érzi átgondoltnak az elrendezést.", "A szerkesztői munkafolyamatok hagyományosan a közzététel előtt javítják az árvákat.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Írjon át egy közeli kifejezést, hogy kiegyensúlyozza a szünetet.", "Nyissa meg kissé a mértéket, ha vezérli az elrendezést.", "Figyelmeztetésként használja, ne merev hibaként."]),
             (.inconsistentSpacing, "Az egy- és kettős mondatközök keverése azt eredményezi, hogy a különböző forrásokból származó szöveg összefűződik.", "Az olvasók gyorsan észreveszik a következetlenséget, még akkor is, ha nem tudják megmagyarázni, miért.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Válasszon egy mondatközi stílust.", "Normalizálja a beillesztett szöveget a megosztás előtt.", "A választás legyen következetes az elejétől a végéig."]),
@@ -2875,6 +2925,7 @@ engine.fix.normalize_spacing|Normalizează spațierea dintre propoziții în tot
 engine.fix.rewrite_widow|Rescrieți sau redistribuiți paragraful pentru a evita un rând final de un singur cuvânt.
 engine.fix.rewrite_orphan|Ajustați copia din apropiere pentru a evita o linie mică de transfer.
 engine.fix.change_font|Folosiți un font mai potrivit.
+engine.fix.remove_repeated_punctuation|Eliminați punctul duplicat sau adăugați spațierea corespunzătoare.
 engine.explain.double_space|Această propoziție se termină cu mai multe spații, o convenție din epoca mașinii de scris care nu aparține tipografiei proporționale.
 engine.explain.straight_quotes|Acest ghilimele folosește forma dreaptă ASCII în loc de ghilimele direcționale.
 engine.explain.hyphen_dash|Această întrerupere folosește caractere cu cratima minus în loc de o liniuță adecvată.
@@ -2886,6 +2937,7 @@ engine.explain.comic_sans|Metadatele Comic Sans au fost găsite în textul îmbo
 engine.explain.prime_marks|Acest semn de măsurare folosește un ghilimeleu ASCII în loc de un simbol prim adecvat.
 engine.explain.multiplication_sign|Această dimensiune folosește litera x unde ar trebui să apară semnul înmulțirii.
 engine.explain.trademark_symbol|Această notație alternativă ar trebui înlocuită cu simbolul corespunzător.
+engine.explain.repeated_punctuation|Au fost găsite două puncte consecutive — probabil o greșeală de tastare sau un spațiu lipsă între propoziții.
 category.punctuation|Probleme de punctuație
 category.spacing|Probleme de spațiere
 category.layout|Probleme de aspect
@@ -2946,6 +2998,7 @@ doubleSpace|Spatii duble
 straightQuotes|Citate drepte
 hyphenAsDash|Crătima ca liniuță
 fakeEllipsis|Elipse false
+repeatedPunctuation|Punctuație repetată
 widow|Văduve
 orphan|Orfani
 inconsistentSpacing|Spațiere inconsecventă
@@ -2959,6 +3012,7 @@ doubleSpace|Spatii suplimentare după punctuația de la sfârșitul propoziției
 straightQuotes|ASCII ghilimele folosite acolo unde aparțin ghilimelele.
 hyphenAsDash|Cratimele în locul unei liniuțe adevărate.
 fakeEllipsis|Se folosesc trei puncte în locul caracterului de suspensie.
+repeatedPunctuation|Două puncte consecutive care par a fi o greșeală de tastare.
 widow|Un ultim rând rămas cu un singur cuvânt scurt.
 orphan|O mică linie reportată la începutul unui paragraf.
 inconsistentSpacing|Stiluri mixte de spațiere a propozițiilor într-un singur text.
@@ -2972,6 +3026,7 @@ trademarkSymbol|Se folosește notația de rezervă în loc de ©, ® sau ™.
             (.straightQuotes, "Gulimelele drepte sunt semne simple ASCII. Textul final se citește de obicei mai bine cu ghilimele direcționale.", "Citatele crete par mai rafinate și îmbunătățesc ritmul vizual al unei propoziții.", "Tastaturile și seturile de caractere timpurii au păstrat un singur semn de ghilimele simple pentru ambele direcții.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Activați semnele de punctuație inteligente acolo unde sunt disponibile.", "Curăță textul lipit din surse de text simplu.", "Verificați măsurătorile astfel încât semnele prime să rămână corecte."]),
             (.hyphenAsDash, "Cratimele unesc cuvintele, dar nu înlocuiesc liniuțele em sau liniuțele en.", "Linieta corectă îmbunătățește tonul, spațierea și lizibilitatea.", "Cratimele duble erau o soluție de soluție în sistemele care nu puteau produce cu ușurință semne de punctuație bogate.", "He paused -- dramatically.", "He paused — dramatically.", ["Folosește caracterul liniuță real pe care stilul tău îl cere.", "Păstrați cratime pentru compuși, nu pauze de propoziție.", "Păstrați consecvență în întregul document."]),
             (.fakeEllipsis, "Trei puncte pot imita o elipsă, dar nu sunt același caracter.", "O elipsă reală are spațiere echilibrată și se comportă mai bine într-o linie de text.", "Multe fluxuri de lucru de scriere ocazională încă introduc în mod prestabilit trei puncte.", "Wait...", "Wait…", ["Înlocuiți trei puncte cu caracterul elipsă.", "Folosiți înlocuirea textului dacă îl introduceți des.", "Verificați copia importată înainte de publicare."]),
+            (.repeatedPunctuation, "Două puncte consecutive sunt aproape întotdeauna o greșeală de tastare — fie un punct tastat dublu, fie un spațiu lipsă între propoziții.", "Punctuația repetată întrerupe fluxul de citire și indică o editare neglijentă.", nil, "worldwide..But", "worldwide. But", ["Eliminați punctul în plus.", "Dacă două propoziții s-au contopit, adăugați un spațiu după primul punct.", "Verificați textul lipit pentru duplicate accidentale."]),
             (.widow, "O văduvă lasă un cuvânt scurt blocat pe ultimul rând al unui paragraf.", "Acel final slab perturbă forma și ritmul paragrafului.", "Editorii și designerii au întreruperi de rând ajustate îndelung pentru a evita văduvele în tipărire.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Strângeți sau rescrieți ușor propoziția.", "Ajustați lungimea liniei dacă instrumentele de aspect sunt disponibile.", "Tratați acest lucru ca pe o recomandare de stil moale."]),
             (.orphan, "Un orfan este o linie minusculă care începe un nou paragraf sau bloc de text în mod ciudat.", "Întrerupe fluxul de citire și face ca aspectul să fie mai puțin luat în considerare.", "Fluxurile de lucru editoriale remediază în mod tradițional orfanii înainte de publicare.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Rescrieți o frază din apropiere pentru a reechilibra pauză.", "Deschideți ușor măsura dacă controlați aspectul.", "Folosiți-l ca un avertisment, nu o eroare rigidă."]),
             (.inconsistentSpacing, "Combinând spațierea dintre propoziții simple și duble, textul se simte îmbinat din surse diferite.", "Cititorii observă incoerența rapid, chiar și atunci când nu pot explica de ce.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Alegeți un stil de spațiere a propozițiilor.", "Normalizează textul lipit înainte de a-l partaja.", "Păstrați alegerea consecventă de la început până la sfârșit."]),
@@ -3146,6 +3201,7 @@ engine.fix.normalize_spacing|Ομαλοποιήστε την απόσταση π
 engine.fix.rewrite_widow|Ξαναγράψτε ή επαναλάβετε τη ροή της παραγράφου για να αποφύγετε μια μονολεκτική τελική γραμμή.
 engine.fix.rewrite_orphan|Προσαρμόστε το κοντινό αντίγραφο για να αποφύγετε μια μικροσκοπική γραμμή μεταφοράς.
 engine.fix.change_font|Χρησιμοποιήστε μια πιο κατάλληλη γραμματοσειρά.
+engine.fix.remove_repeated_punctuation|Αφαιρέστε την διπλή τελεία ή προσθέστε κατάλληλο κενό.
 engine.explain.double_space|Αυτή η πρόταση τελειώνει με πολλά κενά, μια σύμβαση της εποχής της γραφομηχανής που δεν ανήκει στην αναλογική τυπογραφία.
 engine.explain.straight_quotes|Αυτό το εισαγωγικό χρησιμοποιεί την ευθεία μορφή ASCII αντί για κατευθυντικά σγουρά εισαγωγικά.
 engine.explain.hyphen_dash|Αυτή η διακοπή χρησιμοποιεί χαρακτήρες παύλα-μείον αντί για σωστή παύλα.
@@ -3157,6 +3213,7 @@ engine.explain.comic_sans|Comic Sans μεταδεδομένα βρέθηκαν �
 engine.explain.prime_marks|Αυτή η ένδειξη μέτρησης χρησιμοποιεί ένα εισαγωγικό ASCII αντί για ένα σωστό πρώτο σύμβολο.
 engine.explain.multiplication_sign|Αυτή η διάσταση χρησιμοποιεί το γράμμα x όπου πρέπει να εμφανίζεται το σύμβολο πολλαπλασιασμού.
 engine.explain.trademark_symbol|Αυτή η εναλλακτική σημείωση θα πρέπει να αντικατασταθεί με το κατάλληλο σύμβολο.
+engine.explain.repeated_punctuation|Βρέθηκαν δύο διαδοχικές τελείες — πιθανώς πρόκειται για τυπογραφικό λάθος ή για απουσία κενού μεταξύ προτάσεων.
 category.punctuation|Ζητήματα στίξης
 category.spacing|Προβλήματα διαστήματος
 category.layout|Προβλήματα διάταξης
@@ -3217,6 +3274,7 @@ doubleSpace|Διπλά κενά
 straightQuotes|Κατάλληλα εισαγωγικά
 hyphenAsDash|Παύλα ως παύλα
 fakeEllipsis|Ψεύτικη έλλειψη
+repeatedPunctuation|Επαναλαμβανόμενη στίξη
 widow|Χήρες
 orphan|Ορφανά
 inconsistentSpacing|Ασυνεπής απόσταση
@@ -3230,6 +3288,7 @@ doubleSpace|Επιπλέον κενά μετά τα σημεία στίξης π
 straightQuotes|ASCII εισαγωγικά που χρησιμοποιούνται όπου ανήκουν τα σγουρά εισαγωγικά.
 hyphenAsDash|Οι παύλες αντιπροσωπεύουν μια πραγματική παύλα.
 fakeEllipsis|Χρησιμοποιήθηκαν τρεις τελείες αντί του χαρακτήρα έλλειψης.
+repeatedPunctuation|Δύο διαδοχικές τελείες που φαίνεται να είναι τυπογραφικό λάθος.
 widow|Έχει απομείνει μια τελευταία γραμμή με μία μόνο σύντομη λέξη.
 orphan|Μια μικροσκοπική γραμμή μεταφοράς στην αρχή μιας παραγράφου.
 inconsistentSpacing|Μικτά στυλ διάστιχου προτάσεων σε ένα κείμενο.
@@ -3243,6 +3302,7 @@ trademarkSymbol|Χρησιμοποιείται εναλλακτική σημεί
             (.straightQuotes, "Τα ίσια εισαγωγικά είναι απλά ASCII σημάδια. Το ολοκληρωμένο κείμενο συνήθως διαβάζεται καλύτερα με κατευθυντικά σγουρά εισαγωγικά.", "Τα σγουρά εισαγωγικά φαίνονται πιο εκλεπτυσμένα και βελτιώνουν τον οπτικό ρυθμό μιας πρότασης.", "Τα πρώτα πληκτρολόγια και τα σύνολα χαρακτήρων διατήρησαν μόνο ένα απλό εισαγωγικό και για τις δύο κατευθύνσεις.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Ενεργοποιήστε τα έξυπνα σημεία στίξης όπου είναι διαθέσιμα.", "Εκκαθάριση κειμένου που έχει επικολληθεί από πηγές απλού κειμένου.", "Ελέγξτε τις μετρήσεις για να παραμείνουν σωστές οι κύριες ενδείξεις."]),
             (.hyphenAsDash, "Οι παύλες ενώνουν λέξεις, αλλά δεν υποκαθιστούν τις παύλες em ή τις παύλες en.", "Η σωστή παύλα βελτιώνει τον τόνο, την απόσταση και την αναγνωσιμότητα.", "Οι διπλές παύλες ήταν μια λύση σε συστήματα που δεν μπορούσαν εύκολα να παράγουν πλούσια σημεία στίξης.", "He paused -- dramatically.", "He paused — dramatically.", ["Χρησιμοποιήστε τον πραγματικό χαρακτήρα παύλας που απαιτεί το στυλ σας.", "Διατηρήστε παύλες για σύνθετα, όχι διαλείμματα προτάσεων.", "Μείνετε συνεπείς σε ολόκληρο το έγγραφο."]),
             (.fakeEllipsis, "Τρεις περίοδοι μπορούν να μιμηθούν μια έλλειψη, αλλά δεν είναι ο ίδιος χαρακτήρας.", "Μια πραγματική έλλειψη έχει ισορροπημένη απόσταση και συμπεριφέρεται καλύτερα σε μια γραμμή κειμένου.", "Πολλές ροές εργασίας περιστασιακής γραφής εξακολουθούν να πληκτρολογούν τρεις περιόδους από προεπιλογή.", "Wait...", "Wait…", ["Αντικαταστήστε τρεις τελείες με τον χαρακτήρα έλλειψης.", "Χρησιμοποιήστε αντικατάσταση κειμένου εάν το πληκτρολογείτε συχνά.", "Ελέγξτε το εισαγόμενο αντίγραφο πριν από τη δημοσίευση."]),
+            (.repeatedPunctuation, "Δύο διαδοχικές τελείες είναι σχεδόν πάντα τυπογραφικό λάθος — είτε τελεία που πατήθηκε δύο φορές είτε λείπει κενό μεταξύ προτάσεων.", "Η επαναλαμβανόμενη στίξη διακόπτει τη ροή ανάγνωσης και υποδηλώνει απρόσεκτη επεξεργασία.", nil, "worldwide..But", "worldwide. But", ["Αφαιρέστε την επιπλέον τελεία.", "Αν δύο προτάσεις συνέπεσαν, προσθέστε κενό μετά την πρώτη τελεία.", "Ελέγξτε το επικολλημένο κείμενο για τυχαία διπλά."]),
             (.widow, "Μια χήρα αφήνει μια σύντομη λέξη στην τελευταία γραμμή μιας παραγράφου.", "Αυτό το αδύναμο τέλος διαταράσσει το σχήμα και το ρυθμό της παραγράφου.", "Οι συντάκτες και οι σχεδιαστές έχουν προσαρμόσει εδώ και καιρό τις αλλαγές γραμμής για να αποφύγουν τις χήρες στην έντυπη έκδοση.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Σφίξτε ή ξαναγράψτε ελαφρώς την πρόταση.", "Προσαρμόστε το μήκος γραμμής εάν υπάρχουν διαθέσιμα εργαλεία διάταξης.", "Αντιμετώπισέ το ως μια σύσταση απαλού στυλ."]),
             (.orphan, "Το ορφανό είναι μια μικροσκοπική γραμμή μεταφοράς που ξεκινά άβολα μια νέα παράγραφο ή μπλοκ κειμένου.", "Διαταράσσει τη ροή ανάγνωσης και κάνει τη διάταξη να φαίνεται λιγότερο μελετημένη.", "Οι ροές εργασιών σύνταξης παραδοσιακά διορθώνουν τα ορφανά πριν από τη δημοσίευση.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Ξαναγράψτε μια κοντινή φράση για να εξισορροπήσετε ξανά το διάλειμμα.", "Ανοίξτε ελαφρά το μέτρο εάν ελέγχετε τη διάταξη.", "Χρησιμοποιήστε το ως προειδοποίηση, όχι ως άκαμπτο σφάλμα."]),
             (.inconsistentSpacing, "Η ανάμειξη μονής και διπλής απόστασης προτάσεων κάνει το κείμενο να αισθάνεται ραμμένο από διαφορετικές πηγές.", "Οι αναγνώστες παρατηρούν την ασυνέπεια γρήγορα, ακόμη και όταν δεν μπορούν να εξηγήσουν το γιατί.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Επιλέξτε ένα στυλ διάστιχου προτάσεων.", "Κανονικοποιήστε το επικολλημένο κείμενο πριν το μοιραστείτε.", "Διατηρήστε την επιλογή συνεπή από την αρχή μέχρι το τέλος."]),

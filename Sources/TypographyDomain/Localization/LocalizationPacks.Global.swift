@@ -165,6 +165,7 @@ engine.fix.normalize_spacing|تطبيع المسافات بين الجمل في 
 engine.fix.rewrite_widow|أعد كتابة الفقرة أو أعد تدفقها لتجنب السطر الأخير المكون من كلمة واحدة.
 engine.fix.rewrite_orphan|اضبط النسخة القريبة لتجنب وجود خط ترحيل صغير.
 engine.fix.change_font|استخدم خطًا أكثر ملاءمة.
+engine.fix.remove_repeated_punctuation|احذف النقطة المكررة أو أضف المسافة المناسبة.
 engine.explain.double_space|تنتهي هذه الجملة بمسافات متعددة، وهو تقليد لعصر الآلة الكاتبة ولا ينتمي إلى الطباعة المتناسبة.
 engine.explain.straight_quotes|تستخدم علامة الاقتباس هذه نموذج ASCII المستقيم بدلاً من علامات الاقتباس المتعرجة الاتجاهية.
 engine.explain.hyphen_dash|تستخدم هذه المقاطعة أحرف واصلة ناقص بدلاً من شرطة مناسبة.
@@ -176,6 +177,7 @@ engine.explain.comic_sans|تم العثور على البيانات الوصفي
 engine.explain.prime_marks|تستخدم علامة القياس هذه علامة الاقتباس ASCII بدلاً من الرمز الأولي المناسب.
 engine.explain.multiplication_sign|يستخدم هذا البعد الحرف x حيث يجب أن تظهر علامة الضرب.
 engine.explain.trademark_symbol|يجب استبدال هذا الترميز الاحتياطي بالرمز المناسب.
+engine.explain.repeated_punctuation|تم العثور على نقطتين متتاليتين، وهذا على الأرجح خطأ إملائي أو مسافة مفقودة بين الجملتين.
 category.punctuation|مشكلات علامات الترقيم
 category.spacing|مشكلات التباعد
 category.layout|مشكلات التخطيط
@@ -236,6 +238,7 @@ doubleSpace|المسافات المزدوجة
 straightQuotes|الاقتباسات المستقيمة
 hyphenAsDash|الواصلة مثل الشرطة
 fakeEllipsis|حذف مزيف
+repeatedPunctuation|علامات ترقيم متكررة
 widow|الأرامل
 orphan|الأيتام
 inconsistentSpacing|تباعد غير متناسق
@@ -249,6 +252,7 @@ doubleSpace|المسافات الزائدة بعد علامات الترقيم �
 straightQuotes|ASCII علامات الاقتباس المستخدمة حيث تنتمي علامات الاقتباس المتعرجة.
 hyphenAsDash|الواصلات تمثل شرطة حقيقية.
 fakeEllipsis|تم استخدام ثلاث نقاط بدلاً من حرف القطع.
+repeatedPunctuation|نقطتان متتاليتان تبدوان كخطأ إملائي.
 widow|يتبقى سطر أخير بكلمة قصيرة واحدة فقط.
 orphan|سطر ترحيل صغير في بداية الفقرة.
 inconsistentSpacing|أنماط تباعد الجمل المختلطة في نص واحد.
@@ -262,6 +266,7 @@ trademarkSymbol|يتم استخدام الترميز الاحتياطي بدلا
             (.straightQuotes, "علامات الاقتباس المستقيمة هي علامات ASCII عادية. عادةً ما تتم قراءة النص النهائي بشكل أفضل مع علامات الاقتباس المتعرجة الاتجاهية.", "تبدو علامات الاقتباس المتعرجة أكثر صقلًا وتحسن الإيقاع البصري للجملة.", "احتفظت لوحات المفاتيح ومجموعات الأحرف المبكرة بعلامة اقتباس بسيطة واحدة فقط لكلا الاتجاهين.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["قم بتشغيل علامات الترقيم الذكية حيثما كان ذلك متاحًا.", "تنظيف النص الملصق من مصادر النص العادي.", "تحقق من القياسات حتى تظل العلامات الأولية صحيحة."]),
             (.hyphenAsDash, "تربط الواصلات الكلمات، ولكنها ليست بديلاً للشرطات الطويلة أو الشرطات القصيرة.", "تعمل الشرطة الصحيحة على تحسين النغمة والتباعد وسهولة القراءة.", "كانت الواصلات المزدوجة بمثابة حل بديل في الأنظمة التي لا يمكنها إنتاج علامات ترقيم غنية بسهولة.", "He paused -- dramatically.", "He paused — dramatically.", ["استخدم حرف الشرطة الحقيقي الذي يتطلبه أسلوبك.", "احتفظ بالواصلات للمركبات، وليس فواصل الجمل.", "حافظ على الاتساق عبر المستند بأكمله."]),
             (.fakeEllipsis, "يمكن لثلاث نقاط أن تحاكي علامة الحذف، ولكنها ليست نفس الحرف.", "تحتوي علامات الحذف الحقيقية على مسافات متوازنة وتعمل بشكل أفضل في سطر النص.", "لا يزال العديد من سير عمل الكتابة غير الرسمي يكتب ثلاث فترات بشكل افتراضي.", "Wait...", "Wait…", ["استبدل ثلاث نقاط بحرف القطع.", "استخدم استبدال النص إذا كنت تكتبه كثيرًا.", "التحقق من النسخة المستوردة قبل النشر."]),
+            (.repeatedPunctuation, "نقطتان متتاليتان هما في الغالب خطأ إملائي — إما نقطة مُدخلة مرتين أو مسافة مفقودة بين الجملتين.", "علامات الترقيم المتكررة تُعيق تدفق القراءة وتدل على تحرير مُهمَل.", nil, "worldwide..But", "worldwide. But", ["احذف النقطة الزائدة.", "إذا التصقت جملتان معاً، أضف مسافة بعد النقطة الأولى.", "راجع النص المُلصق بحثاً عن تكرارات غير مقصودة."]),
             (.widow, "تترك الأرملة كلمة قصيرة عالقة في السطر الأخير من الفقرة.", "تؤدي هذه النهاية الضعيفة إلى تعطيل شكل وإيقاع الفقرة.", "قام المحررون والمصممون بتعديل فواصل الأسطر الطويلة لتجنب الترمل في الطباعة.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["قم بتشديد الجملة أو إعادة كتابتها قليلاً.", "اضبط طول السطر إذا كانت أدوات التخطيط متاحة.", "تعامل مع هذا باعتباره توصية ذات أسلوب ناعم."]),
             (.orphan, "الخط اليتيم هو سطر صغير يتم ترحيله ويبدأ فقرة جديدة أو كتلة نصية بشكل غريب.", "إنه يعطل تدفق القراءة ويجعل التخطيط يبدو أقل اهتمامًا.", "عادةً ما تعمل عمليات سير العمل التحريري على إصلاح المشكلات المعزولة قبل النشر.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["أعد كتابة عبارة قريبة لإعادة التوازن إلى الفاصل.", "افتح المقياس قليلاً إذا كنت تتحكم في التخطيط.", "استخدمه كتحذير، وليس كخطأ صارم."]),
             (.inconsistentSpacing, "يؤدي المزج بين المسافات بين الجمل المفردة والمزدوجة إلى جعل النص يبدو متماسكًا معًا من مصادر مختلفة.", "يلاحظ القراء عدم الاتساق بسرعة، حتى عندما لا يستطيعون تفسير السبب.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["اختر نمطًا واحدًا لتباعد الجمل.", "تطبيع النص الملصق قبل مشاركته.", "حافظ على اتساق الاختيار من البداية إلى النهاية."]),
@@ -436,6 +441,7 @@ engine.fix.normalize_spacing|पूरे पाठ में वाक्य �
 engine.fix.rewrite_widow|एक शब्द वाली अंतिम पंक्ति से बचने के लिए पैराग्राफ को दोबारा लिखें या दोबारा प्रवाहित करें।
 engine.fix.rewrite_orphan|छोटी कैरी-ओवर लाइन से बचने के लिए पास की कॉपी को समायोजित करें।
 engine.fix.change_font|अधिक उपयुक्त फ़ॉन्ट का उपयोग करें।
+engine.fix.remove_repeated_punctuation|डुप्लिकेट बिंदु हटाएं या उचित स्थान जोड़ें।
 engine.explain.double_space|यह वाक्य कई स्थानों के साथ समाप्त होता है, एक टाइपराइटर-युग परंपरा जो आनुपातिक टाइपोग्राफी से संबंधित नहीं है।
 engine.explain.straight_quotes|यह उद्धरण चिह्न दिशात्मक घुंघराले उद्धरण चिह्नों के बजाय सीधे ASCII फ़ॉर्म का उपयोग करता है।
 engine.explain.hyphen_dash|यह व्यवधान उचित डैश के बजाय हाइफ़न-माइनस वर्णों का उपयोग करता है।
@@ -447,6 +453,7 @@ engine.explain.comic_sans|Comic Sans मेटाडेटा सबमिट �
 engine.explain.prime_marks|यह माप चिह्न उचित अभाज्य प्रतीक के बजाय ASCII उद्धरण का उपयोग करता है।
 engine.explain.multiplication_sign|यह आयाम अक्षर x का उपयोग करता है जहां गुणन चिह्न दिखाई देना चाहिए।
 engine.explain.trademark_symbol|इस फ़ॉलबैक नोटेशन को उचित प्रतीक के साथ प्रतिस्थापित किया जाना चाहिए।
+engine.explain.repeated_punctuation|दो लगातार बिंदु मिले, जो संभवतः टाइपो हैं या वाक्यों के बीच खाली स्थान की कमी है।
 category.punctuation|विराम चिह्न मुद्दे
 category.spacing|स्पेसिंग संबंधी समस्याएं
 category.layout|लेआउट मुद्दे
@@ -507,6 +514,7 @@ doubleSpace|डबल स्पेस
 straightQuotes|सीधे उद्धरण
 hyphenAsDash|डैश के रूप में हाइफ़न
 fakeEllipsis|नकली इलिप्सिस
+repeatedPunctuation|दोहराया हुआ विराम चिह्न
 widow|विधवाएँ
 orphan|अनाथ
 inconsistentSpacing|असंगत रिक्ति
@@ -520,6 +528,7 @@ doubleSpace|वाक्य के अंत में विराम चिह
 straightQuotes|ASCII उद्धरण का उपयोग वहां किया जाता है जहां घुंघराले उद्धरण होते हैं।
 hyphenAsDash|हाइफ़न वास्तविक डैश के लिए खड़े हैं।
 fakeEllipsis|इलिप्सिस वर्ण के स्थान पर तीन अवधियों का उपयोग किया गया।
+repeatedPunctuation|दो लगातार बिंदु जो टाइपो लगते हैं।
 widow|केवल एक छोटे शब्द के साथ अंतिम पंक्ति बची है।
 orphan|पैराग्राफ की शुरुआत में एक छोटी कैरी-ओवर लाइन।
 inconsistentSpacing|एक पाठ में मिश्रित वाक्य-रिक्ति शैलियाँ।
@@ -533,6 +542,7 @@ trademarkSymbol|©, ®, या ™ के बजाय फ़ॉलबैक न
             (.straightQuotes, "सीधे उद्धरण सादे ASCII चिह्न हैं। समाप्त पाठ आमतौर पर दिशात्मक घुंघराले उद्धरणों के साथ बेहतर पढ़ा जाता है।", "घुंघराले उद्धरण अधिक परिष्कृत दिखते हैं और वाक्य की दृश्य लय में सुधार करते हैं।", "प्रारंभिक कीबोर्ड और कैरेक्टर सेट दोनों दिशाओं के लिए केवल एक सरल उद्धरण चिह्न रखते थे।", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["जहां उपलब्ध हो वहां स्मार्ट विराम चिह्न चालू करें।", "सादे-पाठ स्रोतों से चिपकाए गए पाठ को साफ़ करें।", "माप की जांच करें ताकि अभाज्य चिह्न सही रहें।"]),
             (.hyphenAsDash, "हाइफ़न शब्दों को जोड़ते हैं, लेकिन वे एम डैश या एन डैश के विकल्प नहीं हैं।", "सही डैश टोन, रिक्ति और पठनीयता में सुधार करता है।", "डबल हाइफ़न उन प्रणालियों में एक समाधान था जो आसानी से समृद्ध विराम चिह्न उत्पन्न नहीं कर सकते थे।", "He paused -- dramatically.", "He paused — dramatically.", ["अपनी शैली के लिए आवश्यक वास्तविक डैश वर्ण का उपयोग करें।", "संयुक्तों के लिए हाइफ़न रखें, वाक्य विराम नहीं।", "संपूर्ण दस्तावेज़ में एक समान रहें।"]),
             (.fakeEllipsis, "तीन आवर्त एक दीर्घवृत्त की नकल कर सकते हैं, लेकिन वे एक ही वर्ण नहीं हैं।", "एक वास्तविक दीर्घवृत्त में संतुलित अंतर होता है और पाठ की एक पंक्ति में बेहतर व्यवहार होता है।", "कई आकस्मिक लेखन वर्कफ़्लो अभी भी तीन अवधियों में टाइप करने के लिए डिफ़ॉल्ट हैं।", "Wait...", "Wait…", ["तीन अवधियों को इलिप्सिस वर्ण से बदलें।", "यदि आप अक्सर टेक्स्ट टाइप करते हैं तो उसे बदलने का उपयोग करें।", "प्रकाशन से पहले आयातित प्रति की जाँच करें।"]),
+            (.repeatedPunctuation, "दो लगातार बिंदु लगभग हमेशा टाइपो होते हैं — या तो गलती से दो बार दबाया गया बिंदु या वाक्यों के बीच गायब स्थान।", "दोहराया हुआ विराम चिह्न पढ़ने के प्रवाह को बाधित करता है और लापरवाह संपादन का संकेत देता है।", nil, "worldwide..But", "worldwide. But", ["अतिरिक्त बिंदु हटाएं।", "अगर दो वाक्य मिल गए हैं, तो पहले बिंदु के बाद एक स्थान जोड़ें।", "चिपकाए गए टेक्स्ट में आकस्मिक डुप्लिकेट की जाँच करें।"]),
             (.widow, "एक विधवा पैराग्राफ की आखिरी पंक्ति में एक छोटा शब्द फंसा छोड़ देती है।", "वह कमज़ोर अंत अनुच्छेद के आकार और लय को बाधित करता है।", "संपादकों और डिज़ाइनरों ने प्रिंट में विधवाओं से बचने के लिए लंबे समय तक समायोजित लाइन ब्रेक रखे हैं।", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["वाक्य को थोड़ा कसें या दोबारा लिखें।", "यदि लेआउट उपकरण उपलब्ध हैं तो लाइन की लंबाई समायोजित करें।", "इसे एक सॉफ्ट स्टाइल अनुशंसा के रूप में मानें।"]),
             (.orphan, "एक अनाथ एक छोटी कैरी-ओवर लाइन है जो एक नए पैराग्राफ या टेक्स्ट ब्लॉक को अजीब तरह से शुरू करती है।", "यह पढ़ने के प्रवाह को तोड़ देता है और लेआउट पर कम विचार किया जाता है।", "संपादकीय वर्कफ़्लो परंपरागत रूप से प्रकाशन से पहले अनाथों को ठीक करते हैं।", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["ब्रेक को पुनर्संतुलित करने के लिए पास के वाक्यांश को फिर से लिखें।", "यदि आप लेआउट को नियंत्रित करते हैं तो माप को थोड़ा खोलें।", "इसे एक चेतावनी के रूप में उपयोग करें, कठोर त्रुटि के रूप में नहीं।"]),
             (.inconsistentSpacing, "एकल और दोहरे वाक्य के अंतर को मिलाने से पाठ विभिन्न स्रोतों से एक साथ जुड़ा हुआ महसूस होता है।", "पाठक असंगतता को तुरंत नोटिस कर लेते हैं, भले ही वे इसका कारण नहीं बता पाते हों।", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["एक वाक्य-रिक्ति शैली चुनें।", "साझा करने से पहले चिपकाए गए टेक्स्ट को सामान्य करें।", "चयन को शुरू से अंत तक एक समान रखें।"]),
@@ -707,6 +717,7 @@ engine.fix.normalize_spacing|התקן את מרווח המשפטים לאורך 
 engine.fix.rewrite_widow|כתוב מחדש או הזרם מחדש של הפסקה כדי למנוע שורה אחרונה של מילה אחת.
 engine.fix.rewrite_orphan|התאם את העותק הסמוך כדי למנוע קו העברה זעיר.
 engine.fix.change_font|השתמש בגופן מתאים יותר.
+engine.fix.remove_repeated_punctuation|הסירו את הנקודה הכפולה או הוסיפו ריווח מתאים.
 engine.explain.double_space|משפט זה מסתיים במספר רווחים, מוסכמה מתקופת מכונת הכתיבה שאינה שייכת לטיפוגרפיה פרופורציונלית.
 engine.explain.straight_quotes|מרכאות זה משתמש בצורת ASCII הישר במקום במירכאות מתולתלות כיווניות.
 engine.explain.hyphen_dash|ההפרעה הזו משתמשת בתווים מקף מינוס במקום מקף מתאים.
@@ -718,6 +729,7 @@ engine.explain.comic_sans|Comic Sans מטא נתונים נמצאו בטקסט �
 engine.explain.prime_marks|סימן מדידה זה משתמש במירכאות ASCII במקום בסמל ראשוני תקין.
 engine.explain.multiplication_sign|מימד זה משתמש באות x שבה אמור להופיע סימן הכפל.
 engine.explain.trademark_symbol|יש להחליף את סימון החלפה הזה בסמל המתאים.
+engine.explain.repeated_punctuation|נמצאו שתי נקודות עוקבות — כנראה טעות כתיב או רווח חסר בין משפטים.
 category.punctuation|בעיות בסימני פיסוק
 category.spacing|בעיות מרווח
 category.layout|בעיות פריסה
@@ -778,6 +790,7 @@ doubleSpace|רווחים כפולים
 straightQuotes|מרכאות ישרות
 hyphenAsDash|מקף כמקף
 fakeEllipsis|אליפסיס מזויף
+repeatedPunctuation|פיסוק חוזר
 widow|אלמנות
 orphan|יתומים
 inconsistentSpacing|ריווח לא עקבי
@@ -791,6 +804,7 @@ doubleSpace|רווחים נוספים לאחר פיסוק סיום המשפט.
 straightQuotes|ASCII מרכאות בשימוש היכן שייכים מרכאות מתולתלות.
 hyphenAsDash|מקפים המייצגים מקף אמיתי.
 fakeEllipsis|השתמשו בשלוש נקודות במקום התו האליפסי.
+repeatedPunctuation|שתי נקודות עוקבות שנראות כטעות כתיב.
 widow|נותרה שורה אחרונה עם מילה אחת קצרה בלבד.
 orphan|שורת העברה זעירה בתחילת פסקה.
 inconsistentSpacing|סגנונות מרווחים בין משפטים בטקסט אחד.
@@ -804,6 +818,7 @@ trademarkSymbol|השימוש בסימון החלפה במקום ©, ® או ™.
             (.straightQuotes, "מרכאות ישרות הן סימני ASCII רגילים. טקסט מוגמר בדרך כלל נקרא טוב יותר עם מרכאות מתולתלות כיווניות.", "מרכאות מתולתלות נראים מלוטשים יותר ומשפרים את הקצב החזותי של משפט.", "מקלדות וקבוצות תווים מוקדמות שמרו רק מרכאה אחת פשוטה לשני הכיוונים.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["הפעל סימני פיסוק חכמים במידת האפשר.", "נקה טקסט שהודבק ממקורות טקסט רגיל.", "בדוק מידות כדי שסימני היסוד יישארו נכונים."]),
             (.hyphenAsDash, "מקפים מצטרפים למילים, אך הם אינם תחליף למקפים em או מקפים en.", "הקף הנכון משפר את הטון, המרווחים והקריאה.", "מקפים כפולים היו פתרון עוקף במערכות שלא יכלו לייצר בקלות סימני פיסוק עשירים.", "He paused -- dramatically.", "He paused — dramatically.", ["השתמש בדמות המקף האמיתית שהסגנון שלך דורש.", "שמור מקפים עבור תרכובות, לא הפסקות משפטים.", "הישאר עקבי בכל המסמך."]),
             (.fakeEllipsis, "שלוש נקודות יכולות לחקות אליפסיס, אך הן אינן אותו תו.", "לאליפסיס אמיתי יש מרווח מאוזן ומתנהג טוב יותר בשורת טקסט.", "זרימות עבודה רבות של כתיבה סתמית עדיין ברירת המחדל להקלדה של שלוש נקודות.", "Wait...", "Wait…", ["החלף שלוש נקודות בתו האליפסי.", "השתמש בהחלפת טקסט אם אתה מקליד אותו לעתים קרובות.", "בדוק את העותק המיובא לפני הפרסום."]),
+            (.repeatedPunctuation, "שתי נקודות עוקבות הן כמעט תמיד טעות כתיב — נקודה שנוקשה פעמיים או רווח חסר בין משפטים.", "פיסוק חוזר מפריע לזרימת הקריאה ומעיד על עריכה רשלנית.", nil, "worldwide..But", "worldwide. But", ["הסירו את הנקודה המיותרת.", "אם שני משפטים הצטרפו, הוסיפו רווח אחרי הנקודה הראשונה.", "בדקו טקסט מודבק לאיתור כפילויות לא מכוונות."]),
             (.widow, "אלמנה משאירה מילה אחת קצרה תקועה בשורה האחרונה של פסקה.", "הסוף החלש הזה משבש את הצורה והקצב של הפסקה.", "עורכים ומעצבים התאימו ארוכות מעברי שורות כדי למנוע אלמנות בדפוס.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["הדק או כתוב מעט את המשפט.", "התאם את אורך השורה אם כלי פריסה זמינים.", "התייחס לזה כהמלצה בסגנון רך."]),
             (.orphan, "יתום הוא שורת העברה זעירה שמתחילה פסקה חדשה או בלוק טקסט בצורה מביכה.", "זה שובר את זרימת הקריאה וגורם לפריסה להרגיש פחות נחשבת.", "זרימות עבודה של עריכה מתקנים באופן מסורתי יתומים לפני הפרסום.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["כתוב מחדש ביטוי קרוב כדי לאזן מחדש את ההפסקה.", "פתח מעט את המידה אם אתה שולט בפריסה.", "השתמש בו כאזהרה, לא כשגיאה נוקשה."]),
             (.inconsistentSpacing, "שילוב של ריווח משפטי בודד וכפול גורם לטקסט להרגיש תפור יחד ממקורות שונים.", "קוראים מבחינים בחוסר עקביות במהירות, גם כאשר הם אינם יכולים להסביר מדוע.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["בחר סגנון אחד של ריווח משפטים.", "התקן טקסט מודבק לפני שיתוףו.", "שמור על בחירה עקבית מתחילתו ועד סופו."]),
@@ -978,6 +993,7 @@ engine.fix.normalize_spacing|ปรับระยะห่างระหว่
 engine.fix.rewrite_widow|เขียนใหม่หรือจัดเรียงย่อหน้าใหม่เพื่อหลีกเลี่ยงบรรทัดสุดท้ายที่มีเพียงคำเดียว
 engine.fix.rewrite_orphan|ปรับสำเนาใกล้เคียงเพื่อหลีกเลี่ยงเส้นยกเล็กๆ
 engine.fix.change_font|ใช้แบบอักษรที่เหมาะสมกว่านี้
+engine.fix.remove_repeated_punctuation|ลบจุดซ้ำหรือเพิ่มช่องว่างที่เหมาะสม
 engine.explain.double_space|ประโยคนี้ลงท้ายด้วยการเว้นวรรคหลายช่อง ซึ่งเป็นแบบแผนของยุคเครื่องพิมพ์ดีดที่ไม่อยู่ในรูปแบบการพิมพ์ตามสัดส่วน
 engine.explain.straight_quotes|เครื่องหมายคำพูดนี้ใช้รูปแบบ ASCII แบบตรงแทนเครื่องหมายคำพูดแบบโค้ง
 engine.explain.hyphen_dash|การหยุดชะงักนี้ใช้อักขระยัติภังค์-ลบแทนการใช้ขีดกลางที่เหมาะสม
@@ -989,6 +1005,7 @@ engine.explain.comic_sans|Comic Sans พบข้อมูลเมตาใน 
 engine.explain.prime_marks|เครื่องหมายการวัดนี้ใช้เครื่องหมายคำพูด ASCII แทนสัญลักษณ์เฉพาะที่เหมาะสม
 engine.explain.multiplication_sign|มิตินี้ใช้ตัวอักษร x ในจุดที่เครื่องหมายคูณควรปรากฏ
 engine.explain.trademark_symbol|สัญกรณ์ทางเลือกนี้ควรแทนที่ด้วยสัญลักษณ์ที่เหมาะสม
+engine.explain.repeated_punctuation|พบจุดสองจุดต่อเนื่องกัน ซึ่งน่าจะเป็นการพิมพ์ผิดหรือขาดช่องว่างระหว่างประโยค
 category.punctuation|ปัญหาเครื่องหมายวรรคตอน
 category.spacing|ปัญหาการเว้นวรรค
 category.layout|ปัญหาเค้าโครง
@@ -1049,6 +1066,7 @@ doubleSpace|ช่องว่างคู่
 straightQuotes|ราคาตรง
 hyphenAsDash|ยัติภังค์เป็นเส้นประ
 fakeEllipsis|จุดไข่ปลาปลอม
+repeatedPunctuation|เครื่องหมายวรรคตอนซ้ำ
 widow|แม่ม่าย
 orphan|เด็กกำพร้า
 inconsistentSpacing|การเว้นวรรคไม่สอดคล้องกัน
@@ -1062,6 +1080,7 @@ doubleSpace|เว้นวรรคเพิ่มเติมหลังเ�
 straightQuotes|ASCII เครื่องหมายคำพูดที่ใช้โดยมีเครื่องหมายคำพูดแบบโค้งอยู่
 hyphenAsDash|ยัติภังค์หมายถึงเส้นประที่แท้จริง
 fakeEllipsis|ใช้จุดสามจุดแทนอักขระจุดไข่ปลา
+repeatedPunctuation|จุดสองจุดต่อเนื่องที่ดูเหมือนการพิมพ์ผิด
 widow|บรรทัดสุดท้ายเหลือเพียงคำสั้นๆ เพียงคำเดียว
 orphan|บรรทัดยกยอดเล็กๆ ที่จุดเริ่มต้นของย่อหน้า
 inconsistentSpacing|รูปแบบการเว้นวรรคประโยคแบบผสมในข้อความเดียว
@@ -1075,6 +1094,7 @@ trademarkSymbol|สัญลักษณ์ทางเลือกที่ใ�
             (.straightQuotes, "เครื่องหมายคำพูดแบบตรงเป็นเครื่องหมาย ASCII ธรรมดา ข้อความที่เสร็จแล้วมักจะอ่านได้ดีกว่าด้วยเครื่องหมายคำพูดแบบโค้ง", "เครื่องหมายคำพูดแบบโค้งดูสวยงามยิ่งขึ้นและปรับปรุงจังหวะการมองเห็นของประโยค", "คีย์บอร์ดและชุดอักขระในยุคแรกๆ ใช้เครื่องหมายคำพูดธรรมดาเพียงตัวเดียวสำหรับทั้งสองทิศทาง", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["เปิดเครื่องหมายวรรคตอนอัจฉริยะ หากมี", "ล้างข้อความที่วางจากแหล่งข้อความธรรมดา", "ตรวจสอบการวัดเพื่อให้เครื่องหมายเฉพาะถูกต้อง"]),
             (.hyphenAsDash, "ยัติภังค์เชื่อมคำ แต่ไม่สามารถใช้แทนเครื่องหมายขีดกลางหรือขีดกลางได้", "ขีดกลางที่ถูกต้องช่วยปรับปรุงโทนเสียง การเว้นวรรค และความสามารถในการอ่าน", "เครื่องหมายยัติภังค์คู่เป็นวิธีการแก้ปัญหาในระบบที่ไม่สามารถสร้างเครื่องหมายวรรคตอนที่สมบูรณ์ได้ง่าย", "He paused -- dramatically.", "He paused — dramatically.", ["ใช้อักขระเส้นประจริงตามสไตล์ที่คุณต้องการ", "เก็บเครื่องหมายยัติภังค์ไว้สำหรับคำประสม ไม่ใช่ตัวแบ่งประโยค", "คงความสม่ำเสมอทั่วทั้งเอกสาร"]),
             (.fakeEllipsis, "จุดสามจุดสามารถเลียนแบบจุดไข่ปลาได้ แต่ไม่ใช่อักขระเดียวกัน", "จุดไข่ปลาจริงมีระยะห่างที่สมดุลและทำงานได้ดีกว่าในบรรทัดข้อความ", "ขั้นตอนการเขียนแบบทั่วไปจำนวนมากยังคงใช้ค่าเริ่มต้นในการพิมพ์สามจุด", "Wait...", "Wait…", ["แทนที่จุดสามจุดด้วยอักขระจุดไข่ปลา", "ใช้การแทนที่ข้อความหากคุณพิมพ์บ่อยๆ", "ตรวจสอบสำเนาที่นำเข้าก่อนเผยแพร่"]),
+            (.repeatedPunctuation, "จุดสองจุดต่อเนื่องมักเป็นการพิมพ์ผิดเสมอ — ไม่ว่าจะเป็นการกดจุดสองครั้งโดยไม่ตั้งใจหรือขาดช่องว่างระหว่างประโยค", "เครื่องหมายวรรคตอนซ้ำขัดขวางการอ่านและบ่งบอกถึงการแก้ไขที่ไม่ระมัดระวัง", nil, "worldwide..But", "worldwide. But", ["ลบจุดที่เกินออก", "หากสองประโยคติดกัน ให้เพิ่มช่องว่างหลังจุดแรก", "ตรวจสอบข้อความที่วางเพื่อหาการซ้ำซ้อนโดยไม่ตั้งใจ"]),
             (.widow, "หญิงม่ายปล่อยให้คำสั้นๆ หนึ่งคำติดอยู่ที่บรรทัดสุดท้ายของย่อหน้า", "ตอนจบที่อ่อนแอนั้นรบกวนรูปร่างและจังหวะของย่อหน้า", "บรรณาธิการและนักออกแบบได้ปรับการขึ้นบรรทัดใหม่เป็นเวลานานเพื่อหลีกเลี่ยงปัญหาม่ายในการพิมพ์", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["กระชับหรือเขียนประโยคใหม่เล็กน้อย", "ปรับความยาวบรรทัดหากมีเครื่องมือเค้าโครง", "ถือเป็นคำแนะนำสไตล์ที่นุ่มนวล"]),
             (.orphan, "เด็กกำพร้าเป็นบรรทัดเล็กๆ ที่ลากไปเริ่มย่อหน้าใหม่หรือบล็อกข้อความอย่างเชื่องช้า", "ทำให้การอ่านหยุดชะงักและทำให้เลย์เอาต์รู้สึกว่าถูกมองข้าม", "ขั้นตอนการทำงานด้านบรรณาธิการมักจะแก้ไขเด็กกำพร้าก่อนเผยแพร่", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["เขียนวลีใกล้เคียงใหม่เพื่อปรับสมดุลช่วงพัก", "เปิดการวัดเล็กน้อยหากคุณควบคุมเค้าโครง", "ใช้เป็นคำเตือน ไม่ใช่ข้อผิดพลาดร้ายแรง"]),
             (.inconsistentSpacing, "การผสมการเว้นวรรคประโยคเดี่ยวและคู่จะทำให้ข้อความเชื่อมโยงกันจากแหล่งที่มาต่างๆ", "ผู้อ่านสังเกตเห็นความไม่สอดคล้องกันอย่างรวดเร็ว แม้ว่าพวกเขาจะอธิบายสาเหตุไม่ได้ก็ตาม", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["เลือกรูปแบบการเว้นวรรคประโยคหนึ่งรูปแบบ", "ปรับข้อความที่วางให้เป็นมาตรฐานก่อนแชร์", "รักษาตัวเลือกให้สอดคล้องกันตั้งแต่ต้นจนจบ"]),
@@ -1249,6 +1269,7 @@ engine.fix.normalize_spacing|Bình thường hóa khoảng cách giữa các câ
 engine.fix.rewrite_widow|Viết lại hoặc sắp xếp lại đoạn văn để tránh dòng cuối cùng chỉ có một từ.
 engine.fix.rewrite_orphan|Điều chỉnh bản sao gần đó để tránh một dòng nhỏ mang theo.
 engine.fix.change_font|Sử dụng phông chữ phù hợp hơn.
+engine.fix.remove_repeated_punctuation|Xóa dấu chấm trùng lặp hoặc thêm khoảng cách phù hợp.
 engine.explain.double_space|Câu này kết thúc bằng nhiều dấu cách, một quy ước của thời đại máy đánh chữ không thuộc về kiểu chữ tỷ lệ.
 engine.explain.straight_quotes|Dấu ngoặc kép này sử dụng dạng ASCII thẳng thay vì dấu ngoặc nhọn định hướng.
 engine.explain.hyphen_dash|Sự gián đoạn này sử dụng các ký tự dấu gạch nối thay vì dấu gạch ngang thích hợp.
@@ -1260,6 +1281,7 @@ engine.explain.comic_sans|Comic Sans siêu dữ liệu đã được tìm thấy
 engine.explain.prime_marks|Dấu đo này sử dụng trích dẫn ASCII thay vì ký hiệu nguyên tố thích hợp.
 engine.explain.multiplication_sign|Thứ nguyên này sử dụng chữ x nơi xuất hiện dấu nhân.
 engine.explain.trademark_symbol|Ký hiệu dự phòng này nên được thay thế bằng ký hiệu thích hợp.
+engine.explain.repeated_punctuation|Đã tìm thấy hai dấu chấm liên tiếp, đây có thể là lỗi đánh máy hoặc thiếu khoảng trắng giữa các câu.
 category.punctuation|Vấn đề về dấu câu
 category.spacing|Vấn đề về khoảng cách
 category.layout|Vấn đề về bố cục
@@ -1320,6 +1342,7 @@ doubleSpace|Dấu cách kép
 straightQuotes|Trích dẫn thẳng
 hyphenAsDash|Gạch nối dưới dạng dấu gạch ngang
 fakeEllipsis|Dấu chấm lửng giả
+repeatedPunctuation|Dấu câu lặp lại
 widow|Góa phụ
 orphan|Mồ côi
 inconsistentSpacing|Khoảng cách không nhất quán
@@ -1333,6 +1356,7 @@ doubleSpace|Dấu cách thừa sau dấu câu kết thúc câu.
 straightQuotes|ASCII dấu ngoặc kép được sử dụng trong dấu ngoặc kép.
 hyphenAsDash|Dấu gạch ngang thay thế cho dấu gạch ngang thực sự.
 fakeEllipsis|Ba dấu chấm được sử dụng thay cho ký tự dấu ba chấm.
+repeatedPunctuation|Hai dấu chấm liên tiếp có vẻ là lỗi đánh máy.
 widow|Dòng cuối cùng chỉ còn lại một từ ngắn gọn.
 orphan|Một dòng chuyển tiếp nhỏ ở đầu đoạn văn.
 inconsistentSpacing|Các kiểu giãn cách câu hỗn hợp trong một văn bản.
@@ -1346,6 +1370,7 @@ trademarkSymbol|Ký hiệu dự phòng được sử dụng thay cho ©, ® ho�
             (.straightQuotes, "Dấu ngoặc kép là dấu ASCII đơn giản. Văn bản hoàn tất thường đọc tốt hơn khi có dấu ngoặc nhọn định hướng.", "Các trích dẫn cong trông bóng bẩy hơn và cải thiện nhịp điệu hình ảnh của câu.", "Bàn phím và bộ ký tự ban đầu chỉ giữ một dấu ngoặc kép đơn giản cho cả hai hướng.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Bật dấu câu thông minh nếu có.", "Dọn dẹp văn bản được dán từ các nguồn văn bản thuần túy.", "Kiểm tra số đo để các dấu nguyên tố luôn chính xác."]),
             (.hyphenAsDash, "Dấu nối nối các từ nhưng chúng không thay thế cho dấu gạch ngang hoặc dấu gạch ngang.", "Dấu gạch ngang chính xác sẽ cải thiện âm điệu, khoảng cách và khả năng đọc.", "Dấu gạch nối kép là giải pháp thay thế trong các hệ thống không thể dễ dàng tạo ra dấu câu phong phú.", "He paused -- dramatically.", "He paused — dramatically.", ["Sử dụng ký tự gạch ngang thực mà phong cách của bạn yêu cầu.", "Giữ dấu gạch nối cho từ ghép, không ngắt câu.", "Luôn nhất quán trong toàn bộ tài liệu."]),
             (.fakeEllipsis, "Ba dấu chấm có thể bắt chước dấu chấm lửng nhưng chúng không giống nhau.", "Dấu chấm lửng thực sự có khoảng cách cân bằng và hoạt động tốt hơn trong dòng văn bản.", "Nhiều quy trình viết thông thường vẫn mặc định gõ ba dấu chấm.", "Wait...", "Wait…", ["Thay thế ba dấu chấm bằng ký tự dấu ba chấm.", "Sử dụng tính năng thay thế văn bản nếu bạn gõ văn bản thường xuyên.", "Kiểm tra bản sao đã nhập trước khi xuất bản."]),
+            (.repeatedPunctuation, "Hai dấu chấm liên tiếp hầu như luôn là lỗi đánh máy — hoặc dấu chấm bị gõ hai lần hoặc thiếu khoảng trắng giữa các câu.", "Dấu câu lặp lại làm gián đoạn luồng đọc và cho thấy việc chỉnh sửa cẩu thả.", nil, "worldwide..But", "worldwide. But", ["Xóa dấu chấm thừa.", "Nếu hai câu đã kết hợp, thêm khoảng trắng sau dấu chấm đầu tiên.", "Kiểm tra văn bản đã dán để tìm các bản sao vô tình."]),
             (.widow, "Một góa phụ để lại một từ ngắn bị mắc kẹt ở dòng cuối cùng của đoạn văn.", "Cái kết yếu ớt đó làm gián đoạn hình thái và nhịp điệu của đoạn văn.", "Các biên tập viên và nhà thiết kế đã điều chỉnh ngắt dòng dài để tránh hiện tượng ngắt dòng trong bản in.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Hãy siết chặt lại hoặc viết lại câu một chút.", "Điều chỉnh độ dài dòng nếu có sẵn công cụ bố cục.", "Hãy coi đây là một đề xuất về phong cách nhẹ nhàng."]),
             (.orphan, "Dòng mồ côi là một dòng chuyển tiếp nhỏ bắt đầu một đoạn hoặc khối văn bản mới một cách lúng túng.", "Nó phá vỡ luồng đọc và làm cho bố cục có vẻ ít cân nhắc hơn.", "Quy trình biên tập theo truyền thống sẽ khắc phục lỗi mồ côi trước khi xuất bản.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Viết lại cụm từ gần đó để cân bằng lại dấu ngắt.", "Mở thước đo một chút nếu bạn kiểm soát được bố cục.", "Hãy coi đó là lời cảnh báo chứ không phải là một lỗi cứng nhắc."]),
             (.inconsistentSpacing, "Việc trộn lẫn khoảng cách giữa các câu đơn và câu đôi làm cho văn bản có cảm giác được gắn kết với nhau từ các nguồn khác nhau.", "Người đọc nhanh chóng nhận thấy sự mâu thuẫn, ngay cả khi họ không thể giải thích tại sao.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Chọn một kiểu giãn cách câu.", "Bình thường hóa văn bản đã dán trước khi chia sẻ.", "Giữ sự lựa chọn nhất quán từ đầu đến cuối."]),
@@ -1520,6 +1545,7 @@ engine.fix.normalize_spacing|Menormalkan spasi kalimat di seluruh teks.
 engine.fix.rewrite_widow|Tulis ulang atau ubah susunan paragraf untuk menghindari baris terakhir yang terdiri dari satu kata.
 engine.fix.rewrite_orphan|Sesuaikan salinan terdekat untuk menghindari garis kecil yang terbawa.
 engine.fix.change_font|Gunakan font yang lebih sesuai.
+engine.fix.remove_repeated_punctuation|Hapus titik yang terduplikasi atau tambahkan spasi yang tepat.
 engine.explain.double_space|Kalimat ini diakhiri dengan banyak spasi, sebuah konvensi era mesin tik yang tidak termasuk dalam tipografi proporsional.
 engine.explain.straight_quotes|Tanda kutip ini menggunakan bentuk ASCII lurus, bukan tanda kutip keriting terarah.
 engine.explain.hyphen_dash|Gangguan ini menggunakan karakter tanda hubung tanpa tanda hubung, bukan tanda hubung biasa.
@@ -1531,6 +1557,7 @@ engine.explain.comic_sans|Metadata Comic Sans ditemukan dalam teks kaya yang dik
 engine.explain.prime_marks|Tanda pengukuran ini menggunakan tanda kutip ASCII dan bukan simbol prima.
 engine.explain.multiplication_sign|Dimensi ini menggunakan huruf x di mana tanda perkaliannya akan muncul.
 engine.explain.trademark_symbol|Notasi fallback ini harus diganti dengan simbol yang sesuai.
+engine.explain.repeated_punctuation|Dua titik berurutan ditemukan, yang kemungkinan adalah kesalahan ketik atau spasi yang hilang antara kalimat.
 category.punctuation|Masalah Tanda Baca
 category.spacing|Masalah Spasi
 category.layout|Masalah Tata Letak
@@ -1591,6 +1618,7 @@ doubleSpace|Spasi Ganda
 straightQuotes|Kutipan Lurus
 hyphenAsDash|Tanda hubung sebagai tanda hubung
 fakeEllipsis|Elipsis Palsu
+repeatedPunctuation|Tanda baca berulang
 widow|Janda
 orphan|Anak yatim piatu
 inconsistentSpacing|Spasi Tidak Konsisten
@@ -1604,6 +1632,7 @@ doubleSpace|Spasi tambahan setelah tanda baca akhir kalimat.
 straightQuotes|ASCII tanda kutip digunakan di tempat tanda kutip keriting.
 hyphenAsDash|Tanda hubung yang menggantikan tanda hubung sebenarnya.
 fakeEllipsis|Tiga titik digunakan sebagai pengganti karakter elipsis.
+repeatedPunctuation|Dua titik berurutan yang tampaknya merupakan kesalahan ketik.
 widow|Baris terakhir tersisa hanya dengan satu kata pendek.
 orphan|Baris kecil yang terbawa di awal paragraf.
 inconsistentSpacing|Campuran gaya spasi kalimat dalam satu teks.
@@ -1617,6 +1646,7 @@ trademarkSymbol|Notasi cadangan digunakan sebagai pengganti ©, ®, atau ™.
             (.straightQuotes, "Kutipan lurus adalah tanda ASCII biasa. Teks yang sudah selesai biasanya dibaca lebih baik dengan tanda kutip keriting terarah.", "Kutipan keriting terlihat lebih halus dan meningkatkan ritme visual sebuah kalimat.", "Keyboard dan rangkaian karakter awal hanya menggunakan satu tanda kutip sederhana untuk kedua arah.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Aktifkan tanda baca cerdas jika tersedia.", "Membersihkan teks yang ditempel dari sumber teks biasa.", "Periksa pengukuran agar tanda prima tetap benar."]),
             (.hyphenAsDash, "Tanda hubung menggabungkan kata-kata, namun bukan pengganti tanda hubung em atau tanda hubung en.", "Tanda hubung yang benar meningkatkan nada, spasi, dan keterbacaan.", "Tanda hubung ganda adalah solusi dalam sistem yang tidak dapat dengan mudah menghasilkan tanda baca yang kaya.", "He paused -- dramatically.", "He paused — dramatically.", ["Gunakan karakter tanda hubung asli yang dibutuhkan gaya Anda.", "Gunakan tanda hubung untuk kata majemuk, bukan pemutusan kalimat.", "Tetap konsisten di seluruh dokumen."]),
             (.fakeEllipsis, "Tiga titik dapat meniru elipsis, tetapi karakternya tidak sama.", "Elipsis asli memiliki spasi yang seimbang dan berperilaku lebih baik dalam satu baris teks.", "Banyak alur kerja penulisan kasual yang masih menggunakan pengetikan tiga titik secara default.", "Wait...", "Wait…", ["Ganti tiga titik dengan karakter elipsis.", "Gunakan pengganti teks jika Anda sering mengetiknya.", "Periksa salinan yang diimpor sebelum dipublikasikan."]),
+            (.repeatedPunctuation, "Dua titik berurutan hampir selalu merupakan kesalahan ketik — titik yang tidak sengaja diketik dua kali atau spasi yang hilang antar kalimat.", "Tanda baca berulang mengganggu alur membaca dan menandakan penyuntingan yang kurang cermat.", nil, "worldwide..But", "worldwide. But", ["Hapus titik ekstra.", "Jika dua kalimat bergabung, tambahkan spasi setelah titik pertama.", "Periksa teks yang ditempel untuk duplikat yang tidak disengaja."]),
             (.widow, "Seorang janda meninggalkan satu kata pendek di baris terakhir paragraf.", "Akhir yang lemah itu mengganggu bentuk dan ritme paragraf.", "Editor dan desainer telah lama menyesuaikan jeda baris untuk menghindari janda di media cetak.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Perketat atau tulis ulang kalimatnya sedikit.", "Sesuaikan panjang garis jika alat tata letak tersedia.", "Perlakukan ini sebagai rekomendasi gaya lembut."]),
             (.orphan, "An Orphan adalah baris kecil yang mengawali paragraf atau blok teks baru dengan canggung.", "Ini merusak alur membaca dan membuat tata letak terasa kurang diperhatikan.", "Alur kerja editorial biasanya memperbaiki anak yatim piatu sebelum dipublikasikan.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Tulis ulang frasa terdekat untuk menyeimbangkan kembali jeda tersebut.", "Buka ukuran sedikit jika Anda mengontrol tata letak.", "Gunakan ini sebagai peringatan, bukan kesalahan yang kaku."]),
             (.inconsistentSpacing, "Menggabungkan spasi kalimat tunggal dan ganda membuat teks terasa digabungkan dari sumber yang berbeda.", "Pembaca segera menyadari ketidakkonsistenan, meskipun mereka tidak dapat menjelaskan alasannya.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Pilih satu gaya spasi kalimat.", "Normalisasikan teks yang ditempel sebelum membagikannya.", "Jaga konsistensi pilihan dari awal hingga akhir."]),
@@ -1791,6 +1821,7 @@ engine.fix.normalize_spacing|Normalkan jarak ayat di seluruh teks.
 engine.fix.rewrite_widow|Tulis semula atau aliran semula perenggan untuk mengelakkan baris akhir satu perkataan.
 engine.fix.rewrite_orphan|Laraskan salinan berdekatan untuk mengelakkan garisan pembawa yang kecil.
 engine.fix.change_font|Gunakan fon yang lebih sesuai.
+engine.fix.remove_repeated_punctuation|Buang titik yang diduplikasi atau tambah jarak yang sesuai.
 engine.explain.double_space|Ayat ini berakhir dengan berbilang ruang, konvensyen era mesin taip yang tidak termasuk dalam tipografi berkadar.
 engine.explain.straight_quotes|Tanda petikan ini menggunakan bentuk ASCII lurus dan bukannya petikan kerinting arah.
 engine.explain.hyphen_dash|Gangguan ini menggunakan aksara sempang-tolak dan bukannya sempang yang betul.
@@ -1802,6 +1833,7 @@ engine.explain.comic_sans|Comic Sans metadata ditemui dalam teks kaya yang diser
 engine.explain.prime_marks|Tanda ukuran ini menggunakan petikan ASCII dan bukannya simbol perdana yang betul.
 engine.explain.multiplication_sign|Dimensi ini menggunakan huruf x di mana tanda darab sepatutnya muncul.
 engine.explain.trademark_symbol|Notasi sandaran ini hendaklah digantikan dengan simbol yang betul.
+engine.explain.repeated_punctuation|Dua titik berturut-turut ditemui, yang mungkin merupakan kesilapan menaip atau ruang yang hilang antara ayat.
 category.punctuation|Isu Tanda Baca
 category.spacing|Isu Jarak
 category.layout|Isu Reka Letak
@@ -1862,6 +1894,7 @@ doubleSpace|Ruang Berganda
 straightQuotes|Petikan Lurus
 hyphenAsDash|Sempang sebagai Sempang
 fakeEllipsis|Elipsis Palsu
+repeatedPunctuation|Tanda baca berulang
 widow|Janda
 orphan|Anak Yatim
 inconsistentSpacing|Jarak Tidak Konsisten
@@ -1875,6 +1908,7 @@ doubleSpace|Ruang tambahan selepas tanda baca akhir ayat.
 straightQuotes|ASCII petikan digunakan di mana petikan kerinting tergolong.
 hyphenAsDash|Sempang berdiri untuk tanda sempang sebenar.
 fakeEllipsis|Tiga noktah digunakan dan bukannya aksara elipsis.
+repeatedPunctuation|Dua titik berturut-turut yang kelihatan seperti kesilapan menaip.
 widow|Baris akhir yang tinggal dengan hanya satu perkataan pendek.
 orphan|Barisan bawaan kecil pada permulaan perenggan.
 inconsistentSpacing|Gaya jarak ayat bercampur dalam satu teks.
@@ -1888,6 +1922,7 @@ trademarkSymbol|Notasi sandaran digunakan dan bukannya ©, ® atau ™.
             (.straightQuotes, "Petikan lurus adalah tanda ASCII biasa. Teks siap biasanya dibaca lebih baik dengan petikan kerinting arah.", "Petikan kerinting kelihatan lebih digilap dan meningkatkan irama visual ayat.", "Papan kekunci dan set aksara awal hanya menyimpan satu tanda petikan mudah untuk kedua-dua arah.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Hidupkan tanda baca pintar jika tersedia.", "Bersihkan teks yang ditampal daripada sumber teks biasa.", "Semak ukuran supaya tanda utama kekal betul."]),
             (.hyphenAsDash, "Sempang menggabungkan perkataan, tetapi ia bukan pengganti bagi sempang atau sempang en.", "Sempang yang betul meningkatkan nada, jarak dan kebolehbacaan.", "Sempang berganda ialah penyelesaian dalam sistem yang tidak dapat menghasilkan tanda baca yang kaya dengan mudah.", "He paused -- dramatically.", "He paused — dramatically.", ["Gunakan aksara sengkang sebenar yang diperlukan oleh gaya anda.", "Simpan tanda sempang untuk majmuk, bukan patah ayat.", "Kekal konsisten merentas keseluruhan dokumen."]),
             (.fakeEllipsis, "Tiga noktah boleh meniru elipsis, tetapi ia bukan aksara yang sama.", "Elipsis sebenar mempunyai jarak yang seimbang dan berkelakuan lebih baik dalam baris teks.", "Banyak aliran kerja penulisan kasual masih lalai untuk menaip tiga noktah.", "Wait...", "Wait…", ["Ganti tiga noktah dengan aksara elipsis.", "Gunakan penggantian teks jika anda kerap menaipnya.", "Semak salinan yang diimport sebelum diterbitkan."]),
+            (.repeatedPunctuation, "Dua titik berturut-turut hampir selalunya merupakan kesilapan menaip — sama ada titik yang ditaip dua kali secara tidak sengaja atau ruang yang hilang antara ayat.", "Tanda baca berulang mengganggu aliran bacaan dan menandakan penyuntingan yang cuai.", nil, "worldwide..But", "worldwide. But", ["Buang titik tambahan.", "Jika dua ayat bergabung, tambah ruang selepas titik pertama.", "Semak teks yang ditampal untuk pendua yang tidak disengajakan."]),
             (.widow, "Seorang balu meninggalkan satu perkataan pendek terkandas pada baris terakhir perenggan.", "Penghujung yang lemah itu mengganggu bentuk dan irama perenggan.", "Editor dan pereka bentuk telah lama melaraskan pemisah baris untuk mengelakkan balu dalam cetakan.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Ketatkan atau tulis semula ayat itu sedikit.", "Laraskan panjang baris jika alatan reka letak tersedia.", "Anggap ini sebagai cadangan gaya lembut."]),
             (.orphan, "Anak yatim ialah baris bawaan kecil yang memulakan perenggan baharu atau blok teks dengan janggal.", "Ia memecahkan aliran bacaan dan menjadikan reka letak berasa kurang dipertimbangkan.", "Aliran kerja editorial secara tradisinya membetulkan anak yatim sebelum diterbitkan.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Tulis semula frasa berdekatan untuk mengimbangi semula rehat.", "Buka ukuran sedikit jika anda mengawal reka letak.", "Gunakan ia sebagai amaran, bukan ralat tegar."]),
             (.inconsistentSpacing, "Mencampurkan jarak ayat tunggal dan dua ayat menjadikan teks terasa dicantum daripada sumber yang berbeza.", "Pembaca menyedari ketidakkonsistenan dengan cepat, walaupun mereka tidak dapat menjelaskan sebabnya.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Pilih satu gaya jarak ayat.", "Normalkan teks yang ditampal sebelum berkongsinya.", "Pastikan pilihan konsisten dari awal hingga akhir."]),

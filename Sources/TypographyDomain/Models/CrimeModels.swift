@@ -184,6 +184,7 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
     case straightQuotes
     case hyphenAsDash
     case fakeEllipsis
+    case repeatedPunctuation
     case widow
     case orphan
     case inconsistentSpacing
@@ -204,7 +205,7 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
 
     public var category: CrimeCategory {
         switch self {
-        case .straightQuotes, .hyphenAsDash, .fakeEllipsis:
+        case .straightQuotes, .hyphenAsDash, .fakeEllipsis, .repeatedPunctuation:
             .punctuation
         case .doubleSpace, .inconsistentSpacing:
             .spacing
@@ -219,7 +220,7 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
 
     public var defaultSeverity: CrimeSeverity {
         switch self {
-        case .straightQuotes, .hyphenAsDash:
+        case .straightQuotes, .hyphenAsDash, .repeatedPunctuation:
             .misdemeanor
         case .comicSans:
             .felony
@@ -230,7 +231,7 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
 
     public var baseWeight: Double {
         switch self {
-        case .doubleSpace, .fakeEllipsis:
+        case .doubleSpace, .fakeEllipsis, .repeatedPunctuation:
             2
         case .straightQuotes, .hyphenAsDash:
             3
@@ -247,6 +248,7 @@ public enum CrimeType: String, Codable, CaseIterable, Hashable, Sendable, Identi
         case .straightQuotes: "quote.bubble"
         case .hyphenAsDash: "arrow.left.and.right.righttriangle.left.righttriangle.right"
         case .fakeEllipsis: "ellipsis"
+        case .repeatedPunctuation: "exclamationmark.2"
         case .widow: "text.justify.left"
         case .orphan: "text.justify.right"
         case .inconsistentSpacing: "textformat"

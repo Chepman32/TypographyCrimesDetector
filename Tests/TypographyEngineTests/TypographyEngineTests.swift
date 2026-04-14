@@ -72,6 +72,39 @@ final class TypographyEngineTests: XCTestCase {
         XCTAssertEqual(hyphenCrime?.suggestedFix, "Replace with —")
     }
 
+    func testDetectsDoubleSpaceMidSentence() async {
+        let engine = TypographyCrimeEngine()
+        let report = await engine.analyze(SubmittedEvidence(text: "We've  seen this before."), preferences: .default)
+
+        XCTAssertTrue(report.groupedCrimes.contains(where: { $0.crimeType == .doubleSpace }))
+    }
+
+    func testDetectsRepeatedPunctuation() async {
+        let engine = TypographyCrimeEngine()
+        let report = await engine.analyze(SubmittedEvidence(text: "worldwide..But global"), preferences: .default)
+
+        XCTAssertTrue(report.groupedCrimes.contains(where: { $0.crimeType == .repeatedPunctuation }))
+        XCTAssertFalse(report.groupedCrimes.contains(where: { $0.crimeType == .fakeEllipsis }))
+    }
+
+    func testThreePeriodsStillTriggerFakeEllipsisNotRepeatedPunctuation() async {
+        let engine = TypographyCrimeEngine()
+        let report = await engine.analyze(SubmittedEvidence(text: "Wait... then go"), preferences: .default)
+
+        XCTAssertTrue(report.groupedCrimes.contains(where: { $0.crimeType == .fakeEllipsis }))
+        XCTAssertFalse(report.groupedCrimes.contains(where: { $0.crimeType == .repeatedPunctuation }))
+    }
+
+    func testFullTextWithMultipleErrors() async {
+        let engine = TypographyCrimeEngine()
+        let text = "From connecting with loved ones to embracing self-improvement, from sparking creativity to building independence, digital products transform the lives of billions of people worldwide..But global growth is complicated and expensive. We've  seen these challenges a thousand times and solved them once and for all."
+        let report = await engine.analyze(SubmittedEvidence(text: text), preferences: .default)
+
+        XCTAssertTrue(report.groupedCrimes.contains(where: { $0.crimeType == .doubleSpace }))
+        XCTAssertTrue(report.groupedCrimes.contains(where: { $0.crimeType == .repeatedPunctuation }))
+        XCTAssertGreaterThan(report.score, 0)
+    }
+
     func testNonLatinDominantTextAddsApplicabilityNote() async {
         let engine = TypographyCrimeEngine()
         let report = await engine.analyze(SubmittedEvidence(text: "こんにちは世界。これはタイポグラフィーのテストです。"), preferences: .default)

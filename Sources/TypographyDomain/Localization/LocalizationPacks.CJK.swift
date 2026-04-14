@@ -165,6 +165,7 @@ engine.fix.normalize_spacing|规范整个文本中的句子间距。
 engine.fix.rewrite_widow|重写或重排该段落以避免最后一行只有一个单词。
 engine.fix.rewrite_orphan|调整附近的副本以避免出现微小的残留线。
 engine.fix.change_font|使用更合适的字体。
+engine.fix.remove_repeated_punctuation|删除重复的句号或添加适当的空格。
 engine.explain.double_space|这句话以多个空格结尾，这是打字机时代的惯例，不属于比例排版。
 engine.explain.straight_quotes|此引号使用直 ASCII 形式，而不是定向弯引号。
 engine.explain.hyphen_dash|此中断使用连字符减号字符而不是正确的破折号。
@@ -176,6 +177,7 @@ engine.explain.comic_sans|在提交的富文本中找到Comic Sans元数据。
 engine.explain.prime_marks|此测量标记使用 ASCII 引号而不是正确的撇号。
 engine.explain.multiplication_sign|此尺寸在乘号应出现的位置使用字母 x。
 engine.explain.trademark_symbol|此后备符号应替换为正确的符号。
+engine.explain.repeated_punctuation|发现两个连续的句号，这很可能是打字错误或句子之间缺少空格。
 category.punctuation|标点符号问题
 category.spacing|间距问题
 category.layout|布局问题
@@ -236,6 +238,7 @@ doubleSpace|双空格
 straightQuotes|直引号
 hyphenAsDash|连字符作为破折号
 fakeEllipsis|假省略号
+repeatedPunctuation|重复标点
 widow|寡妇
 orphan|孤儿
 inconsistentSpacing|间距不一致
@@ -249,6 +252,7 @@ doubleSpace|句尾标点符号后有多余空格。
 straightQuotes|ASCII 引号用于大引号所在的位置。
 hyphenAsDash|连字符代表真正的破折号。
 fakeEllipsis|使用三个句点代替省略号字符。
+repeatedPunctuation|两个连续句号，看起来像是打字错误。
 widow|最后一行只剩下一个简短的单词。
 orphan|段落开头的微小结转行。
 inconsistentSpacing|在一篇文本中混合句子间距样式。
@@ -262,6 +266,7 @@ trademarkSymbol|使用备用符号代替 ©、® 或 ™。
             (.straightQuotes, "直引号是普通的 ASCII 标记。完成的文本通常使用定向弯引号读起来更好。", "弯引号看起来更优美，并改善句子的视觉节奏。", "早期的键盘和字符集只为两个方向保留一个简单的引号。", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["在可用的情况下启用智能标点符号。", "清理从纯文本源粘贴的文本。", "检查测量结果，确保底色标记保持正确。"]),
             (.hyphenAsDash, "连字符连接单词，但它们不能替代长破折号或短破折号。", "正确的破折号可以改善语气、间距和可读性。", "双连字符是无法轻松生成丰富标点符号的系统中的一种解决方法。", "He paused -- dramatically.", "He paused — dramatically.", ["使用您的风格所需的真正破折号字符。", "保留复合词的连字符，而不是断句。", "整个文档保持一致。"]),
             (.fakeEllipsis, "三个句点可以模仿省略号，但它们不是同一个字符。", "真正的省略号具有平衡的间距，并且在文本行中表现更好。", "许多休闲写作工作流程仍然默认输入三个句点。", "Wait...", "Wait…", ["用省略号字符替换三个句点。", "如果您经常键入文本，请使用文本替换。", "发布前检查导入的副本。"]),
+            (.repeatedPunctuation, "两个连续句号几乎总是打字错误——要么是句号被按了两次，要么是两句话之间缺少空格。", "重复的标点符号会打断阅读节奏，表明编辑不够仔细。", nil, "worldwide..But", "worldwide. But", ["删除多余的句号。", "如果两个句子连在一起，在第一个句号后添加空格。", "检查粘贴的文本是否有意外的重复。"]),
             (.widow, "寡妇在段落的最后一行留下了一个简短的单词。", "这个薄弱的结尾破坏了段落的形状和节奏。", "编辑和设计师会长时间调整换行符，以避免打印时出现寡妇。", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["稍微收紧或重写句子。", "如果布局工具可用，请调整行长度。", "将此视为软风格推荐。"]),
             (.orphan, "孤行是一个很小的遗留行，它笨拙地开始一个新的段落或文本块。", "它破坏了阅读流程，并使布局感觉不那么经过考虑。", "编辑工作流程传统上会在发布前修复孤立的内容。", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["重写附近的短语以重新平衡中断。", "如果您控制布局，请稍微打开度量。", "将其用作警告，而不是严格的错误。"]),
             (.inconsistentSpacing, "混合单句和双句间距使文本感觉是来自不同来源的缝合在一起。", "读者很快就会注意到不一致之处，即使他们无法解释原因。", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["选择一种句子间距样式。", "在共享粘贴的文本之前对其进行标准化。", "从开始到结束保持选择一致。"]),
@@ -436,6 +441,7 @@ engine.fix.normalize_spacing|テキスト全体の文の間隔を正規化しま
 engine.fix.rewrite_widow|最終行が 1 語にならないように、段落を書き直すかリフローします。
 engine.fix.rewrite_orphan|小さな繰り越し線を避けるために近くのコピーを調整します。
 engine.fix.change_font|より適切なフォントを使用してください。
+engine.fix.remove_repeated_punctuation|重複したピリオドを削除するか、適切なスペースを追加してください。
 engine.explain.double_space|この文は複数のスペースで終わります。これはタイプライター時代の慣例であり、プロポーショナル タイポグラフィには属しません。
 engine.explain.straight_quotes|この引用符は、方向性のある中引用符ではなく、直線の ASCII 形式を使用しています。
 engine.explain.hyphen_dash|この中断では、適切なダッシュの代わりにハイフンとマイナスの文字が使用されています。
@@ -447,6 +453,7 @@ engine.explain.comic_sans|Comic Sans メタデータが送信されたリッチ 
 engine.explain.prime_marks|この測定マークでは、適切なプライム記号の代わりに ASCII 引用符が使用されています。
 engine.explain.multiplication_sign|この次元では、乗算記号が表示される文字 x が使用されます。
 engine.explain.trademark_symbol|この代替表記は適切な記号に置き換える必要があります。
+engine.explain.repeated_punctuation|連続した2つのピリオドが見つかりました。これはタイポか、文と文の間のスペース抜けの可能性が高いです。
 category.punctuation|句読点の問題
 category.spacing|間隔の問題
 category.layout|レイアウトの問題
@@ -507,6 +514,7 @@ doubleSpace|ダブルスペース
 straightQuotes|ストレート引用符
 hyphenAsDash|ハイフンをダッシュとして使用
 fakeEllipsis|偽の省略記号
+repeatedPunctuation|重複句読点
 widow|未亡人
 orphan|孤児たち
 inconsistentSpacing|一貫性のない間隔
@@ -520,6 +528,7 @@ doubleSpace|文末の句読点の後の余分なスペース。
 straightQuotes|中引用符が属する場所には ASCII 引用符が使用されます。
 hyphenAsDash|ハイフンは実際のダッシュの代わりになります。
 fakeEllipsis|省略記号の代わりに 3 つのピリオドが使用されています。
+repeatedPunctuation|タイポのように見える連続した2つのピリオド。
 widow|最後の行には短い単語が 1 つだけ残っています。
 orphan|段落の先頭にある小さな繰り越し行。
 inconsistentSpacing|1 つのテキスト内に文間のスタイルが混在しています。
@@ -533,6 +542,7 @@ trademarkSymbol|©、®、™ の代わりに使用される代替表記。
             (.straightQuotes, "直線引用符は単純な ASCII マークです。完成したテキストは通常、方向性のある中引用符を使用すると読みやすくなります。", "波状の引用符はより洗練されて見え、文の視覚的なリズムが向上します。", "初期のキーボードと文字セットでは、両方向に対して 1 つの単純な引用符のみが保持されていました。", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["利用可能な場合はスマート句読点をオンにします。", "プレーンテキスト ソースから貼り付けられたテキストをクリーンアップします。", "プライムマークが正確であるように測定値を確認してください。"]),
             (.hyphenAsDash, "ハイフンは単語を結合しますが、全角ダッシュや半角ダッシュの代わりにはなりません。", "ダッシュを正しくすると、トーン、間隔、読みやすさが向上します。", "二重ハイフンは、豊かな句読点を簡単に生成できないシステムでの回避策でした。", "He paused -- dramatically.", "He paused — dramatically.", ["スタイルに必要な実際のダッシュ文字を使用してください。", "複合語にはハイフンを使用し、文の区切りは使用しないでください。", "文書全体で一貫性を保ちます。"]),
             (.fakeEllipsis, "3 つのピリオドは省略記号を模倣できますが、同じ文字ではありません。", "実際の省略記号はスペースのバランスが取れており、テキスト行内でより適切に動作します。", "多くのカジュアルなライティング ワークフローでは、依然としてデフォルトで 3 つのピリオドを入力します。", "Wait...", "Wait…", ["3 つのピリオドを省略記号文字に置き換えます。", "頻繁に入力する場合は、テキスト置換を使用します。", "公開する前にインポートされたコピーを確認してください。"]),
+            (.repeatedPunctuation, "連続した2つのピリオドはほぼ常にタイポです — ピリオドを2回押してしまったか、文と文の間にスペースが抜けているかのどちらかです。", "句読点の重複は読み流れを妨げ、注意の足りない編集を示します。", nil, "worldwide..But", "worldwide. But", ["余分なピリオドを削除してください。", "2つの文がつながってしまっている場合は、最初のピリオドの後にスペースを追加してください。", "貼り付けたテキストに意図せぬ重複がないか確認してください。"]),
             (.widow, "未亡人が段落の最後の行に短い単語を 1 つ残しておきます。", "その弱い語尾は段落の形とリズムを乱します。", "編集者とデザイナーは、印刷物での未亡人を避けるために長い間改行を調整してきました。", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["文を少し締めるか書き直します。", "レイアウト ツールが利用可能な場合は、行の長さを調整します。", "これはソフトなスタイルの推奨事項として扱ってください。"]),
             (.orphan, "オーファンとは、新しい段落やテキスト ブロックを不自然に開始する小さな繰り越し行のことです。", "読書の流れが崩れ、レイアウトがあまり考慮されていないように感じられます。", "編集ワークフローでは、伝統的に出版前に孤児を修正します。", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["近くのフレーズを書き直して、休憩のバランスを再調整します。", "レイアウトを制御する場合は、メジャーを少し開きます。", "厳密なエラーではなく、警告として使用してください。"]),
             (.inconsistentSpacing, "単一文と二重文の間隔を混在させると、テキストがさまざまなソースからつなぎ合わされたように感じられます。", "読者は、理由を説明できない場合でも、矛盾にすぐに気づきます。", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["文間のスタイルを 1 つ選択します。", "貼り付けたテキストを共有する前に正規化します。", "最初から最後まで一貫した選択をしてください。"]),
@@ -707,6 +717,7 @@ engine.fix.normalize_spacing|텍스트 전체에서 문장 간격을 표준화�
 engine.fix.rewrite_widow|한 단어로 된 마지막 줄을 피하기 위해 단락을 다시 쓰거나 리플로우하세요.
 engine.fix.rewrite_orphan|가까운 사본을 조정하여 작은 이월선을 방지하세요.
 engine.fix.change_font|더 적합한 글꼴을 사용하세요.
+engine.fix.remove_repeated_punctuation|중복된 마침표를 제거하거나 적절한 공백을 추가하세요.
 engine.explain.double_space|이 문장은 비례 타이포그래피에 속하지 않는 타자기 시대의 관례인 다중 공백으로 끝납니다.
 engine.explain.straight_quotes|이 따옴표는 방향성 중괄호 대신 곧은 ASCII 형식을 사용합니다.
 engine.explain.hyphen_dash|이 중단에서는 적절한 대시 대신 하이픈 빼기 문자를 사용합니다.
@@ -718,6 +729,7 @@ engine.explain.comic_sans|Comic Sans 메타데이터가 제출된 서식 있는 
 engine.explain.prime_marks|이 측정 표시는 적절한 소수 기호 대신 ASCII 따옴표를 사용합니다.
 engine.explain.multiplication_sign|이 차원은 곱셈 기호가 표시되어야 하는 문자 x를 사용합니다.
 engine.explain.trademark_symbol|이 대체 표기법은 적절한 기호로 대체되어야 합니다.
+engine.explain.repeated_punctuation|연속된 두 개의 마침표가 발견되었습니다. 이는 오타이거나 문장 사이에 공백이 빠진 것일 가능성이 높습니다.
 category.punctuation|구두점 문제
 category.spacing|간격 문제
 category.layout|레이아웃 문제
@@ -778,6 +790,7 @@ doubleSpace|더블 스페이스
 straightQuotes|직선 따옴표
 hyphenAsDash|대시로 사용되는 하이픈
 fakeEllipsis|가짜 줄임표
+repeatedPunctuation|반복 구두점
 widow|과부
 orphan|고아
 inconsistentSpacing|일관되지 않은 간격
@@ -791,6 +804,7 @@ doubleSpace|문장 끝 구두점 뒤의 추가 공백
 straightQuotes|ASCII 따옴표는 둥근 따옴표가 속한 곳에 사용됩니다.
 hyphenAsDash|실제 대시를 나타내는 하이픈
 fakeEllipsis|줄임표 문자 대신 마침표 3개가 사용되었습니다.
+repeatedPunctuation|오타처럼 보이는 연속된 두 개의 마침표.
 widow|짧은 단어 하나만 남은 마지막 줄
 orphan|문단 시작 부분에 작은 줄이 이어집니다.
 inconsistentSpacing|한 텍스트에 문장 간격 스타일이 혼합되어 있습니다.
@@ -804,6 +818,7 @@ trademarkSymbol|©, ®, ™ 대신 대체 표기법을 사용했습니다.
             (.straightQuotes, "곧은 따옴표는 일반 ASCII 표시입니다. 완성된 텍스트는 일반적으로 방향성 둥근 따옴표를 사용하면 읽기가 더 좋습니다.", "곱슬따옴표는 더욱 세련되어 보이고 문장의 시각적 리듬을 향상시킵니다.", "초기 키보드와 문자 집합은 양방향에 대해 하나의 간단한 따옴표만 유지했습니다.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["가능한 경우 스마트 구두점을 사용 설정하세요.", "일반 텍스트 소스에서 붙여넣은 텍스트를 정리합니다.", "소수점 표시가 올바르게 유지되도록 측정값을 확인하세요."]),
             (.hyphenAsDash, "하이픈은 단어를 연결하지만 엠 대시나 엔 대시를 대신할 수는 없습니다.", "올바른 대시는 어조, 간격, 가독성을 향상시킵니다.", "이중 하이픈은 풍부한 구두점을 쉽게 생성할 수 없는 시스템의 해결 방법이었습니다.", "He paused -- dramatically.", "He paused — dramatically.", ["스타일에 필요한 실제 대시 문자를 사용하세요.", "복합어에는 문장 나누기가 아닌 하이픈을 사용하세요.", "전체 문서에서 일관성을 유지하세요."]),
             (.fakeEllipsis, "3개의 마침표는 줄임표를 흉내낼 수 있지만 동일한 문자는 아닙니다.", "실제 줄임표는 균형 잡힌 간격을 가지며 텍스트 줄에서 더 잘 작동합니다.", "많은 일반 글쓰기 작업 흐름에서는 여전히 마침표 3개를 입력하는 것이 기본값입니다.", "Wait...", "Wait…", ["3개의 마침표를 줄임표 문자로 바꾸세요.", "자주 입력하는 경우 텍스트 바꾸기를 사용하세요.", "게시하기 전에 가져온 사본을 확인하세요."]),
+            (.repeatedPunctuation, "연속된 두 개의 마침표는 거의 항상 오타입니다 — 마침표를 두 번 누른 것이거나 문장 사이에 공백이 빠진 것입니다.", "반복된 구두점은 읽기 흐름을 방해하고 부주의한 편집을 나타냅니다.", nil, "worldwide..But", "worldwide. But", ["추가된 마침표를 삭제하세요.", "두 문장이 합쳐진 경우 첫 번째 마침표 뒤에 공백을 추가하세요.", "붙여넣은 텍스트에 우발적인 중복이 있는지 확인하세요."]),
             (.widow, "과부는 문단의 마지막 줄에 짧은 단어 하나를 남겨 두었습니다.", "약한 결말은 문단의 모양과 리듬을 방해합니다.", "편집자와 디자이너는 인쇄 시 공백을 피하기 위해 줄바꿈을 길게 조정했습니다.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["문장을 약간 좁히거나 다시 작성하세요.", "레이아웃 도구를 사용할 수 있는 경우 줄 길이를 조정하세요.", "이를 부드러운 스타일 권장사항으로 간주하세요."]),
             (.orphan, "고아는 새 단락이나 텍스트 블록을 어색하게 시작하는 작은 이월 줄입니다.", "읽기 흐름을 방해하고 레이아웃을 덜 고려하게 만듭니다.", "편집 작업 흐름에서는 일반적으로 출판 전에 고아를 수정합니다.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["휴식의 균형을 다시 맞추기 위해 가까운 문구를 다시 작성하세요.", "레이아웃을 제어하는 경우 측정값을 살짝 엽니다.", "엄격한 오류가 아닌 경고로 사용하세요."]),
             (.inconsistentSpacing, "단문과 이중 문장 간격을 혼합하면 텍스트가 다양한 소스에서 하나로 연결되는 느낌을 받을 수 있습니다.", "독자는 이유를 설명할 수 없는 경우에도 불일치를 빠르게 알아차립니다.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["한 가지 문장 간격 스타일을 선택하세요.", "공유하기 전에 붙여넣은 텍스트를 표준화하세요.", "처음부터 끝까지 선택의 일관성을 유지하세요."]),

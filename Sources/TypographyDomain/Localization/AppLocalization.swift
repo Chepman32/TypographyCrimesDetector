@@ -341,6 +341,7 @@ public enum L10n {
     private static let defaultWrongExamples: [CrimeType: String] = [
         .straightQuotes: "\"Hello\" and 'goodbye'",
         .fakeEllipsis: "Wait...",
+        .repeatedPunctuation: "worldwide..But",
         .hyphenAsDash: "He paused -- dramatically.",
         .doubleSpace: "The case is closed.  Move on.",
         .widow: "Typography is a matter of rhythm and\ncare.",
@@ -355,6 +356,7 @@ public enum L10n {
     private static let defaultRightExamples: [CrimeType: String] = [
         .straightQuotes: "“Hello” and ‘goodbye’",
         .fakeEllipsis: "Wait…",
+        .repeatedPunctuation: "worldwide. But",
         .hyphenAsDash: "He paused — dramatically.",
         .doubleSpace: "The case is closed. Move on.",
         .widow: "Typography is a matter of rhythm\nand care.",
@@ -577,13 +579,14 @@ public enum L10n {
             "engine.whitespace_only": "Your text contains only whitespace. It is not criminal, but it is suspicious.",
             "engine.non_latin_warning": "Analysis is tuned for Latin-script typography. Some spacing and punctuation rules may not apply to this writing system.",
             "engine.short_text_note": "Widow and orphan detection is less reliable on very short passages.",
-            "engine.fix.single_space": "Use a single space after sentence-ending punctuation.",
+            "engine.fix.single_space": "Use a single space.",
             "engine.fix.replace_with": "Replace with %@",
             "engine.fix.normalize_spacing": "Normalize sentence spacing throughout the text.",
             "engine.fix.rewrite_widow": "Rewrite or reflow the paragraph to avoid a one-word final line.",
             "engine.fix.rewrite_orphan": "Adjust nearby copy to avoid a tiny carry-over line.",
             "engine.fix.change_font": "Use a more suitable font.",
-            "engine.explain.double_space": "This sentence ends with multiple spaces, a typewriter-era convention that does not belong in proportional typography.",
+            "engine.fix.remove_repeated_punctuation": "Remove the duplicate period or add proper spacing.",
+            "engine.explain.double_space": "Multiple consecutive spaces were found where a single space is expected.",
             "engine.explain.straight_quotes": "This quotation mark uses the straight ASCII form instead of directional curly quotes.",
             "engine.explain.hyphen_dash": "This interruption uses hyphen-minus characters instead of a proper dash.",
             "engine.explain.fake_ellipsis": "This run of periods should be replaced with the ellipsis character.",
@@ -594,6 +597,7 @@ public enum L10n {
             "engine.explain.prime_marks": "This measurement mark uses an ASCII quote instead of a proper prime symbol.",
             "engine.explain.multiplication_sign": "This dimension uses the letter x where the multiplication sign should appear.",
             "engine.explain.trademark_symbol": "This fallback notation should be replaced with the proper symbol.",
+            "engine.explain.repeated_punctuation": "Two consecutive periods were found, which is likely a typo or a missing space between sentences.",
             "category.punctuation": "Punctuation Issues",
             "category.spacing": "Spacing Issues",
             "category.layout": "Layout Issues",
@@ -657,6 +661,7 @@ public enum L10n {
             .straightQuotes: "Straight Quotes",
             .hyphenAsDash: "Hyphen as Dash",
             .fakeEllipsis: "Fake Ellipsis",
+            .repeatedPunctuation: "Repeated Punctuation",
             .widow: "Widows",
             .orphan: "Orphans",
             .inconsistentSpacing: "Inconsistent Spacing",
@@ -666,10 +671,11 @@ public enum L10n {
             .trademarkSymbol: "Trademark Symbol Misuse"
         ],
         crimeTypeDescriptions: [
-            .doubleSpace: "Extra spaces after sentence-ending punctuation.",
+            .doubleSpace: "Extra consecutive spaces in the text.",
             .straightQuotes: "ASCII quotes used where curly quotes belong.",
             .hyphenAsDash: "Hyphens standing in for a real dash.",
             .fakeEllipsis: "Three periods used instead of the ellipsis character.",
+            .repeatedPunctuation: "Two consecutive periods that appear to be a typo.",
             .widow: "A final line left with only one short word.",
             .orphan: "A tiny carry-over line at the start of a paragraph.",
             .inconsistentSpacing: "Mixed sentence-spacing styles in one text.",
@@ -680,11 +686,11 @@ public enum L10n {
         ],
         articles: [
             .doubleSpace: .init(
-                overview: "Double spaces after a sentence come from typewriter habits. In modern proportional type, one space is the cleaner default.",
+                overview: "Multiple consecutive spaces are almost always unintentional. In modern proportional type, one space is the cleaner default.",
                 whyItMatters: "Extra spaces create uneven rhythm and visible gaps in a paragraph.",
                 history: "Typewriters used fixed-width characters, so extra spacing once helped readers see sentence breaks.",
                 fixSteps: [
-                    "Search for repeated spaces after punctuation.",
+                    "Search for repeated spaces in your text.",
                     "Run a quick clean-up pass before sharing.",
                     "If double spaces are intentional, keep them consistent."
                 ]
@@ -717,6 +723,16 @@ public enum L10n {
                     "Replace three periods with the ellipsis character.",
                     "Use text replacement if you type it often.",
                     "Check imported copy before publishing."
+                ]
+            ),
+            .repeatedPunctuation: .init(
+                overview: "Two consecutive periods are almost always a typo — either a double-typed period or a missing space between sentences.",
+                whyItMatters: "Repeated punctuation breaks reading flow and signals careless editing.",
+                history: nil,
+                fixSteps: [
+                    "Remove the extra period.",
+                    "If two sentences run together, add a space after the first period.",
+                    "Proofread pasted text for accidental duplicates."
                 ]
             ),
             .widow: .init(

@@ -87,6 +87,7 @@ public struct TypographyCrimeEngine: Sendable {
             StraightQuoteDetector(),
             HyphenAsDashDetector(dashStyle: preferences.dashStyle),
             FakeEllipsisDetector(),
+            RepeatedPunctuationDetector(),
             WidowDetector(enabled: spacingDetectorsAllowed),
             OrphanDetector(enabled: spacingDetectorsAllowed),
             InconsistentSpacingDetector(enabled: spacingDetectorsAllowed),

@@ -187,7 +187,7 @@ public struct CrimeReportScreen: View {
         switch instance.crimeType {
         case .doubleSpace, .inconsistentSpacing:
             return " "
-        case .straightQuotes, .fakeEllipsis, .primeMarks, .multiplicationSign, .trademarkSymbol:
+        case .straightQuotes, .fakeEllipsis, .primeMarks, .multiplicationSign, .trademarkSymbol, .repeatedPunctuation:
             return replacementToken(from: instance.suggestedFix)
         case .hyphenAsDash:
             return replacementToken(from: instance.suggestedFix)?.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -165,6 +165,7 @@ engine.fix.normalize_spacing|Normalisieren Sie den Satzabstand im gesamten Text.
 engine.fix.rewrite_widow|Schreiben Sie den Absatz neu oder ändern Sie ihn um, um eine letzte Zeile mit einem Wort zu vermeiden.
 engine.fix.rewrite_orphan|Passen Sie die Kopie in der Nähe an, um eine winzige Übertragungslinie zu vermeiden.
 engine.fix.change_font|Verwenden Sie eine geeignetere Schriftart.
+engine.fix.remove_repeated_punctuation|Entfernen Sie den doppelten Punkt oder fügen Sie den richtigen Abstand ein.
 engine.explain.double_space|Dieser Satz endet mit mehreren Leerzeichen, einer Konvention aus der Zeit der Schreibmaschine, die nicht zur proportionalen Typografie gehört.
 engine.explain.straight_quotes|Dieses Anführungszeichen verwendet die gerade ASCII-Form anstelle von gerichteten geschweiften Anführungszeichen.
 engine.explain.hyphen_dash|Diese Unterbrechung verwendet Bindestrich-Minus-Zeichen anstelle eines richtigen Bindestrichs.
@@ -176,6 +177,7 @@ engine.explain.comic_sans|Comic Sans-Metadaten wurden im übermittelten Rich-Tex
 engine.explain.prime_marks|Diese Messmarke verwendet ein ASCII-Anführungszeichen anstelle eines richtigen Primsymbols.
 engine.explain.multiplication_sign|Diese Dimension verwendet den Buchstaben x an der Stelle, an der das Multiplikationszeichen erscheinen soll.
 engine.explain.trademark_symbol|Diese Fallback-Notation sollte durch das richtige Symbol ersetzt werden.
+engine.explain.repeated_punctuation|Es wurden zwei aufeinanderfolgende Punkte gefunden, was wahrscheinlich ein Tippfehler oder ein fehlendes Leerzeichen zwischen Sätzen ist.
 category.punctuation|Interpunktionsprobleme
 category.spacing|Abstandsprobleme
 category.layout|Layoutprobleme
@@ -236,6 +238,7 @@ doubleSpace|Doppelte Leerzeichen
 straightQuotes|Einfache Anführungszeichen
 hyphenAsDash|Bindestrich als Bindestrich
 fakeEllipsis|Gefälschte Ellipse
+repeatedPunctuation|Wiederholte Interpunktion
 widow|Witwen
 orphan|Waisen
 inconsistentSpacing|Inkonsistenter Abstand
@@ -249,6 +252,7 @@ doubleSpace|Zusätzliche Leerzeichen nach Satzende-Interpunktion.
 straightQuotes|ASCII-Anführungszeichen werden dort verwendet, wo geschweifte Anführungszeichen hingehören.
 hyphenAsDash|Bindestriche ersetzen einen echten Bindestrich.
 fakeEllipsis|Drei Punkte werden anstelle des Auslassungszeichens verwendet.
+repeatedPunctuation|Zwei aufeinanderfolgende Punkte, die wie ein Tippfehler aussehen.
 widow|Eine letzte Zeile mit nur einem kurzen Wort.
 orphan|Eine kleine Überbleibselzeile am Anfang eines Absatzes.
 inconsistentSpacing|Gemischte Satzabstände in einem Text.
@@ -262,6 +266,7 @@ trademarkSymbol|Fallback-Notation wird anstelle von ©, ® oder ™ verwendet.
             (.straightQuotes, "Gerade Anführungszeichen sind einfache ASCII-Zeichen. Fertiger Text liest sich normalerweise besser, wenn Sie richtungsgebundene Anführungszeichen verwenden.", "Geschwungene Anführungszeichen wirken eleganter und verbessern den visuellen Rhythmus eines Satzes.", "Frühe Tastaturen und Zeichensätze enthielten nur ein einfaches Anführungszeichen für beide Richtungen.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Aktivieren Sie die intelligente Zeichensetzung, sofern verfügbar.", "Bereinigen Sie aus Nur-Text-Quellen eingefügten Text.", "Überprüfen Sie die Maße, damit die Hauptmarkierungen korrekt bleiben."]),
             (.hyphenAsDash, "Bindestriche verbinden Wörter, sind aber kein Ersatz für Gedankenstriche oder Gedankenstriche.", "Der richtige Bindestrich verbessert Ton, Abstand und Lesbarkeit.", "Doppelte Bindestriche waren eine Problemumgehung in Systemen, die nicht ohne weiteres eine reichhaltige Interpunktion erzeugen konnten.", "He paused -- dramatically.", "He paused — dramatically.", ["Verwenden Sie den echten Bindestrich, den Ihr Stil erfordert.", "Behalten Sie Bindestriche für zusammengesetzte Wörter bei, nicht für Satzumbrüche.", "Bleiben Sie im gesamten Dokument konsistent."]),
             (.fakeEllipsis, "Drei Punkte können Auslassungspunkte nachahmen, sind aber nicht dasselbe Zeichen.", "Eine echte Ellipse hat einen ausgeglichenen Abstand und verhält sich in einer Textzeile besser.", "Viele gelegentliche Schreibabläufe verwenden immer noch standardmäßig die Eingabe von drei Punkten.", "Wait...", "Wait…", ["Ersetzen Sie drei Punkte durch das Auslassungszeichen.", "Verwenden Sie Textersetzung, wenn Sie ihn häufig eingeben.", "Überprüfen Sie die importierte Kopie vor der Veröffentlichung."]),
+            (.repeatedPunctuation, "Zwei aufeinanderfolgende Punkte sind fast immer ein Tippfehler — entweder ein doppelt eingegebener Punkt oder ein fehlendes Leerzeichen zwischen Sätzen.", "Wiederholte Interpunktion unterbricht den Lesefluss und signalisiert nachlässiges Lektorat.", nil, "worldwide..But", "worldwide. But", ["Entfernen Sie den zusätzlichen Punkt.", "Wenn zwei Sätze zusammengelaufen sind, fügen Sie nach dem ersten Punkt ein Leerzeichen ein.", "Überprüfen Sie eingefügten Text auf unbeabsichtigte Dopplungen."]),
             (.widow, "Eine Witwe lässt ein kurzes Wort in der letzten Zeile eines Absatzes hängen.", "Dieses schwache Ende stört die Form und den Rhythmus des Absatzes.", "Redakteure und Designer haben seit langem Zeilenumbrüche angepasst, um Witwen im Druck zu vermeiden.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Sprengen Sie den Satz oder schreiben Sie ihn leicht um.", "Passen Sie die Zeilenlänge an, wenn Layout-Tools verfügbar sind.", "Behandeln Sie dies als sanfte Stilempfehlung."]),
             (.orphan, "Eine verwaiste Zeile ist eine winzige Überbleibselzeile, die einen neuen Absatz oder Textblock umständlich beginnt.", "Es unterbricht den Lesefluss und lässt das Layout weniger durchdacht wirken.", "Redaktionelle Arbeitsabläufe beheben traditionell Waisen vor der Veröffentlichung.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Schreiben Sie eine nahegelegene Phrase neu, um die Pause wieder ins Gleichgewicht zu bringen.", "Öffnen Sie den Takt leicht, wenn Sie das Layout steuern möchten.", "Verwenden Sie es als Warnung, nicht als starren Fehler."]),
             (.inconsistentSpacing, "Durch das Mischen einzelner und doppelter Satzabstände wirkt der Text wie aus verschiedenen Quellen zusammengesetzt.", "Leser bemerken Inkonsistenzen schnell, auch wenn sie nicht erklären können, warum.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Wählen Sie einen Satzabstandsstil.", "Normalisieren Sie den eingefügten Text, bevor Sie ihn teilen.", "Halten Sie die Auswahl von Anfang bis Ende konsistent."]),
@@ -436,6 +441,7 @@ engine.fix.normalize_spacing|Normaliser l'espacement des phrases dans tout le te
 engine.fix.rewrite_widow|Réécrivez ou redistribuez le paragraphe pour éviter une dernière ligne d'un seul mot.
 engine.fix.rewrite_orphan|Ajustez la copie à proximité pour éviter une petite ligne de report.
 engine.fix.change_font|Utilisez une police plus adaptée.
+engine.fix.remove_repeated_punctuation|Supprimez le point en double ou ajoutez l'espacement approprié.
 engine.explain.double_space|Cette phrase se termine par plusieurs espaces, une convention de l'ère des machines à écrire qui n'appartient pas à la typographie proportionnelle.
 engine.explain.straight_quotes|Ce guillemet utilise la forme droite ASCII au lieu de guillemets directionnels bouclés.
 engine.explain.hyphen_dash|Cette interruption utilise des traits d'union moins au lieu d'un tiret approprié.
@@ -447,6 +453,7 @@ engine.explain.comic_sans|Les métadonnées Comic Sans ont été trouvées dans 
 engine.explain.prime_marks|Cette marque de mesure utilise un guillemet ASCII au lieu d'un symbole premier approprié.
 engine.explain.multiplication_sign|Cette dimension utilise la lettre x à l'endroit où le signe de multiplication doit apparaître.
 engine.explain.trademark_symbol|Cette notation de secours doit être remplacée par le symbole approprié.
+engine.explain.repeated_punctuation|Deux points consécutifs ont été trouvés, ce qui est probablement une faute de frappe ou un espace manquant entre deux phrases.
 category.punctuation|Problèmes de ponctuation
 category.spacing|Problèmes d'espacement
 category.layout|Problèmes de mise en page
@@ -507,6 +514,7 @@ doubleSpace|Espaces doubles
 straightQuotes|Citations directes
 hyphenAsDash|Trait d'union en tiret
 fakeEllipsis|Fausses points de suspension
+repeatedPunctuation|Ponctuation répétée
 widow|Veuves
 orphan|Orphelins
 inconsistentSpacing|Espacement incohérent
@@ -520,6 +528,7 @@ doubleSpace|Espaces supplémentaires après la ponctuation de fin de phrase.
 straightQuotes|Les guillemets ASCII sont utilisés à la place des guillemets bouclés.
 hyphenAsDash|Des traits d'union remplacent un vrai tiret.
 fakeEllipsis|Trois points utilisés à la place du caractère points de suspension.
+repeatedPunctuation|Deux points consécutifs qui semblent être une faute de frappe.
 widow|Une dernière ligne avec un seul mot court.
 orphan|Une petite ligne de report au début d'un paragraphe.
 inconsistentSpacing|Styles d'espacement des phrases mixtes dans un seul texte.
@@ -533,6 +542,7 @@ trademarkSymbol|Notation de secours utilisée à la place de ©, ® ou ™.
             (.straightQuotes, "Les guillemets droits sont de simples marques ASCII. Le texte final se lit généralement mieux avec des guillemets directionnels bouclés.", "Les guillemets bouclés semblent plus soignés et améliorent le rythme visuel d'une phrase.", "Les premiers claviers et jeux de caractères ne conservaient qu'un simple guillemet dans les deux sens.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Activez la ponctuation intelligente lorsqu'elle est disponible.", "Nettoyer le texte collé à partir de sources de texte brut.", "Vérifiez les mesures pour que les repères restent corrects."]),
             (.hyphenAsDash, "Les traits d'union joignent les mots, mais ils ne remplacent pas les tirets em ou les tirets en.", "Le tiret correct améliore le ton, l'espacement et la lisibilité.", "Les doubles traits d'union constituaient une solution de contournement dans les systèmes qui ne pouvaient pas facilement produire une ponctuation riche.", "He paused -- dramatically.", "He paused — dramatically.", ["Utilisez le vrai caractère de tiret requis par votre style.", "Conservez les traits d'union pour les composés, pas les sauts de phrase.", "Restez cohérent dans l'ensemble du document."]),
             (.fakeEllipsis, "Trois points peuvent imiter des points de suspension, mais ce ne sont pas le même caractère.", "Les véritables points de suspension ont un espacement équilibré et se comportent mieux dans une ligne de texte.", "De nombreux flux de travail d'écriture occasionnels utilisent toujours par défaut la saisie de trois points.", "Wait...", "Wait…", ["Remplacez trois points par des points de suspension.", "Utilisez le remplacement de texte si vous le saisissez souvent.", "Vérifiez la copie importée avant de la publier."]),
+            (.repeatedPunctuation, "Deux points consécutifs sont presque toujours une faute de frappe — soit un point tapé en double, soit un espace manquant entre deux phrases.", "La ponctuation répétée interrompt la fluidité de lecture et signale un manque de soin dans la relecture.", nil, "worldwide..But", "worldwide. But", ["Supprimez le point en trop.", "Si deux phrases se sont accolées, ajoutez une espace après le premier point.", "Relisez le texte collé pour repérer les doublons accidentels."]),
             (.widow, "Une veuve laisse un mot court bloqué sur la dernière ligne d'un paragraphe.", "Cette fin faible perturbe la forme et le rythme du paragraphe.", "Les éditeurs et les concepteurs ont depuis longtemps ajusté les sauts de ligne pour éviter les veuves lors de l'impression.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Rendez ou réécrivez légèrement la phrase.", "Ajustez la longueur de la ligne si des outils de mise en page sont disponibles.", "Considérez ceci comme une recommandation de style doux."]),
             (.orphan, "Un orphelin est une petite ligne reportée qui commence maladroitement un nouveau paragraphe ou un nouveau bloc de texte.", "Cela interrompt le flux de lecture et donne l'impression que la mise en page est moins prise en compte.", "Les workflows éditoriaux corrigent traditionnellement les orphelins avant la publication.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Réécrivez une phrase proche pour rééquilibrer la pause.", "Ouvrez légèrement la mesure si vous contrôlez la disposition.", "Utilisez-le comme un avertissement, pas comme une erreur rigide."]),
             (.inconsistentSpacing, "Le mélange d'espacements de phrases simples et doubles donne l'impression que le texte provient de différentes sources.", "Les lecteurs remarquent rapidement les incohérences, même s'ils ne peuvent pas expliquer pourquoi.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Choisissez un style d'espacement des phrases.", "Normalisez le texte collé avant de le partager.", "Garder le choix cohérent du début à la fin."]),
@@ -707,6 +717,7 @@ engine.fix.normalize_spacing|Normalizar el espaciado entre oraciones en todo el 
 engine.fix.rewrite_widow|Reescribe o redistribuye el párrafo para evitar una línea final de una sola palabra.
 engine.fix.rewrite_orphan|Ajusta el texto cercano para evitar una pequeña línea remanente.
 engine.fix.change_font|Utilice una fuente más adecuada.
+engine.fix.remove_repeated_punctuation|Elimine el punto duplicado o añada el espaciado correcto.
 engine.explain.double_space|Esta oración termina con múltiples espacios, una convención de la era de las máquinas de escribir que no pertenece a la tipografía proporcional.
 engine.explain.straight_quotes|Estas comillas utilizan la forma recta ASCII en lugar de comillas direccionales.
 engine.explain.hyphen_dash|Esta interrupción utiliza guiones menos en lugar de un guión adecuado.
@@ -718,6 +729,7 @@ engine.explain.comic_sans|Se encontraron metadatos de Comic Sans en el texto enr
 engine.explain.prime_marks|Esta marca de medición utiliza una comilla ASCII en lugar de un símbolo primo adecuado.
 engine.explain.multiplication_sign|Esta dimensión utiliza la letra x donde debe aparecer el signo de multiplicación.
 engine.explain.trademark_symbol|Esta notación alternativa debe reemplazarse con el símbolo adecuado.
+engine.explain.repeated_punctuation|Se encontraron dos puntos consecutivos, lo que probablemente sea un error tipográfico o un espacio faltante entre oraciones.
 category.punctuation|Problemas de puntuación
 category.spacing|Problemas de espaciado
 category.layout|Problemas de diseño
@@ -778,6 +790,7 @@ doubleSpace|Espacios dobles
 straightQuotes|Comillas rectas
 hyphenAsDash|Guión como guión
 fakeEllipsis|Elipsis falsa
+repeatedPunctuation|Puntuación repetida
 widow|Viudas
 orphan|Huérfanos
 inconsistentSpacing|Espaciado inconsistente
@@ -791,6 +804,7 @@ doubleSpace|Espacios adicionales después de la puntuación al final de la oraci
 straightQuotes|Se utilizan comillas ASCII donde pertenecen las comillas.
 hyphenAsDash|Los guiones sustituyen a un guión real.
 fakeEllipsis|Se utilizan tres puntos en lugar del carácter de puntos suspensivos.
+repeatedPunctuation|Dos puntos consecutivos que parecen ser un error tipográfico.
 widow|Queda una última línea con solo una palabra corta.
 orphan|Una pequeña línea remanente al comienzo de un párrafo.
 inconsistentSpacing|Estilos de espaciado de oraciones mixtos en un texto.
@@ -804,6 +818,7 @@ trademarkSymbol|Se utiliza notación alternativa en lugar de ©, ® o ™.
             (.straightQuotes, "Las comillas rectas son marcas ASCII simples. El texto terminado generalmente se lee mejor con comillas direccionales.", "Las comillas rizadas se ven más pulidas y mejoran el ritmo visual de una oración.", "Los primeros teclados y juegos de caracteres mantenían solo una comilla simple para ambas direcciones.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Activa la puntuación inteligente cuando esté disponible.", "Limpiar texto pegado de fuentes de texto sin formato.", "Compruebe las medidas para que las marcas principales permanezcan correctas."]),
             (.hyphenAsDash, "Los guiones unen palabras, pero no sustituyen a los guiones largos ni a los guiones cortos.", "El guión correcto mejora el tono, el espaciado y la legibilidad.", "Los guiones dobles eran una solución alternativa en sistemas que no podían producir fácilmente una puntuación rica.", "He paused -- dramatically.", "He paused — dramatically.", ["Utiliza el carácter de guión real que tu estilo requiere.", "Mantenga guiones para compuestos, no saltos de oraciones.", "Mantenga la coherencia en todo el documento."]),
             (.fakeEllipsis, "Tres puntos pueden imitar una elipsis, pero no son el mismo carácter.", "Una elipsis real tiene un espaciado equilibrado y se comporta mejor en una línea de texto.", "Muchos flujos de trabajo de escritura ocasionales todavía escriben de forma predeterminada tres puntos.", "Wait...", "Wait…", ["Reemplace tres puntos con el carácter de puntos suspensivos.", "Utiliza el reemplazo de texto si lo escribes con frecuencia.", "Comprueba la copia importada antes de publicarla."]),
+            (.repeatedPunctuation, "Dos puntos consecutivos son casi siempre un error tipográfico: un punto tecleado dos veces o un espacio faltante entre oraciones.", "La puntuación repetida interrumpe el flujo de lectura y evidencia una edición descuidada.", nil, "worldwide..But", "worldwide. But", ["Elimine el punto adicional.", "Si dos oraciones se han unido, añada un espacio después del primer punto.", "Revise el texto pegado en busca de duplicados accidentales."]),
             (.widow, "Una viuda deja una palabra corta en la última línea de un párrafo.", "Ese final débil altera la forma y el ritmo del párrafo.", "Los editores y diseñadores han ajustado los saltos de línea para evitar viudas en la impresión.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Ajusta o reescribe ligeramente la oración.", "Ajusta la longitud de la línea si hay herramientas de diseño disponibles.", "Trate esto como una recomendación de estilo suave."]),
             (.orphan, "Un huérfano es una pequeña línea remanente que comienza un nuevo párrafo o bloque de texto de manera incómoda.", "Interrumpe el flujo de lectura y hace que el diseño parezca menos considerado.", "Los flujos de trabajo editoriales tradicionalmente reparan los huérfanos antes de su publicación.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Reescribe una frase cercana para reequilibrar la pausa.", "Abre ligeramente el compás si controlas el diseño.", "Úselo como una advertencia, no como un error rígido."]),
             (.inconsistentSpacing, "Mezclar espacios entre oraciones simples y dobles hace que el texto parezca unido a partir de diferentes fuentes.", "Los lectores notan la inconsistencia rápidamente, incluso cuando no pueden explicar por qué.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Elija un estilo de espaciado de oraciones.", "Normaliza el texto pegado antes de compartirlo.", "Mantenga la elección constante de principio a fin."]),
@@ -978,6 +993,7 @@ engine.fix.normalize_spacing|Normalize o espaçamento entre frases em todo o tex
 engine.fix.rewrite_widow|Reescreva ou refaça o parágrafo para evitar uma linha final de uma palavra.
 engine.fix.rewrite_orphan|Ajuste a cópia próxima para evitar uma pequena linha de transferência.
 engine.fix.change_font|Use uma fonte mais adequada.
+engine.fix.remove_repeated_punctuation|Remova o ponto duplicado ou adicione o espaçamento adequado.
 engine.explain.double_space|Esta frase termina com vários espaços, uma convenção da era da máquina de escrever que não pertence à tipografia proporcional.
 engine.explain.straight_quotes|Estas aspas usam a forma ASCII direta em vez de aspas curvas direcionais.
 engine.explain.hyphen_dash|Essa interrupção usa caracteres de hífen-menos em vez de um travessão adequado.
@@ -989,6 +1005,7 @@ engine.explain.comic_sans|Os metadados de Comic Sans foram encontrados no rich t
 engine.explain.prime_marks|Esta marca de medida usa uma aspa ASCII em vez de um símbolo primo adequado.
 engine.explain.multiplication_sign|Esta dimensão usa a letra x onde o sinal de multiplicação deve aparecer.
 engine.explain.trademark_symbol|Esta notação alternativa deve ser substituída pelo símbolo adequado.
+engine.explain.repeated_punctuation|Foram encontrados dois pontos consecutivos, o que provavelmente é um erro de digitação ou um espaço ausente entre frases.
 category.punctuation|Problemas de pontuação
 category.spacing|Problemas de espaçamento
 category.layout|Problemas de layout
@@ -1049,6 +1066,7 @@ doubleSpace|Espaços duplos
 straightQuotes|Citações diretas
 hyphenAsDash|Hífen como traço
 fakeEllipsis|Reticências falsas
+repeatedPunctuation|Pontuação repetida
 widow|Viúvas
 orphan|Órfãos
 inconsistentSpacing|Espaçamento inconsistente
@@ -1062,6 +1080,7 @@ doubleSpace|Espaços extras após a pontuação no final da frase.
 straightQuotes|Aspas ASCII usadas onde as aspas curvas pertencem.
 hyphenAsDash|Hífens substituindo um verdadeiro travessão.
 fakeEllipsis|Três pontos usados em vez do caractere de reticências.
+repeatedPunctuation|Dois pontos consecutivos que parecem ser um erro de digitação.
 widow|Uma linha final deixada com apenas uma palavra curta.
 orphan|Uma pequena linha de transição no início de um parágrafo.
 inconsistentSpacing|Estilos mistos de espaçamento entre frases em um texto.
@@ -1075,6 +1094,7 @@ trademarkSymbol|Notação substituta usada em vez de ©, ® ou ™.
             (.straightQuotes, "Aspas retas são marcas ASCII simples. O texto finalizado geralmente fica melhor com aspas curvas direcionais.", "As citações curvas parecem mais refinadas e melhoram o ritmo visual de uma frase.", "Os primeiros teclados e conjuntos de caracteres mantinham apenas uma aspa simples para ambas as direções.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Ative a pontuação inteligente quando disponível.", "Limpe o texto colado de fontes de texto simples.", "Verifique as medidas para que as marcas principais permaneçam corretas."]),
             (.hyphenAsDash, "Os hífens unem as palavras, mas não substituem os travessões ou travessões.", "O traço correto melhora o tom, o espaçamento e a legibilidade.", "Hífens duplos eram uma solução alternativa em sistemas que não conseguiam produzir facilmente pontuação rica.", "He paused -- dramatically.", "He paused — dramatically.", ["Use o traço real que seu estilo exige.", "Mantenha hífens para compostos, não quebras de frase.", "Mantenha a consistência em todo o documento."]),
             (.fakeEllipsis, "Três pontos podem imitar reticências, mas não são o mesmo caractere.", "Uma reticência real tem espaçamento equilibrado e se comporta melhor em uma linha de texto.", "Muitos fluxos de trabalho de escrita casual ainda usam como padrão a digitação de três pontos.", "Wait...", "Wait…", ["Substitua três pontos pelo caractere de reticências.", "Use a substituição de texto se você digitar com frequência.", "Verifique a cópia importada antes de publicar."]),
+            (.repeatedPunctuation, "Dois pontos consecutivos são quase sempre um erro de digitação — um ponto digitado duas vezes ou um espaço ausente entre frases.", "A pontuação repetida interrompe o fluxo de leitura e indica edição descuidada.", nil, "worldwide..But", "worldwide. But", ["Remova o ponto extra.", "Se duas frases se juntaram, adicione um espaço após o primeiro ponto.", "Revise o texto colado em busca de duplicatas acidentais."]),
             (.widow, "Uma viúva deixa uma palavra curta presa na última linha de um parágrafo.", "Esse final fraco perturba a forma e o ritmo do parágrafo.", "Editores e designers ajustaram as quebras de linha para evitar viúvas na impressão.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Aperte ou reescreva ligeiramente a frase.", "Ajuste o comprimento da linha se as ferramentas de layout estiverem disponíveis.", "Trate isso como uma recomendação de estilo suave."]),
             (.orphan, "Um órfão é uma pequena linha que inicia um novo parágrafo ou bloco de texto de maneira estranha.", "Isso quebra o fluxo de leitura e faz com que o layout pareça menos considerado.", "Tradicionalmente, os fluxos de trabalho editoriais corrigem os órfãos antes da publicação.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Reescreva uma frase próxima para reequilibrar a pausa.", "Abra um pouco a medida se você controlar o layout.", "Use-o como um aviso, não como um erro rígido."]),
             (.inconsistentSpacing, "Misturar espaçamento entre frases simples e duplas faz com que o texto pareça costurado a partir de fontes diferentes.", "Os leitores percebem a inconsistência rapidamente, mesmo quando não conseguem explicar o porquê.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Escolha um estilo de espaçamento entre frases.", "Normalize o texto colado antes de compartilhá-lo.", "Mantenha a escolha consistente do início ao fim."]),
@@ -1249,6 +1269,7 @@ engine.fix.normalize_spacing|Normalizza la spaziatura delle frasi in tutto il te
 engine.fix.rewrite_widow|Riscrivi o ridisponi il paragrafo per evitare una riga finale di una sola parola.
 engine.fix.rewrite_orphan|Regola la copia vicina per evitare una piccola riga di riporto.
 engine.fix.change_font|Utilizza un carattere più adatto.
+engine.fix.remove_repeated_punctuation|Rimuovi il punto duplicato o aggiungi la spaziatura corretta.
 engine.explain.double_space|Questa frase termina con più spazi, una convenzione dell'era delle macchine da scrivere che non appartiene alla tipografia proporzionale.
 engine.explain.straight_quotes|Questa virgoletta utilizza la forma semplice ASCII invece delle virgolette inglesi direzionali.
 engine.explain.hyphen_dash|Questa interruzione utilizza i caratteri trattino-meno invece del trattino vero e proprio.
@@ -1260,6 +1281,7 @@ engine.explain.comic_sans|I metadati Comic Sans sono stati trovati nel rich text
 engine.explain.prime_marks|Questo segno di misurazione utilizza una virgoletta ASCII invece del simbolo primo corretto.
 engine.explain.multiplication_sign|Questa dimensione utilizza la lettera x dove dovrebbe apparire il segno di moltiplicazione.
 engine.explain.trademark_symbol|Questa notazione di fallback dovrebbe essere sostituita con il simbolo appropriato.
+engine.explain.repeated_punctuation|Sono stati trovati due punti consecutivi, che probabilmente sono un errore di battitura o uno spazio mancante tra le frasi.
 category.punctuation|Problemi di punteggiatura
 category.spacing|Problemi di spaziatura
 category.layout|Problemi di layout
@@ -1320,6 +1342,7 @@ doubleSpace|Spazi doppi
 straightQuotes|Virgolette dirette
 hyphenAsDash|Trattino come trattino
 fakeEllipsis|Ellissi finta
+repeatedPunctuation|Punteggiatura ripetuta
 widow|Vedove
 orphan|Orfani
 inconsistentSpacing|Spaziatura incoerente
@@ -1333,6 +1356,7 @@ doubleSpace|Spazi extra dopo la punteggiatura di fine frase.
 straightQuotes|virgolette ASCII utilizzate al posto delle virgolette graffe.
 hyphenAsDash|Trattini che sostituiscono un vero e proprio trattino.
 fakeEllipsis|Tre punti utilizzati al posto dei puntini di sospensione.
+repeatedPunctuation|Due punti consecutivi che sembrano essere un errore di battitura.
 widow|Un'ultima riga rimasta con una sola parola breve.
 orphan|Una piccola riga di riporto all'inizio di un paragrafo.
 inconsistentSpacing|Stili misti di spaziatura delle frasi in un unico testo.
@@ -1346,6 +1370,7 @@ trademarkSymbol|Notazione di fallback utilizzata al posto di ©, ® o ™.
             (.straightQuotes, "Le virgolette semplici sono semplici simboli ASCII. Il testo finito di solito si legge meglio con virgolette inglesi direzionali.", "Le virgolette inglesi appaiono più raffinate e migliorano il ritmo visivo di una frase.", "Le prime tastiere e i primi set di caratteri mantenevano solo una semplice virgoletta per entrambe le direzioni.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Attiva la punteggiatura intelligente, ove disponibile.", "Ripulisci il testo incollato da fonti di testo semplice.", "Controlla le misurazioni in modo che i primi segni rimangano corretti."]),
             (.hyphenAsDash, "I trattini uniscono le parole, ma non sostituiscono i trattini em o en.", "Il trattino corretto migliora il tono, la spaziatura e la leggibilità.", "I trattini doppi erano una soluzione alternativa nei sistemi che non potevano facilmente produrre una punteggiatura ricca.", "He paused -- dramatically.", "He paused — dramatically.", ["Utilizza il vero carattere trattino richiesto dal tuo stile.", "Mantieni i trattini per i composti, non le interruzioni di frase.", "Rimani coerente in tutto il documento."]),
             (.fakeEllipsis, "Tre punti possono imitare i puntini di sospensione, ma non sono lo stesso carattere.", "I puntini di sospensione reali hanno una spaziatura bilanciata e si comportano meglio in una riga di testo.", "Molti flussi di lavoro di scrittura casuale prevedono ancora per impostazione predefinita la digitazione di tre punti.", "Wait...", "Wait…", ["Sostituisci tre punti con i puntini di sospensione.", "Utilizza la sostituzione del testo se lo digiti spesso.", "Controlla la copia importata prima della pubblicazione."]),
+            (.repeatedPunctuation, "Due punti consecutivi sono quasi sempre un errore di battitura — un punto battuto due volte o uno spazio mancante tra le frasi.", "La punteggiatura ripetuta interrompe il flusso di lettura e segnala un'editing trascurata.", nil, "worldwide..But", "worldwide. But", ["Rimuovi il punto in più.", "Se due frasi si sono unite, aggiungi uno spazio dopo il primo punto.", "Controlla il testo incollato per eventuali duplicati accidentali."]),
             (.widow, "Una vedova lascia una parola breve sull'ultima riga di un paragrafo.", "Quel finale debole sconvolge la forma e il ritmo del paragrafo.", "Editori e designer hanno modificato a lungo le interruzioni di riga per evitare vedove nella stampa.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Restringi o riscrivi leggermente la frase.", "Regola la lunghezza della linea se sono disponibili strumenti di layout.", "Considera questo come un consiglio di stile morbido."]),
             (.orphan, "Un orfano è una piccola riga di riporto che inizia in modo strano un nuovo paragrafo o blocco di testo.", "Interrompe il flusso di lettura e fa sembrare il layout meno considerato.", "I flussi di lavoro editoriali tradizionalmente correggono gli orfani prima della pubblicazione.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Riscrivi una frase vicina per riequilibrare la pausa.", "Apri leggermente la misura se controlli il layout.", "Usalo come avvertimento, non come errore rigido."]),
             (.inconsistentSpacing, "Mischiare la spaziatura della frase singola e doppia fa sì che il testo sembri cucito insieme da fonti diverse.", "I lettori notano rapidamente l'incoerenza, anche quando non riescono a spiegarne il motivo.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Scegli uno stile di spaziatura delle frasi.", "Normalizza il testo incollato prima di condividerlo.", "Mantieni la scelta coerente dall'inizio alla fine."]),
@@ -1520,6 +1545,7 @@ engine.fix.normalize_spacing|Normaliseer de zinsafstand in de hele tekst.
 engine.fix.rewrite_widow|Herschrijf of herschrijf de alinea om een laatste regel van één woord te vermijden.
 engine.fix.rewrite_orphan|Pas de kopie in de buurt aan om een kleine overdrachtslijn te voorkomen.
 engine.fix.change_font|Gebruik een geschikter lettertype.
+engine.fix.remove_repeated_punctuation|Verwijder het dubbele punt of voeg de juiste spatiëring toe.
 engine.explain.double_space|Deze zin eindigt met meerdere spaties, een conventie uit het typemachinetijdperk die niet thuishoort in proportionele typografie.
 engine.explain.straight_quotes|Dit aanhalingsteken gebruikt de rechte ASCII-vorm in plaats van gerichte gekrulde aanhalingstekens.
 engine.explain.hyphen_dash|Deze onderbreking gebruikt koppelteken-min-tekens in plaats van een echt streepje.
@@ -1531,6 +1557,7 @@ engine.explain.comic_sans|Er zijn Comic Sans metadata gevonden in de ingediende 
 engine.explain.prime_marks|Dit meetteken gebruikt een ASCII-aanhalingsteken in plaats van een correct priemgetal.
 engine.explain.multiplication_sign|Deze dimensie gebruikt de letter x waar het vermenigvuldigingsteken moet verschijnen.
 engine.explain.trademark_symbol|Deze fallback-notatie moet worden vervangen door het juiste symbool.
+engine.explain.repeated_punctuation|Er zijn twee opeenvolgende punten gevonden, wat waarschijnlijk een typfout of een ontbrekende spatie tussen zinnen is.
 category.punctuation|Interpunctieproblemen
 category.spacing|Problemen met de afstand
 category.layout|Problemen met de lay-out
@@ -1591,6 +1618,7 @@ doubleSpace|Dubbele spaties
 straightQuotes|Rechte citaten
 hyphenAsDash|Koppelteken als streepje
 fakeEllipsis|Valse ellips
+repeatedPunctuation|Herhaalde interpunctie
 widow|Weduwen
 orphan|Wezen
 inconsistentSpacing|Inconsistente spatiëring
@@ -1604,6 +1632,7 @@ doubleSpace|Extra spaties na interpunctie aan het einde van de zin.
 straightQuotes|ASCII aanhalingstekens worden gebruikt waar gekrulde aanhalingstekens thuishoren.
 hyphenAsDash|Koppelstreepjes staan voor een echt streepje.
 fakeEllipsis|Drie punten gebruikt in plaats van het weglatingsteken.
+repeatedPunctuation|Twee opeenvolgende punten die eruitzien als een typfout.
 widow|Er resteert nog een laatste regel met slechts één kort woord.
 orphan|Een klein lijntje aan het begin van een alinea.
 inconsistentSpacing|Gemengde stijlen voor de spatiëring van zinnen in één tekst.
@@ -1617,6 +1646,7 @@ trademarkSymbol|Fallback-notatie gebruikt in plaats van ©, ® of ™.
             (.straightQuotes, "Rechte aanhalingstekens zijn gewone ASCII-tekens. Voltooide tekst leest meestal beter met gerichte, gekrulde aanhalingstekens.", "Krullende aanhalingstekens zien er verzorgder uit en verbeteren het visuele ritme van een zin.", "Vroege toetsenborden en tekensets hadden slechts één enkel aanhalingsteken voor beide richtingen.", "\"Hello\" and 'goodbye'", "“Hello” and ‘goodbye’", ["Schakel slimme interpunctie in, indien beschikbaar.", "Tekst opschonen die is geplakt uit bronnen met platte tekst.", "Controleer de afmetingen zodat de hoofdmarkeringen correct blijven."]),
             (.hyphenAsDash, "Koppelingen verbinden woorden, maar zijn geen vervanging voor em-streepjes of en-streepjes.", "Het juiste streepje verbetert de toon, spatiëring en leesbaarheid.", "Dubbele koppeltekens waren een oplossing in systemen die niet gemakkelijk rijke interpunctie konden produceren.", "He paused -- dramatically.", "He paused — dramatically.", ["Gebruik het echte streepjeskarakter dat jouw stijl vereist.", "Bewaar koppeltekens voor samenstellingen, niet voor zinseinden.", "Blijf consistent in het hele document."]),
             (.fakeEllipsis, "Drie punten kunnen een ellips nabootsen, maar ze zijn niet hetzelfde teken.", "Een echte ellips heeft een evenwichtige spatiëring en gedraagt zich beter in een tekstregel.", "Veel informele schrijfworkflows typen nog steeds standaard drie punten.", "Wait...", "Wait…", ["Vervang drie punten door het weglatingsteken.", "Gebruik tekstvervanging als u deze vaak typt.", "Controleer de geïmporteerde kopie voordat u deze publiceert."]),
+            (.repeatedPunctuation, "Twee opeenvolgende punten zijn bijna altijd een typfout — een per ongeluk dubbel ingetypt punt of een ontbrekende spatie tussen zinnen.", "Herhaalde interpunctie verstoort de leesstroom en signaleert slordig redigeren.", nil, "worldwide..But", "worldwide. But", ["Verwijder het extra punt.", "Als twee zinnen aan elkaar zijn geplakt, voeg een spatie toe na het eerste punt.", "Controleer geplakte tekst op onbedoelde duplicaten."]),
             (.widow, "Een weduwe laat een kort woord achter op de laatste regel van een alinea.", "Dat zwakke einde verstoort de vorm en het ritme van de alinea.", "Redacteurs en ontwerpers hebben lang aangepaste regeleinden gebruikt om weduwen in druk te voorkomen.", "Typography is a matter of rhythm and\ncare.", "Typography is a matter of rhythm\nand care.", ["Verkort of herschrijf de zin iets.", "Pas de lijnlengte aan als er lay-outtools beschikbaar zijn.", "Beschouw dit als een zachte stijlaanbeveling."]),
             (.orphan, "Een wees is een kleine overdrachtsregel die op een ongemakkelijke manier aan een nieuwe alinea of tekstblok begint.", "Het onderbreekt de leesstroom en zorgt ervoor dat de lay-out minder doordacht aanvoelt.", "Redactionele workflows repareren traditioneel weeskinderen vóór publicatie.", "A long paragraph ends and the next block begins with\na.", "A long paragraph ends and the next block begins with a fuller line.", ["Herschrijf een nabijgelegen zin om de pauze opnieuw in evenwicht te brengen.", "Open de maat een beetje als je de lay-out bepaalt.", "Gebruik het als een waarschuwing, niet als een rigide fout."]),
             (.inconsistentSpacing, "Door de spatiëring van enkele en dubbele zinnen te combineren, voelt de tekst uit verschillende bronnen aan elkaar geplakt.", "Lezers merken inconsistenties snel op, zelfs als ze niet kunnen uitleggen waarom.", nil, "First sentence. Second sentence.  Third sentence.", "First sentence. Second sentence. Third sentence.", ["Kies één stijl voor de spatiëring van de zinnen.", "Normaliseer geplakte tekst voordat u deze deelt.", "Houd de keuze consistent van begin tot eind."]),

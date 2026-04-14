@@ -8,7 +8,7 @@ struct DoubleSpaceDetector: CrimeDetector {
     func supports(_ evidence: SubmittedEvidence) -> Bool { enabled && !evidence.text.isEmpty }
 
     func detect(in evidence: SubmittedEvidence) async throws -> [CrimeInstance] {
-        let regex = try NSRegularExpression(pattern: #"(?<=[.!?]) {2,}(?=\p{L})"#, options: [])
+        let regex = try NSRegularExpression(pattern: #" {2,}"#, options: [])
         let matches = regex.matches(in: evidence.text, range: NSRange(location: 0, length: (evidence.text as NSString).length))
         return matches.map {
             TextAnalysisSupport.makeInstance(
@@ -95,6 +95,26 @@ struct FakeEllipsisDetector: CrimeDetector {
                 in: evidence.text,
                 suggestedFix: L10n.format("engine.fix.replace_with", "…"),
                 explanation: L10n.text("engine.explain.fake_ellipsis")
+            )
+        }
+    }
+}
+
+struct RepeatedPunctuationDetector: CrimeDetector {
+    let crimeType: CrimeType = .repeatedPunctuation
+
+    func supports(_ evidence: SubmittedEvidence) -> Bool { !evidence.text.isEmpty }
+
+    func detect(in evidence: SubmittedEvidence) async throws -> [CrimeInstance] {
+        let regex = try NSRegularExpression(pattern: #"(?<!\.)\.{2}(?!\.)"#)
+        let matches = regex.matches(in: evidence.text, range: NSRange(location: 0, length: (evidence.text as NSString).length))
+        return matches.map {
+            TextAnalysisSupport.makeInstance(
+                type: .repeatedPunctuation,
+                range: $0.range,
+                in: evidence.text,
+                suggestedFix: L10n.text("engine.fix.remove_repeated_punctuation"),
+                explanation: L10n.text("engine.explain.repeated_punctuation")
             )
         }
     }
