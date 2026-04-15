@@ -15,83 +15,79 @@ public struct ReportShareSheet: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(AppColors.textTertiary.opacity(0.35))
-                        .frame(width: 36, height: 5)
-                        .padding(.top, 8)
+        VStack(spacing: 20) {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(AppColors.textTertiary.opacity(0.35))
+                .frame(width: 36, height: 5)
+                .padding(.top, 8)
 
-                    Text(L10n.text("share.title"))
-                        .appTextStyle(.titleLarge)
+            Text(L10n.text("share.title"))
+                .appTextStyle(.titleLarge)
 
-                    SharePreviewCard(
-                        report: report,
-                        format: format,
-                        websiteHost: websiteHost
-                    )
-                        .frame(maxWidth: .infinity)
+            SharePreviewCard(
+                report: report,
+                format: format,
+                websiteHost: websiteHost
+            )
+            .frame(maxWidth: .infinity)
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 12) {
-                            ForEach(ShareFormat.allCases, id: \.id) { item in
-                                Button {
-                                    format = item
-                                } label: {
-                                    VStack(spacing: 8) {
-                                        Image(systemName: item.symbolName)
-                                            .font(.system(size: 24, weight: .medium))
-                                        Text(item.label)
-                                            .appTextStyle(.bodySmall, color: format == item ? AppColors.accentCrimson : AppColors.textSecondary)
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    .padding(12)
-                                    .frame(width: 88, height: 88)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                            .fill(format == item ? AppColors.accentCrimson.opacity(0.08) : AppColors.surfaceSecondary)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                            .stroke(format == item ? AppColors.accentCrimson : AppColors.borderSubtle, lineWidth: format == item ? 1.5 : 1)
-                                    )
-                                }
-                                .buttonStyle(PressScaleButtonStyle())
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(ShareFormat.allCases, id: \.id) { item in
+                        Button {
+                            format = item
+                        } label: {
+                            VStack(spacing: 8) {
+                                Image(systemName: item.symbolName)
+                                    .font(.system(size: 24, weight: .medium))
+                                Text(item.label)
+                                    .appTextStyle(.bodySmall, color: format == item ? AppColors.accentCrimson : AppColors.textSecondary)
+                                    .multilineTextAlignment(.center)
                             }
+                            .padding(12)
+                            .frame(width: 88, height: 88)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .fill(format == item ? AppColors.accentCrimson.opacity(0.08) : AppColors.surfaceSecondary)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .stroke(format == item ? AppColors.accentCrimson : AppColors.borderSubtle, lineWidth: format == item ? 1.5 : 1)
+                            )
                         }
-                        .padding(.horizontal, AppSpacing.lg)
-                    }
-
-                    Button {
-                        Task { await shareSelected() }
-                    } label: {
-                        Label(primaryActionTitle, systemImage: primaryActionSymbol)
-                            .appTextStyle(.labelLarge, color: AppColors.textInverse)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 52)
-                            .background(AppColors.accentCrimson, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    }
-                    .buttonStyle(PressScaleButtonStyle())
-
-                    VStack(spacing: 12) {
-                        secondaryAction(title: L10n.text("share.copy_report_image"), systemName: "doc.on.doc") {
-                            Task { await copyImage() }
-                        }
-                        secondaryAction(title: L10n.text("share.save_to_photos"), systemName: "photo.on.rectangle") {
-                            Task { await saveImage() }
-                        }
-                        secondaryAction(title: L10n.text("share.copy_report_text"), systemName: "doc.text") {
-                            appState.platform.copyText(report.shareText)
-                            appState.postToast(.init(symbolName: "doc.on.doc", message: L10n.text("share.copied_clipboard"), tone: .success))
-                        }
+                        .buttonStyle(PressScaleButtonStyle())
                     }
                 }
                 .padding(.horizontal, AppSpacing.lg)
-                .padding(.bottom, 32)
             }
-            .background(AppColors.surfaceBase.ignoresSafeArea())
+
+            Button {
+                Task { await shareSelected() }
+            } label: {
+                Label(primaryActionTitle, systemImage: primaryActionSymbol)
+                    .appTextStyle(.labelLarge, color: AppColors.textInverse)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(AppColors.accentCrimson, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
+            .buttonStyle(PressScaleButtonStyle())
+
+            VStack(spacing: 12) {
+                secondaryAction(title: L10n.text("share.copy_report_image"), systemName: "doc.on.doc") {
+                    Task { await copyImage() }
+                }
+                secondaryAction(title: L10n.text("share.save_to_photos"), systemName: "photo.on.rectangle") {
+                    Task { await saveImage() }
+                }
+                secondaryAction(title: L10n.text("share.copy_report_text"), systemName: "doc.text") {
+                    appState.platform.copyText(report.shareText)
+                    appState.postToast(.init(symbolName: "doc.on.doc", message: L10n.text("share.copied_clipboard"), tone: .success))
+                }
+            }
         }
+        .padding(.horizontal, AppSpacing.lg)
+        .padding(.bottom, 32)
+        .background(AppColors.surfaceBase.ignoresSafeArea())
         .alert(L10n.text("share.photos_needed"), isPresented: $showPhotosPermissionAlert) {
             Button(L10n.text("share.open_settings")) {
                 appState.platform.openSettings()
@@ -272,7 +268,7 @@ private struct SharePreviewCard: View {
             .padding(24)
         }
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .frame(height: format == .story ? 460 : 360)
+        .frame(height: format == .story ? 400 : 280)
         .appShadow(AppShadow.high)
     }
 }

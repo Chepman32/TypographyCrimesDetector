@@ -61,6 +61,9 @@ public struct CaseFilesContainer: View {
             .sheet(item: $shareReport) { report in
                 ReportShareSheet(report: report)
                     .environment(appState)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.hidden)
+                    .presentationBackground(AppColors.surfaceBase)
             }
         }
     }

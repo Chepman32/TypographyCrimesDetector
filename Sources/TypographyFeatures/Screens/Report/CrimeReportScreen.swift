@@ -107,6 +107,9 @@ public struct CrimeReportScreen: View {
         }
         .sheet(isPresented: $sharePresented) {
             ReportShareSheet(report: currentReport)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.hidden)
+                .presentationBackground(AppColors.surfaceBase)
         }
     }
 
