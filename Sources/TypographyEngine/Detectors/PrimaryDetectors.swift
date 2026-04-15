@@ -15,8 +15,8 @@ struct DoubleSpaceDetector: CrimeDetector {
                 type: .doubleSpace,
                 range: $0.range,
                 in: evidence.text,
-                suggestedFix: L10n.text("engine.fix.single_space"),
-                explanation: L10n.text("engine.explain.double_space")
+                fixKey: "engine.fix.single_space",
+                explanationKey: "engine.explain.double_space"
             )
         }
     }
@@ -47,8 +47,9 @@ struct StraightQuoteDetector: CrimeDetector {
                 type: .straightQuotes,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
-                explanation: L10n.text("engine.explain.straight_quotes")
+                fixKey: "engine.fix.replace_with",
+                fixArg: replacement,
+                explanationKey: "engine.explain.straight_quotes"
             )
         }
     }
@@ -73,8 +74,9 @@ struct HyphenAsDashDetector: CrimeDetector {
                 type: .hyphenAsDash,
                 range: highlight,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", dashStyle.replacement),
-                explanation: L10n.text("engine.explain.hyphen_dash")
+                fixKey: "engine.fix.replace_with",
+                fixArg: dashStyle.replacement,
+                explanationKey: "engine.explain.hyphen_dash"
             )
         }
     }
@@ -93,8 +95,9 @@ struct FakeEllipsisDetector: CrimeDetector {
                 type: .fakeEllipsis,
                 range: $0.range,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", "…"),
-                explanation: L10n.text("engine.explain.fake_ellipsis")
+                fixKey: "engine.fix.replace_with",
+                fixArg: "…",
+                explanationKey: "engine.explain.fake_ellipsis"
             )
         }
     }
@@ -113,8 +116,8 @@ struct RepeatedPunctuationDetector: CrimeDetector {
                 type: .repeatedPunctuation,
                 range: $0.range,
                 in: evidence.text,
-                suggestedFix: L10n.text("engine.fix.remove_repeated_punctuation"),
-                explanation: L10n.text("engine.explain.repeated_punctuation")
+                fixKey: "engine.fix.remove_repeated_punctuation",
+                explanationKey: "engine.explain.repeated_punctuation"
             )
         }
     }
@@ -145,8 +148,8 @@ struct InconsistentSpacingDetector: CrimeDetector {
                 type: .inconsistentSpacing,
                 range: spacingRange,
                 in: evidence.text,
-                suggestedFix: L10n.text("engine.fix.normalize_spacing"),
-                explanation: L10n.text("engine.explain.inconsistent_spacing")
+                fixKey: "engine.fix.normalize_spacing",
+                explanationKey: "engine.explain.inconsistent_spacing"
             )
         }
     }

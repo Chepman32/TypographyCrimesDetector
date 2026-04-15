@@ -110,17 +110,23 @@ enum TextAnalysisSupport {
         type: CrimeType,
         range: NSRange,
         in text: String,
-        suggestedFix: String,
-        explanation: String
+        fixKey: String,
+        fixArg: String? = nil,
+        explanationKey: String
     ) -> CrimeInstance {
-        CrimeInstance(
+        let suggestedFix = fixArg.map { L10n.format(fixKey, $0) } ?? L10n.text(fixKey)
+        let explanation = L10n.text(explanationKey)
+        return CrimeInstance(
             crimeType: type,
             severity: type.defaultSeverity,
             location: location(for: range, in: text),
             contextSnippet: snippet(around: range, in: text),
             evidenceSnippet: evidenceSnippet(for: range, in: text),
             suggestedFix: suggestedFix,
-            explanation: explanation
+            explanation: explanation,
+            fixKey: fixKey,
+            fixArg: fixArg,
+            explanationKey: explanationKey
         )
     }
 }

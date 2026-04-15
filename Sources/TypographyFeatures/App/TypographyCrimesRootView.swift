@@ -29,6 +29,7 @@ public struct TypographyCrimesRootView: View {
                 case .main:
                     MainShellView()
                         .environment(appState)
+                        .id(appState.preferences.language)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -29,8 +29,8 @@ enum WidowOrphanAnalyzer {
                 type: .widow,
                 range: last.range,
                 in: text,
-                suggestedFix: L10n.text("engine.fix.rewrite_widow"),
-                explanation: L10n.text("engine.explain.widow")
+                fixKey: "engine.fix.rewrite_widow",
+                explanationKey: "engine.explain.widow"
             )
         }
     }
@@ -53,8 +53,8 @@ enum WidowOrphanAnalyzer {
                         type: .orphan,
                         range: first.range,
                         in: text,
-                        suggestedFix: L10n.text("engine.fix.rewrite_orphan"),
-                        explanation: L10n.text("engine.explain.orphan")
+                        fixKey: "engine.fix.rewrite_orphan",
+                        explanationKey: "engine.explain.orphan"
                     )
                 )
             }

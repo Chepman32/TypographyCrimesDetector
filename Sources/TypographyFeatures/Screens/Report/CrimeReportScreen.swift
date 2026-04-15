@@ -174,12 +174,10 @@ public struct CrimeReportScreen: View {
 
     private func suggestionText(for instance: CrimeInstance) -> String {
         switch instance.crimeType {
-        case .doubleSpace:
-            L10n.text("report.replace_single_space")
-        case .inconsistentSpacing:
+        case .doubleSpace, .inconsistentSpacing:
             L10n.text("report.replace_single_space")
         default:
-            instance.suggestedFix
+            instance.localizedFix
         }
     }
 
@@ -188,16 +186,12 @@ public struct CrimeReportScreen: View {
         case .doubleSpace, .inconsistentSpacing:
             return " "
         case .straightQuotes, .fakeEllipsis, .primeMarks, .multiplicationSign, .trademarkSymbol, .repeatedPunctuation:
-            return replacementToken(from: instance.suggestedFix)
+            return instance.fixArg ?? L10n.replacementToken(from: instance.suggestedFix)
         case .hyphenAsDash:
-            return replacementToken(from: instance.suggestedFix)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            return (instance.fixArg ?? L10n.replacementToken(from: instance.suggestedFix))?.trimmingCharacters(in: .whitespacesAndNewlines)
         case .widow, .orphan, .comicSans:
             return nil
         }
-    }
-
-    private func replacementToken(from suggestion: String) -> String? {
-        L10n.replacementToken(from: suggestion)
     }
 
     private func copyFixedText() {
@@ -327,7 +321,7 @@ private struct CrimeBreakdownCard: View {
                             instance: instance,
                             suggestion: suggestionText(instance),
                             isBusy: applyingFixID != nil && applyingFixID != instance.id,
-                            onApplyFix: L10n.replacementToken(from: instance.suggestedFix) != nil || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
+                            onApplyFix: instance.fixArg != nil || L10n.replacementToken(from: instance.suggestedFix) != nil || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
                                 ? { onApplyFix(instance) }
                                 : nil
                         )

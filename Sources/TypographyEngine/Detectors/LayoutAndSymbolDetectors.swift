@@ -33,8 +33,8 @@ struct ComicSansDetector: CrimeDetector {
                 type: .comicSans,
                 range: range,
                 in: evidence.text,
-                suggestedFix: L10n.text("engine.fix.change_font"),
-                explanation: L10n.text("engine.explain.comic_sans")
+                fixKey: "engine.fix.change_font",
+                explanationKey: "engine.explain.comic_sans"
             )
         ]
     }
@@ -55,8 +55,9 @@ struct PrimeMarksDetector: CrimeDetector {
                 type: .primeMarks,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
-                explanation: L10n.text("engine.explain.prime_marks")
+                fixKey: "engine.fix.replace_with",
+                fixArg: replacement,
+                explanationKey: "engine.explain.prime_marks"
             )
         }
     }
@@ -79,8 +80,9 @@ struct MultiplicationSignDetector: CrimeDetector {
                 type: .multiplicationSign,
                 range: highlight,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", "×"),
-                explanation: L10n.text("engine.explain.multiplication_sign")
+                fixKey: "engine.fix.replace_with",
+                fixArg: "×",
+                explanationKey: "engine.explain.multiplication_sign"
             )
         }
     }
@@ -106,8 +108,9 @@ struct TrademarkSymbolDetector: CrimeDetector {
                 type: .trademarkSymbol,
                 range: match.range,
                 in: evidence.text,
-                suggestedFix: L10n.format("engine.fix.replace_with", replacement),
-                explanation: L10n.text("engine.explain.trademark_symbol")
+                fixKey: "engine.fix.replace_with",
+                fixArg: replacement,
+                explanationKey: "engine.explain.trademark_symbol"
             )
         }
     }

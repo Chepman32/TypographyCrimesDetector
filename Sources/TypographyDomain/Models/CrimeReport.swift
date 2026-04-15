@@ -23,6 +23,25 @@ public struct CrimeInstance: Identifiable, Codable, Hashable, Sendable {
     public var evidenceSnippet: String
     public var suggestedFix: String
     public var explanation: String
+    /// Localization key for the fix message. Presence enables live re-localization.
+    public var fixKey: String?
+    /// Replacement token embedded in the fix (e.g. "—", "…", """). Used when fixKey is "engine.fix.replace_with".
+    public var fixArg: String?
+    /// Localization key for the explanation. Presence enables live re-localization.
+    public var explanationKey: String?
+
+    /// Fix text resolved in the current app language. Falls back to the baked `suggestedFix` for old stored instances.
+    public var localizedFix: String {
+        guard let fixKey else { return suggestedFix }
+        if let fixArg { return L10n.format(fixKey, fixArg) }
+        return L10n.text(fixKey)
+    }
+
+    /// Explanation resolved in the current app language. Falls back to the baked `explanation` for old stored instances.
+    public var localizedExplanation: String {
+        guard let explanationKey else { return explanation }
+        return L10n.text(explanationKey)
+    }
 
     public init(
         id: UUID = UUID(),
@@ -32,7 +51,10 @@ public struct CrimeInstance: Identifiable, Codable, Hashable, Sendable {
         contextSnippet: String,
         evidenceSnippet: String,
         suggestedFix: String,
-        explanation: String
+        explanation: String,
+        fixKey: String? = nil,
+        fixArg: String? = nil,
+        explanationKey: String? = nil
     ) {
         self.id = id
         self.crimeType = crimeType
@@ -42,6 +64,9 @@ public struct CrimeInstance: Identifiable, Codable, Hashable, Sendable {
         self.evidenceSnippet = evidenceSnippet
         self.suggestedFix = suggestedFix
         self.explanation = explanation
+        self.fixKey = fixKey
+        self.fixArg = fixArg
+        self.explanationKey = explanationKey
     }
 }
 
