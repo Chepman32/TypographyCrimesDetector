@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Upload Typpo metadata to App Store Connect
 
+### ios upload_all_screenshots
+
+```sh
+[bundle exec] fastlane ios upload_all_screenshots
+```
+
+Resize iPhone screenshots, then upload all screenshots to App Store Connect
+
 ### ios upload_screenshots
 
 ```sh

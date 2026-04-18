@@ -24,6 +24,101 @@ platform :ios do
     )
   end
 
+  desc "Resize iPhone screenshots, then upload all screenshots to App Store Connect"
+  lane :upload_all_screenshots do
+    api_key = app_store_connect_api_key(
+      key_id: "STDG5D3U5A",
+      issuer_id: "5c3aee75-98b2-489d-b18e-c273d41d1e02",
+      key_filepath: "./fastlane/AuthKey_STDG5D3U5A.p8",
+      in_house: false
+    )
+
+    # Map custom folder names → ASC locale codes
+    locale_map = {
+      "dutch"  => "nl-NL",
+      "en-GB"  => "en-GB",
+      "en-US"  => "en-US",
+      "es"     => "es-MX",
+      "fr"     => "fr-FR",
+      "german" => "de-DE",
+      "hindi"  => "hi",
+      "indo"   => "id",
+      "it"     => "it",
+      "jp"     => "ja",
+      "ko"     => "ko",
+      "polish" => "pl",
+      "pt-BR"  => "pt-BR",
+      "ru"     => "ru",
+      "thai"   => "th",
+      "turk"   => "tr",
+      "ukr"    => "uk",
+      "viet"   => "vi",
+      "zh"     => "zh-Hans"
+    }
+
+    fastlane_dir   = File.expand_path(__dir__)
+    iphone_base    = File.join(fastlane_dir, "screenshots", "iphone")
+    ipad_dir       = File.join(fastlane_dir, "screenshots", "iPad")
+    tmp            = "/tmp/typpo_screenshots_upload"
+
+    sh("rm -rf '#{tmp}' && mkdir -p '#{tmp}'")
+
+    # Step 1: Resize + copy iPhone screenshots into tmp/<asc-locale>/
+    Dir.glob("#{iphone_base}/*/").each do |dir|
+      folder_name = File.basename(dir)
+      asc_locale  = locale_map[folder_name]
+      unless asc_locale
+        UI.important("No locale mapping for '#{folder_name}', skipping")
+        next
+      end
+
+      images = Dir.glob("#{dir}*.{jpg,JPG,jpeg,JPEG,png,PNG}")
+      if images.empty?
+        UI.important("No images in '#{folder_name}', skipping")
+        next
+      end
+
+      UI.message("Processing #{folder_name} → #{asc_locale} (#{images.size} images)")
+      dest = "#{tmp}/#{asc_locale}"
+      sh("mkdir -p '#{dest}'")
+
+      images.each_with_index do |img, i|
+        ext  = File.extname(img)
+        dest_file = "#{dest}/#{format('%02d', i + 1)}#{ext}"
+        sh("cp '#{img}' '#{dest_file}'")
+        # Resize: first to 1242×2715, then crop/fit to 1242×2688
+        sh("sips -z 2715 1242 '#{dest_file}' --out '#{dest_file}' > /dev/null")
+        sh("sips -z 2688 1242 '#{dest_file}' --out '#{dest_file}' > /dev/null")
+      end
+    end
+
+    # Step 2: Copy iPad screenshots (en-US only) into tmp/en-US/
+    ipad_images = Dir.glob("#{ipad_dir}/*.{jpg,JPG,jpeg,JPEG,png,PNG}")
+    unless ipad_images.empty?
+      UI.message("Adding #{ipad_images.size} iPad screenshots to en-US")
+      sh("mkdir -p '#{tmp}/en-US'")
+      ipad_images.each do |img|
+        sh("cp '#{img}' '#{tmp}/en-US/#{File.basename(img)}'")
+      end
+    end
+
+    # Step 3: Single deliver call
+    deliver(
+      api_key: api_key,
+      app_identifier: "com.Typpo.app",
+      screenshots_path: tmp,
+      submit_for_review: false,
+      skip_metadata: true,
+      skip_screenshots: false,
+      skip_binary_upload: true,
+      skip_app_version_update: true,
+      force: true,
+      overwrite_screenshots: true,
+      run_precheck_before_submit: false,
+      ignore_language_directory_validation: true
+    )
+  end
+
   desc "Upload Typpo screenshots to App Store Connect"
   lane :upload_screenshots do
     api_key = app_store_connect_api_key(
