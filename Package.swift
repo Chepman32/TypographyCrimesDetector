@@ -10,10 +10,10 @@ let package = Package(
         .macOS(.v14),
     ],
     products: [
-        .library(name: "TypographyDomain", targets: ["TypographyDomain"]),
-        .library(name: "TypographyEngine", targets: ["TypographyEngine"]),
-        .library(name: "TypographyDesignSystem", targets: ["TypographyDesignSystem"]),
-        .library(name: "TypographyFeatures", targets: ["TypographyFeatures"]),
+        .library(name: "TyppoDomain", targets: ["TypographyDomain"]),
+        .library(name: "TyppoEngine", targets: ["TypographyEngine"]),
+        .library(name: "TyppoDesignSystem", targets: ["TypographyDesignSystem"]),
+        .library(name: "TyppoFeatures", targets: ["TypographyFeatures"]),
     ],
     targets: [
         .target(name: "TypographyDomain"),

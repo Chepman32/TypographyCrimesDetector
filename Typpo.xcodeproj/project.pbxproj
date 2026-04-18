@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00100010001000100010001 /* TypographyDomain in Frameworks */ = {isa = PBXBuildFile; productRef = PD00200020002000200020002 /* TypographyDomain */; };
-		B00200020002000200020002 /* TypographyFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = PD00100010001000100010001 /* TypographyFeatures */; };
+		B00100010001000100010001 /* TyppoDomain in Frameworks */ = {isa = PBXBuildFile; productRef = PD00200020002000200020002 /* TyppoDomain */; };
+		B00200020002000200020002 /* TyppoFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = PD00100010001000100010001 /* TyppoFeatures */; };
 		B00300030003000300030003 /* TyppoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00100010001000100010001 /* TyppoApp.swift */; };
 		B00400040004000400040004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00300030003000300030003 /* LaunchScreen.storyboard */; };
 		B00500050005000500050005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F00400040004000400040004 /* Assets.xcassets */; };
@@ -27,8 +27,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00100010001000100010001 /* TypographyDomain in Frameworks */,
-				B00200020002000200020002 /* TypographyFeatures in Frameworks */,
+				B00100010001000100010001 /* TyppoDomain in Frameworks */,
+				B00200020002000200020002 /* TyppoFeatures in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,8 +95,8 @@
 			);
 			name = Typpo;
 			packageProductDependencies = (
-				PD00200020002000200020002 /* TypographyDomain */,
-				PD00100010001000100010001 /* TypographyFeatures */,
+				PD00200020002000200020002 /* TyppoDomain */,
+				PD00100010001000100010001 /* TyppoFeatures */,
 			);
 			productName = Typpo;
 			productReference = F00500050005000500050005 /* Typpo.app */;
@@ -286,15 +286,15 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		PD00100010001000100010001 /* TypographyFeatures */ = {
+		PD00100010001000100010001 /* TyppoFeatures */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = PKG00100010001000100010001 /* XCLocalSwiftPackageReference "" */;
-			productName = TypographyFeatures;
+			productName = TyppoFeatures;
 		};
-		PD00200020002000200020002 /* TypographyDomain */ = {
+		PD00200020002000200020002 /* TyppoDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = PKG00100010001000100010001 /* XCLocalSwiftPackageReference "" */;
-			productName = TypographyDomain;
+			productName = TyppoDomain;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
