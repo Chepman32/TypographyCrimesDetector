@@ -210,16 +210,45 @@ public struct CrimeReportScreen: View {
     }
 
     @MainActor
+    private func dismissInstance(_ instance: CrimeInstance) async {
+        applyingFixID = instance.id
+        _ = withAnimation(AppMotion.dismissive) {
+            dismissingInstanceIDs.insert(instance.id)
+        }
+        try? await Task.sleep(for: .milliseconds(240))
+
+        let updatedCrimes = currentReport.crimes.filter { $0.id != instance.id }
+        let updatedGrouped = currentReport.groupedCrimes.compactMap { summary -> CrimeSummary? in
+            let remaining = summary.instances.filter { $0.id != instance.id }
+            guard !remaining.isEmpty else { return nil }
+            return CrimeSummary(crimeType: summary.crimeType, severity: summary.severity, count: remaining.count, instances: remaining)
+        }
+        var dismissedReport = currentReport
+        dismissedReport.crimes = updatedCrimes
+        dismissedReport.groupedCrimes = updatedGrouped
+
+        appState.save(report: dismissedReport)
+        withAnimation(AppMotion.dismissive) {
+            currentReport = dismissedReport
+            expandedTypes.formIntersection(Set(dismissedReport.groupedCrimes.map(\.crimeType)))
+            dismissingInstanceIDs.removeAll()
+        }
+        applyingFixID = nil
+        appState.platform.emitHaptic(.success)
+        appState.postToast(
+            .init(
+                symbolName: "checkmark.circle.fill",
+                message: L10n.text("report.issue_fixed"),
+                tone: .success
+            )
+        )
+    }
+
+    @MainActor
     private func applyFix(for instance: CrimeInstance) async {
         guard applyingFixID == nil else { return }
         guard let replacement = replacementText(for: instance) else {
-            appState.postToast(
-                .init(
-                    symbolName: "exclamationmark.triangle.fill",
-                    message: L10n.text("report.manual_rewrite"),
-                    tone: .warning
-                )
-            )
+            await dismissInstance(instance)
             return
         }
 
@@ -324,9 +353,7 @@ private struct CrimeBreakdownCard: View {
                             instance: instance,
                             suggestion: suggestionText(instance),
                             isBusy: applyingFixID != nil && applyingFixID != instance.id,
-                            onApplyFix: instance.fixArg != nil || L10n.replacementToken(from: instance.suggestedFix) != nil || instance.crimeType == .doubleSpace || instance.crimeType == .inconsistentSpacing
-                                ? { onApplyFix(instance) }
-                                : nil
+                            onApplyFix: { onApplyFix(instance) }
                         )
                         .id(instance.id)
                         .transition(
